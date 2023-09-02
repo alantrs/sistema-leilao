@@ -7,6 +7,8 @@ import com.lp2.repository.VeiculoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
+import java.util.List;
+
 @Singleton
 public class VeiculoService {
 
@@ -18,5 +20,9 @@ public class VeiculoService {
         veiculoRepository.save(veiculo);
         return new DadosExibicaoVeiculo(veiculo);
     }
-    
+
+    public List<DadosExibicaoVeiculo> listarVeiculo(){
+        List<Veiculo> veiculos = veiculoRepository.findAll();
+        return veiculos.stream().map(veiculo -> new DadosExibicaoVeiculo(veiculo)).toList();
+    }
 }
