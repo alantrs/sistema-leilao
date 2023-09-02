@@ -1,4 +1,4 @@
-package com.lp2.dominio;
+package com.lp2.dominio.enums;
 
 public enum TipoDispositivo {
 

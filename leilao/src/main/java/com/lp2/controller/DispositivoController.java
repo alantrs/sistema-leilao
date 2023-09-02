@@ -1,7 +1,7 @@
 package com.lp2.controller;
 
-import com.lp2.dto.DadosEntradaDispositivo;
-import com.lp2.dto.DadosExibicaoDispositivo;
+import com.lp2.dominio.dto.dispositivo.DadosEntradaDispositivo;
+import com.lp2.dominio.dto.dispositivo.DadosExibicaoDispositivo;
 import com.lp2.service.DispositivoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -12,8 +12,6 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-
-import static io.micronaut.http.MediaType.APPLICATION_JSON;
 
 @Controller(value = "/dispositivos")
 @Tag(name = "DISPOSITIVO")

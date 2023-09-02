@@ -2,8 +2,8 @@ package com.lp2.service;
 
 import com.lp2.dominio.DispositivoInformatica;
 
-import com.lp2.dto.DadosEntradaDispositivo;
-import com.lp2.dto.DadosExibicaoDispositivo;
+import com.lp2.dominio.dto.dispositivo.DadosEntradaDispositivo;
+import com.lp2.dominio.dto.dispositivo.DadosExibicaoDispositivo;
 import com.lp2.repository.DispositivoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
