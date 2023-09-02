@@ -37,6 +37,7 @@ public class DispositivoController {
 
     @Put(uri = "/atualizar/{idDispositivo}")
     @Operation(summary = "Atualizar um dispositivo")
+    @Transactional
     public HttpResponse<DadosExibicaoDispositivo> atualizarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosEntradaDispositivo dadosEntradaDispositivo){
         DadosExibicaoDispositivo dispositivo = dispositivoInformaticaService.atualizarDispositivo(idDispositivo, dadosEntradaDispositivo);
         return HttpResponse.ok().body(dispositivo);
@@ -44,6 +45,7 @@ public class DispositivoController {
 
     @Delete(uri = "/deletar/{idDispositivo}")
     @Operation(summary = "Deletar um dispositivo")
+    @Transactional
     public HttpResponse deletarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo){
         dispositivoInformaticaService.deletarDispositivo(idDispositivo);
         return HttpResponse.ok();

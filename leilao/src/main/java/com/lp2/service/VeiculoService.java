@@ -22,7 +22,7 @@ public class VeiculoService {
         return new DadosExibicaoVeiculo(veiculo);
     }
 
-    public List<DadosExibicaoVeiculo> listarVeiculo(){
+    public List<DadosExibicaoVeiculo> listarVeiculos(){
         List<Veiculo> veiculos = veiculoRepository.findAll();
         return veiculos.stream().map(veiculo -> new DadosExibicaoVeiculo(veiculo)).toList();
     }
