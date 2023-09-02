@@ -2,13 +2,14 @@ package com.lp2.service;
 
 import com.lp2.dominio.DispositivoInformatica;
 
-import com.lp2.dto.DadosCadastroDispositivoInformatica;
-import com.lp2.dto.DadosExibicaoDispositivoInformatica;
+import com.lp2.dto.DadosEntradaDispositivo;
+import com.lp2.dto.DadosExibicaoDispositivo;
 import com.lp2.repository.DispositivoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 public class DispositivoService {
@@ -16,15 +17,27 @@ public class DispositivoService {
     @Inject
     private DispositivoRepository dispositivoInformaticaRepository;
 
-    public DadosExibicaoDispositivoInformatica salvarDispositivo(DadosCadastroDispositivoInformatica cadastro){
+    public DadosExibicaoDispositivo salvarDispositivo(DadosEntradaDispositivo cadastro){
         DispositivoInformatica dispositivoInformatica = new DispositivoInformatica(cadastro);
         dispositivoInformaticaRepository.save(dispositivoInformatica);
-        return new DadosExibicaoDispositivoInformatica(dispositivoInformatica);
+        return new DadosExibicaoDispositivo(dispositivoInformatica);
     }
 
-    public List<DadosExibicaoDispositivoInformatica> listarDispositivos(){
+    public List<DadosExibicaoDispositivo> listarDispositivos(){
         List<DispositivoInformatica> dispositivosInformatica = dispositivoInformaticaRepository.findAll();
-        return dispositivosInformatica.stream().map(dispositivo -> new DadosExibicaoDispositivoInformatica(dispositivo)).toList();
+        return dispositivosInformatica.stream().map(dispositivo -> new DadosExibicaoDispositivo(dispositivo)).toList();
+    }
+
+    public DadosExibicaoDispositivo atualizarDispositivo(Long idDispositivo, DadosEntradaDispositivo dadosAtualizaDispositivo){
+        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
+
+        DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), dadosAtualizaDispositivo);
+        dispositivoInformaticaRepository.update(dispositivo);
+        return new DadosExibicaoDispositivo(dispositivo);
+    }
+
+    public void deletarDispositivo(Long idDispositivo){
+        dispositivoInformaticaRepository.deleteById(idDispositivo);
     }
 }
 

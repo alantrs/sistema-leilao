@@ -1,15 +1,33 @@
 package com.lp2.dto;
 
+import com.lp2.dominio.DispositivoInformatica;
 import com.lp2.dominio.TipoDispositivo;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
 
+@Serdeable.Serializable
 @Introspected
-@Serdeable.Deserializable
-public class DadosCadastroDispositivoInformatica {
+public class DadosExibicaoDispositivo {
+
+    private Long id;
     private String nome;
     private String descricao;
     private TipoDispositivo tipoDispositivo;
+
+    public DadosExibicaoDispositivo(DispositivoInformatica dispositivoInformatica) {
+        this.id = dispositivoInformatica.getId();
+        this.nome = dispositivoInformatica.getNome();
+        this.descricao = dispositivoInformatica.getDescricao();
+        this.tipoDispositivo = dispositivoInformatica.getTipoDispositivo();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -35,3 +53,4 @@ public class DadosCadastroDispositivoInformatica {
         this.tipoDispositivo = tipoDispositivo;
     }
 }
+
