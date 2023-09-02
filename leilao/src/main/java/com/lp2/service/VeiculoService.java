@@ -34,4 +34,8 @@ public class VeiculoService {
         veiculoRepository.update(veiculo);
         return new DadosExibicaoVeiculo(veiculo);
     }
+
+    public void deletarVeiculo(Long idVeiculo){
+        veiculoRepository.deleteById(idVeiculo);
+    }
 }
