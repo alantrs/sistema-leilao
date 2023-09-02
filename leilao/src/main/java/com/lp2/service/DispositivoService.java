@@ -28,10 +28,10 @@ public class DispositivoService {
         return dispositivosInformatica.stream().map(dispositivo -> new DadosExibicaoDispositivo(dispositivo)).toList();
     }
 
-    public DadosExibicaoDispositivo atualizarDispositivo(Long idDispositivo, DadosEntradaDispositivo dadosAtualizaDispositivo){
+    public DadosExibicaoDispositivo atualizarDispositivo(Long idDispositivo, DadosEntradaDispositivo atualizacao){
         Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
 
-        DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), dadosAtualizaDispositivo);
+        DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), atualizacao);
         dispositivoInformaticaRepository.update(dispositivo);
         return new DadosExibicaoDispositivo(dispositivo);
     }

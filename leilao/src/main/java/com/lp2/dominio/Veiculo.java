@@ -39,4 +39,13 @@ public class Veiculo {
         this.tipoVeiculo = cadastro.getTipoVeiculo();
     }
 
+    public Veiculo(Veiculo veiculo, DadosEntradaVeiculo atualizacao){
+        this.id =veiculo.getId();
+        this.modelo = atualizacao.getModelo() != null ? atualizacao.getModelo() : veiculo.getModelo();
+        this.marca = atualizacao.getMarca() != null ? atualizacao.getMarca() : veiculo.getMarca();
+        this.ano = atualizacao.getAno() != null ? atualizacao.getAno() : veiculo.getAno();
+        this.renavam = atualizacao.getRenavam() != null ? atualizacao.getRenavam() : veiculo.getRenavam();
+        this.chassi = atualizacao.getChassi() != null ? atualizacao.getChassi() : veiculo.getChassi();
+        this.tipoVeiculo = atualizacao.getTipoVeiculo() != null ? atualizacao.getTipoVeiculo() : veiculo.getTipoVeiculo();
+    }
 }
