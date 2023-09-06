@@ -6,7 +6,6 @@ import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
-@Introspected
 @Serdeable.Deserializable
 @Getter
 @Setter

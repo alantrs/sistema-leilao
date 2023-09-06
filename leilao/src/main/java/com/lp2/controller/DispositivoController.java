@@ -20,13 +20,24 @@ public class DispositivoController {
     @Inject
     private DispositivoService dispositivoInformaticaService;
 
-    @Post(uri = "/criar")
-    @Operation(summary = "Salvar dispositivo")
+    @Post(uri = "/criar-um-dispositivo")
+    @Operation(summary = "Salvar um dispositivo")
     @Transactional
     public HttpResponse<DadosExibicaoDispositivo> salvarDispositivo(@Body DadosEntradaDispositivo dadosEntradaDispositivo){
         DadosExibicaoDispositivo dados = dispositivoInformaticaService.salvarDispositivo(dadosEntradaDispositivo);
         return HttpResponse.status(HttpStatus.CREATED).body(dados);
     }
+
+
+    @Post(uri = "/criar-varios-dispositivos")
+    @Operation(summary = "Salvar varios dispositivos")
+    @Transactional
+    public HttpResponse<List<DadosExibicaoDispositivo>> salvarDispositivos(@Body List<DadosEntradaDispositivo> cadastro){
+        List<DadosExibicaoDispositivo> dispositivosSalvos = dispositivoInformaticaService.salvarDispositivos(cadastro);
+        return HttpResponse.status(HttpStatus.CREATED).body(dispositivosSalvos);
+    }
+
+
 
     @Get(uri = "/listar")
     @Operation(summary = "Listar dispositivos")

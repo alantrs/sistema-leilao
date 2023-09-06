@@ -14,7 +14,6 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Introspected
 public class Veiculo {
 
     @Id

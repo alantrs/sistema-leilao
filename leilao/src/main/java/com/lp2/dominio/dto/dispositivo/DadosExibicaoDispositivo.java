@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Serdeable.Serializable
-@Introspected
 @Getter
 @Setter
 public class DadosExibicaoDispositivo {
