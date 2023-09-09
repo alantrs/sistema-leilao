@@ -17,5 +17,3 @@ n
 >leilao/src/main/java/com/lp2/repository/VeiculoRepository.java,6\d\6df862d2af5680d3cb9bd05ddcce5ccc4d3eb7c1
 z
 Jleilao/src/main/java/com/lp2/dominio/dto/veiculo/DadosExibicaoVeiculo.java,3\c\3c2528c8f827c02bca1e1864a930f5719e962808
-n
->leilao/src/main/java/com/lp2/controller/VeiculoController.java,8\f\8f787c1801edaafea23fc8eb3c5cfd19210d9d00

@@ -21,7 +21,7 @@ public class LeilaoService {
         return new DadosExibicaoLeilaoDTO(leilao);
     }
 
-    public List<DadosExibicaoLeilaoDTO> listarLeilao(){
+    public List<DadosExibicaoLeilaoDTO> listarLeiloes(){
         List<Leilao> leiloes = leilaoRepository.findAll();
         return leiloes.stream().map(leilao-> new DadosExibicaoLeilaoDTO(leilao)).toList();
     }
