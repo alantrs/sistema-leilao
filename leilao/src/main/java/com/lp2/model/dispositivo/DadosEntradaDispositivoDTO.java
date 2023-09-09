@@ -1,18 +1,15 @@
-package com.lp2.dominio.dispositivo;
+package com.lp2.model.dispositivo;
 
-import com.lp2.dominio.enums.Condicao;
-import com.lp2.dominio.enums.TipoDispositivo;
-import io.micronaut.core.annotation.Introspected;
+import com.lp2.model.enums.Condicao;
+import com.lp2.model.enums.TipoDispositivo;
 import io.micronaut.serde.annotation.Serdeable;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Serdeable.Deserializable
 @Getter
 @Setter
-public class DadosEntradaDispositivo {
+public class DadosEntradaDispositivoDTO {
 
     private String nome;
     private String marca;

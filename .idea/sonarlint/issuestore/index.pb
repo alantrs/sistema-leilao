@@ -7,8 +7,6 @@ r
 Bleilao/src/main/java/com/lp2/repository/DispositivoRepository.java,c\9\c90584d9df408eb19144dfa3b95d9d2370ba851d
 I
 leilao/openapi.properties,1\3\1380b390fedfdb75ba292bb898ab93124de6fe37
-h
-8leilao/src/main/java/com/lp2/service/VeiculoService.java,e\e\eef0b5210a8052b31e344840abb2b6c13f3b773a
 Å
 Qleilao/src/main/java/com/lp2/dominio/dto/dispositivo/DadosEntradaDispositivo.java,9\d\9dabdfd518daa53ecac952436b1dfd545f4a973d
 Ç

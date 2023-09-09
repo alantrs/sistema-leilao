@@ -1,9 +1,9 @@
 package com.lp2.service;
 
-import com.lp2.dominio.dispositivo.DispositivoInformatica;
+import com.lp2.model.dispositivo.DispositivoInformatica;
 
-import com.lp2.dominio.dispositivo.DadosEntradaDispositivo;
-import com.lp2.dominio.dispositivo.DadosExibicaoDispositivo;
+import com.lp2.model.dispositivo.DadosEntradaDispositivoDTO;
+import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
 import com.lp2.repository.DispositivoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -18,34 +18,34 @@ public class DispositivoService {
     @Inject
     private DispositivoRepository dispositivoInformaticaRepository;
 
-    public DadosExibicaoDispositivo salvarDispositivo(DadosEntradaDispositivo cadastro){
+    public DadosExibicaoDispositivoDTO salvarDispositivo(DadosEntradaDispositivoDTO cadastro){
         DispositivoInformatica dispositivoInformatica = new DispositivoInformatica(cadastro);
         dispositivoInformaticaRepository.save(dispositivoInformatica);
-        return new DadosExibicaoDispositivo(dispositivoInformatica);
+        return new DadosExibicaoDispositivoDTO(dispositivoInformatica);
     }
 
-    public List<DadosExibicaoDispositivo> salvarDispositivos(List<DadosEntradaDispositivo> cadastro){
+    public List<DadosExibicaoDispositivoDTO> salvarDispositivos(List<DadosEntradaDispositivoDTO> cadastro){
         List<DispositivoInformatica> dispositivosSalvos = new ArrayList<>();
-        for (DadosEntradaDispositivo dado : cadastro){
+        for (DadosEntradaDispositivoDTO dado : cadastro){
             DispositivoInformatica dispositivoNovo = new DispositivoInformatica(dado);
             dispositivoInformaticaRepository.save(dispositivoNovo);
             dispositivosSalvos.add(dispositivoNovo);
         }
 
-        return dispositivosSalvos.stream().map(dispositivo -> new DadosExibicaoDispositivo(dispositivo)).toList();
+        return dispositivosSalvos.stream().map(dispositivo -> new DadosExibicaoDispositivoDTO(dispositivo)).toList();
     }
 
-    public List<DadosExibicaoDispositivo> listarDispositivos(){
+    public List<DadosExibicaoDispositivoDTO> listarDispositivos(){
         List<DispositivoInformatica> dispositivosInformatica = dispositivoInformaticaRepository.findAll();
-        return dispositivosInformatica.stream().map(dispositivo -> new DadosExibicaoDispositivo(dispositivo)).toList();
+        return dispositivosInformatica.stream().map(dispositivo -> new DadosExibicaoDispositivoDTO(dispositivo)).toList();
     }
 
-    public DadosExibicaoDispositivo atualizarDispositivo(Long idDispositivo, DadosEntradaDispositivo atualizacao){
+    public DadosExibicaoDispositivoDTO atualizarDispositivo(Long idDispositivo, DadosEntradaDispositivoDTO atualizacao){
         Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
 
         DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), atualizacao);
         dispositivoInformaticaRepository.update(dispositivo);
-        return new DadosExibicaoDispositivo(dispositivo);
+        return new DadosExibicaoDispositivoDTO(dispositivo);
     }
 
     public void deletarDispositivo(Long idDispositivo){

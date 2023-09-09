@@ -1,7 +1,7 @@
-package com.lp2.dominio.veiculo;
+package com.lp2.model.veiculo;
 
-import com.lp2.dominio.enums.TipoVeiculo;
-import com.lp2.dominio.leilao.Leilao;
+import com.lp2.model.enums.TipoVeiculo;
+import com.lp2.model.leilao.Leilao;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ public class Veiculo {
 
     public Veiculo(){}
 
-    public Veiculo(DadosEntradaVeiculo cadastro){
+    public Veiculo(DadosEntradaVeiculoDTO cadastro){
         this.modelo = cadastro.getModelo();
         this.marca = cadastro.getMarca();
         this.ano = cadastro.getAno();
@@ -37,7 +37,7 @@ public class Veiculo {
         this.tipoVeiculo = cadastro.getTipoVeiculo();
     }
 
-    public Veiculo(Veiculo veiculo, DadosEntradaVeiculo atualizacao){
+    public Veiculo(Veiculo veiculo, DadosEntradaVeiculoDTO atualizacao){
         this.id =veiculo.getId();
         this.modelo = atualizacao.getModelo() != null ? atualizacao.getModelo() : veiculo.getModelo();
         this.marca = atualizacao.getMarca() != null ? atualizacao.getMarca() : veiculo.getMarca();

@@ -1,8 +1,7 @@
-package com.lp2.dominio.dispositivo;
+package com.lp2.model.dispositivo;
 
-import com.lp2.dominio.dispositivo.DispositivoInformatica;
-import com.lp2.dominio.enums.Condicao;
-import com.lp2.dominio.enums.TipoDispositivo;
+import com.lp2.model.enums.Condicao;
+import com.lp2.model.enums.TipoDispositivo;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Serdeable.Serializable
 @Getter
 @Setter
-public class DadosExibicaoDispositivo {
+public class DadosExibicaoDispositivoDTO {
 
     private Long id;
     private String nome;
@@ -19,7 +18,7 @@ public class DadosExibicaoDispositivo {
     private Condicao condicao;
     private TipoDispositivo tipoDispositivo;
 
-    public DadosExibicaoDispositivo(DispositivoInformatica dispositivoInformatica) {
+    public DadosExibicaoDispositivoDTO(DispositivoInformatica dispositivoInformatica) {
         this.id = dispositivoInformatica.getId();
         this.nome = dispositivoInformatica.getNome();
         this.marca = dispositivoInformatica.getMarca();

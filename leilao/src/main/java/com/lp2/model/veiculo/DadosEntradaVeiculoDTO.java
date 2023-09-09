@@ -1,7 +1,6 @@
-package com.lp2.dominio.veiculo;
+package com.lp2.model.veiculo;
 
-import com.lp2.dominio.enums.TipoVeiculo;
-import io.micronaut.core.annotation.Introspected;
+import com.lp2.model.enums.TipoVeiculo;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +8,7 @@ import lombok.Setter;
 @Serdeable.Deserializable
 @Getter
 @Setter
-public class DadosEntradaVeiculo {
+public class DadosEntradaVeiculoDTO {
 
     private String modelo;
     private String marca;

@@ -1,6 +1,6 @@
-package com.lp2.dominio.veiculo;
+package com.lp2.model.veiculo;
 
-import com.lp2.dominio.enums.TipoVeiculo;
+import com.lp2.model.enums.TipoVeiculo;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Serdeable.Serializable
 @Getter
 @Setter
-public class DadosExibicaoVeiculo {
+public class DadosExibicaoVeiculoDTO {
 
     private Long id;
     private String modelo;
@@ -18,7 +18,7 @@ public class DadosExibicaoVeiculo {
     private String chassi;
     private TipoVeiculo tipoVeiculo;
 
-    public DadosExibicaoVeiculo(Veiculo veiculo){
+    public DadosExibicaoVeiculoDTO(Veiculo veiculo){
         this.id = veiculo.getId();
         this.modelo = veiculo.getModelo();
         this.marca = veiculo.getMarca();

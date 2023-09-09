@@ -1,8 +1,8 @@
 package com.lp2.service;
 
-import com.lp2.dominio.veiculo.Veiculo;
-import com.lp2.dominio.veiculo.DadosEntradaVeiculo;
-import com.lp2.dominio.veiculo.DadosExibicaoVeiculo;
+import com.lp2.model.veiculo.Veiculo;
+import com.lp2.model.veiculo.DadosEntradaVeiculoDTO;
+import com.lp2.model.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.repository.VeiculoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -16,23 +16,23 @@ public class VeiculoService {
     @Inject
     private VeiculoRepository veiculoRepository;
 
-    public DadosExibicaoVeiculo salvarVeiculo(DadosEntradaVeiculo cadastro){
+    public DadosExibicaoVeiculoDTO salvarVeiculo(DadosEntradaVeiculoDTO cadastro){
         Veiculo veiculo = new Veiculo(cadastro);
         veiculoRepository.save(veiculo);
-        return new DadosExibicaoVeiculo(veiculo);
+        return new DadosExibicaoVeiculoDTO(veiculo);
     }
 
-    public List<DadosExibicaoVeiculo> listarVeiculos(){
+    public List<DadosExibicaoVeiculoDTO> listarVeiculos(){
         List<Veiculo> veiculos = veiculoRepository.findAll();
-        return veiculos.stream().map(veiculo -> new DadosExibicaoVeiculo(veiculo)).toList();
+        return veiculos.stream().map(veiculo -> new DadosExibicaoVeiculoDTO(veiculo)).toList();
     }
 
-    public DadosExibicaoVeiculo atualizarVeiculo(Long idVeiculo, DadosEntradaVeiculo atualizacao){
+    public DadosExibicaoVeiculoDTO atualizarVeiculo(Long idVeiculo, DadosEntradaVeiculoDTO atualizacao){
         Optional<Veiculo> veiculoEncontrado = veiculoRepository.findById(idVeiculo);
 
         Veiculo veiculo = new Veiculo(veiculoEncontrado.get(), atualizacao);
         veiculoRepository.update(veiculo);
-        return new DadosExibicaoVeiculo(veiculo);
+        return new DadosExibicaoVeiculoDTO(veiculo);
     }
 
     public void deletarVeiculo(Long idVeiculo){

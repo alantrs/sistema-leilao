@@ -1,8 +1,8 @@
-package com.lp2.dominio.leilao;
+package com.lp2.model.leilao;
 
-import com.lp2.dominio.dispositivo.DispositivoInformatica;
-import com.lp2.dominio.enums.StatusLeilao;
-import com.lp2.dominio.veiculo.Veiculo;
+import com.lp2.model.dispositivo.DispositivoInformatica;
+import com.lp2.model.enums.StatusLeilao;
+import com.lp2.model.veiculo.Veiculo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +33,13 @@ public class Leilao {
     @OneToMany(mappedBy = "leilao")
     private List<Veiculo> veiculos;
 
-
+    public Leilao(DadosEntradaLeilaoDTO cadastro){
+        this.dataOcorrencia = cadastro.getDataOcorrencia();
+        this.dataEncerramento = cadastro.getDataEncerramento();
+        this.dataVisitacao = cadastro.getDataVisitacao();
+        this.valorMinimo = cadastro.getValorMinimo();
+        this.local =cadastro.getLocal();
+        this.statusLeilao = StatusLeilao.EM_ABERTO;
+    }
 
 }

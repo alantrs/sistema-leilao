@@ -1,8 +1,8 @@
-package com.lp2.dominio.dispositivo;
+package com.lp2.model.dispositivo;
 
-import com.lp2.dominio.enums.Condicao;
-import com.lp2.dominio.enums.TipoDispositivo;
-import com.lp2.dominio.leilao.Leilao;
+import com.lp2.model.enums.Condicao;
+import com.lp2.model.enums.TipoDispositivo;
+import com.lp2.model.leilao.Leilao;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +27,7 @@ public class DispositivoInformatica {
 
     public DispositivoInformatica(){}
 
-    public DispositivoInformatica(DadosEntradaDispositivo cadastro){
+    public DispositivoInformatica(DadosEntradaDispositivoDTO cadastro){
         this.nome = cadastro.getNome();
         this.marca = cadastro.getMarca();
         this.ano = cadastro.getAno();
@@ -35,7 +35,7 @@ public class DispositivoInformatica {
         this.tipoDispositivo = cadastro.getTipoDispositivo();
     }
 
-    public DispositivoInformatica(DispositivoInformatica dispositivo, DadosEntradaDispositivo atualizacao){
+    public DispositivoInformatica(DispositivoInformatica dispositivo, DadosEntradaDispositivoDTO atualizacao){
         this.id = dispositivo.getId();
         this.nome = atualizacao.getNome() != null ? atualizacao.getNome() : dispositivo.getNome();
         this.marca = atualizacao.getMarca() != null ? atualizacao.getMarca() : dispositivo.getMarca();

@@ -1,7 +1,7 @@
 package com.lp2.controller;
 
-import com.lp2.dominio.veiculo.DadosEntradaVeiculo;
-import com.lp2.dominio.veiculo.DadosExibicaoVeiculo;
+import com.lp2.model.veiculo.DadosEntradaVeiculoDTO;
+import com.lp2.model.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.service.VeiculoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -23,23 +23,23 @@ public class VeiculoController {
     @Post(uri = "/criar")
     @Operation(summary = "Salvar um veiculo")
     @Transactional
-    public HttpResponse<DadosExibicaoVeiculo> salvarVeiculo(@Body DadosEntradaVeiculo dadosEntradaVeiculo){
-        DadosExibicaoVeiculo dados = veiculoService.salvarVeiculo(dadosEntradaVeiculo);
+    public HttpResponse<DadosExibicaoVeiculoDTO> salvarVeiculo(@Body DadosEntradaVeiculoDTO dadosEntradaVeiculoDTO){
+        DadosExibicaoVeiculoDTO dados = veiculoService.salvarVeiculo(dadosEntradaVeiculoDTO);
         return HttpResponse.status(HttpStatus.CREATED).body(dados);
     }
 
     @Get(uri = "/listar")
     @Operation(summary = "Listar veiculos")
-    public HttpResponse<List<DadosExibicaoVeiculo>> listarVeiculos(){
-        List<DadosExibicaoVeiculo> veiculosEncontrados = veiculoService.listarVeiculos();
+    public HttpResponse<List<DadosExibicaoVeiculoDTO>> listarVeiculos(){
+        List<DadosExibicaoVeiculoDTO> veiculosEncontrados = veiculoService.listarVeiculos();
         return HttpResponse.ok().body(veiculosEncontrados);
     }
 
     @Put(uri = "/atualizar/{idVeiculo}")
     @Operation(summary = "Atualizar um veiculo")
     @Transactional
-    public HttpResponse<DadosExibicaoVeiculo> atualizarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosEntradaVeiculo dadosEntradaVeiculo){
-        DadosExibicaoVeiculo veiculo = veiculoService.atualizarVeiculo(idVeiculo, dadosEntradaVeiculo);
+    public HttpResponse<DadosExibicaoVeiculoDTO> atualizarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosEntradaVeiculoDTO dadosEntradaVeiculoDTO){
+        DadosExibicaoVeiculoDTO veiculo = veiculoService.atualizarVeiculo(idVeiculo, dadosEntradaVeiculoDTO);
         return HttpResponse.ok().body(veiculo);
     }
 

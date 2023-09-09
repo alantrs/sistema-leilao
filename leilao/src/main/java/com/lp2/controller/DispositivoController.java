@@ -1,7 +1,7 @@
 package com.lp2.controller;
 
-import com.lp2.dominio.dispositivo.DadosEntradaDispositivo;
-import com.lp2.dominio.dispositivo.DadosExibicaoDispositivo;
+import com.lp2.model.dispositivo.DadosEntradaDispositivoDTO;
+import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
 import com.lp2.service.DispositivoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -23,8 +23,8 @@ public class DispositivoController {
     @Post(uri = "/criar-um-dispositivo")
     @Operation(summary = "Salvar um dispositivo")
     @Transactional
-    public HttpResponse<DadosExibicaoDispositivo> salvarDispositivo(@Body DadosEntradaDispositivo dadosEntradaDispositivo){
-        DadosExibicaoDispositivo dados = dispositivoInformaticaService.salvarDispositivo(dadosEntradaDispositivo);
+    public HttpResponse<DadosExibicaoDispositivoDTO> salvarDispositivo(@Body DadosEntradaDispositivoDTO dadosEntradaDispositivoDTO){
+        DadosExibicaoDispositivoDTO dados = dispositivoInformaticaService.salvarDispositivo(dadosEntradaDispositivoDTO);
         return HttpResponse.status(HttpStatus.CREATED).body(dados);
     }
 
@@ -32,8 +32,8 @@ public class DispositivoController {
     @Post(uri = "/criar-varios-dispositivos")
     @Operation(summary = "Salvar varios dispositivos")
     @Transactional
-    public HttpResponse<List<DadosExibicaoDispositivo>> salvarDispositivos(@Body List<DadosEntradaDispositivo> cadastro){
-        List<DadosExibicaoDispositivo> dispositivosSalvos = dispositivoInformaticaService.salvarDispositivos(cadastro);
+    public HttpResponse<List<DadosExibicaoDispositivoDTO>> salvarDispositivos(@Body List<DadosEntradaDispositivoDTO> cadastro){
+        List<DadosExibicaoDispositivoDTO> dispositivosSalvos = dispositivoInformaticaService.salvarDispositivos(cadastro);
         return HttpResponse.status(HttpStatus.CREATED).body(dispositivosSalvos);
     }
 
@@ -41,16 +41,16 @@ public class DispositivoController {
 
     @Get(uri = "/listar")
     @Operation(summary = "Listar dispositivos")
-    public HttpResponse<List<DadosExibicaoDispositivo>> listarDispositivos(){
-        List<DadosExibicaoDispositivo> dispositivosEncontrados = dispositivoInformaticaService.listarDispositivos();
+    public HttpResponse<List<DadosExibicaoDispositivoDTO>> listarDispositivos(){
+        List<DadosExibicaoDispositivoDTO> dispositivosEncontrados = dispositivoInformaticaService.listarDispositivos();
         return HttpResponse.ok().body(dispositivosEncontrados);
     }
 
     @Put(uri = "/atualizar/{idDispositivo}")
     @Operation(summary = "Atualizar um dispositivo")
     @Transactional
-    public HttpResponse<DadosExibicaoDispositivo> atualizarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosEntradaDispositivo dadosEntradaDispositivo){
-        DadosExibicaoDispositivo dispositivo = dispositivoInformaticaService.atualizarDispositivo(idDispositivo, dadosEntradaDispositivo);
+    public HttpResponse<DadosExibicaoDispositivoDTO> atualizarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosEntradaDispositivoDTO dadosEntradaDispositivoDTO){
+        DadosExibicaoDispositivoDTO dispositivo = dispositivoInformaticaService.atualizarDispositivo(idDispositivo, dadosEntradaDispositivoDTO);
         return HttpResponse.noContent().body(dispositivo);
     }
 
