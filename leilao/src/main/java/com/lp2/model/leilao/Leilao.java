@@ -33,6 +33,8 @@ public class Leilao {
     @OneToMany(mappedBy = "leilao")
     private List<Veiculo> veiculos;
 
+    public Leilao(){}
+
     public Leilao(DadosEntradaLeilaoDTO cadastro){
         this.dataOcorrencia = cadastro.getDataOcorrencia();
         this.dataEncerramento = cadastro.getDataEncerramento();
@@ -41,5 +43,4 @@ public class Leilao {
         this.local =cadastro.getLocal();
         this.statusLeilao = StatusLeilao.EM_ABERTO;
     }
-
 }

@@ -7,8 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-@Serdeable.Deserializable
+@Serdeable.Serializable
 @Getter
 @Setter
 public class DadosExibicaoLeilaoDTO {
@@ -29,5 +28,18 @@ public class DadosExibicaoLeilaoDTO {
         this.valorMinimo = leilao.getValorMinimo();
         this.local = leilao.getLocal();
         this.statusLeilao = leilao.getStatusLeilao();
+    }
+
+    @Override
+    public String toString() {
+        return "DadosExibicaoLeilaoDTO{" +
+                "id=" + id +
+                ", dataOcorrencia=" + dataOcorrencia +
+                ", dataEncerramento=" + dataEncerramento +
+                ", dataVisitacao=" + dataVisitacao +
+                ", valorMinimo=" + valorMinimo +
+                ", local='" + local + '\'' +
+                ", statusLeilao=" + statusLeilao +
+                '}';
     }
 }

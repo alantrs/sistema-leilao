@@ -1,6 +1,7 @@
 package com.lp2.model.leilao;
 
 import com.lp2.model.enums.StatusLeilao;
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
