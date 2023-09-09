@@ -1,8 +1,8 @@
 package com.lp2.service;
 
-import com.lp2.dominio.Veiculo;
-import com.lp2.dominio.dto.veiculo.DadosEntradaVeiculo;
-import com.lp2.dominio.dto.veiculo.DadosExibicaoVeiculo;
+import com.lp2.dominio.veiculo.Veiculo;
+import com.lp2.dominio.veiculo.DadosEntradaVeiculo;
+import com.lp2.dominio.veiculo.DadosExibicaoVeiculo;
 import com.lp2.repository.VeiculoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;

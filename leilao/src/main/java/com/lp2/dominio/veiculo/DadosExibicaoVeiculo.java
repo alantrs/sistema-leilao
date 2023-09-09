@@ -1,8 +1,6 @@
-package com.lp2.dominio.dto.veiculo;
+package com.lp2.dominio.veiculo;
 
-import com.lp2.dominio.Veiculo;
 import com.lp2.dominio.enums.TipoVeiculo;
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;

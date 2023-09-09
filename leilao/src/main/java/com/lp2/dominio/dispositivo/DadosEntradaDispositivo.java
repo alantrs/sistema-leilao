@@ -1,4 +1,4 @@
-package com.lp2.dominio.dto.dispositivo;
+package com.lp2.dominio.dispositivo;
 
 import com.lp2.dominio.enums.Condicao;
 import com.lp2.dominio.enums.TipoDispositivo;

@@ -1,4 +1,4 @@
-package com.lp2.dominio.dto.veiculo;
+package com.lp2.dominio.veiculo;
 
 import com.lp2.dominio.enums.TipoVeiculo;
 import io.micronaut.core.annotation.Introspected;

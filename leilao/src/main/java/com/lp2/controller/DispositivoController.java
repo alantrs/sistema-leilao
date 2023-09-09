@@ -1,7 +1,7 @@
 package com.lp2.controller;
 
-import com.lp2.dominio.dto.dispositivo.DadosEntradaDispositivo;
-import com.lp2.dominio.dto.dispositivo.DadosExibicaoDispositivo;
+import com.lp2.dominio.dispositivo.DadosEntradaDispositivo;
+import com.lp2.dominio.dispositivo.DadosExibicaoDispositivo;
 import com.lp2.service.DispositivoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -51,7 +51,7 @@ public class DispositivoController {
     @Transactional
     public HttpResponse<DadosExibicaoDispositivo> atualizarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosEntradaDispositivo dadosEntradaDispositivo){
         DadosExibicaoDispositivo dispositivo = dispositivoInformaticaService.atualizarDispositivo(idDispositivo, dadosEntradaDispositivo);
-        return HttpResponse.ok().body(dispositivo);
+        return HttpResponse.noContent().body(dispositivo);
     }
 
     @Delete(uri = "/deletar/{idDispositivo}")
@@ -59,7 +59,7 @@ public class DispositivoController {
     @Transactional
     public HttpResponse deletarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo){
         dispositivoInformaticaService.deletarDispositivo(idDispositivo);
-        return HttpResponse.ok();
+        return HttpResponse.noContent();
     }
 }
 

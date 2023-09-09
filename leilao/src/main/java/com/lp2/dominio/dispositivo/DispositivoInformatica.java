@@ -1,13 +1,9 @@
-package com.lp2.dominio;
+package com.lp2.dominio.dispositivo;
 
-import com.lp2.dominio.dto.dispositivo.DadosEntradaDispositivo;
 import com.lp2.dominio.enums.Condicao;
 import com.lp2.dominio.enums.TipoDispositivo;
-import io.micronaut.core.annotation.Introspected;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.lp2.dominio.leilao.Leilao;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +20,10 @@ public class DispositivoInformatica {
     private Integer ano;
     private Condicao condicao;
     private TipoDispositivo tipoDispositivo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_leilao")
+    private Leilao leilao;
 
     public DispositivoInformatica(){}
 

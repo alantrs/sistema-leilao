@@ -5,18 +5,10 @@ o
 ?leilao/src/main/java/com/lp2/dominio/enums/TipoDispositivo.java,a\9\a975f70622c24e7ccaa36d76f9b973c6fcff6753
 r
 Bleilao/src/main/java/com/lp2/repository/DispositivoRepository.java,c\9\c90584d9df408eb19144dfa3b95d9d2370ba851d
-]
--leilao/src/main/java/com/lp2/Application.java,9\b\9b5c9c3444bd876394e636b9a2d2ff2dfbcf6ecb
 h
 8leilao/src/main/java/com/lp2/service/VeiculoService.java,e\e\eef0b5210a8052b31e344840abb2b6c13f3b773a
 I
 leilao/openapi.properties,1\3\1380b390fedfdb75ba292bb898ab93124de6fe37
-p
-@leilao/src/main/java/com/lp2/dominio/DispositivoInformatica.java,6\f\6f6ad0e52ae68c8fac9e66a407a704d7c01ec535
-`
-0leilao/src/main/java/com/lp2/dominio/Leilao.java,c\7\c7dea03d76e46b0e1d668d605afe25da1e7798f5
-a
-1leilao/src/main/java/com/lp2/dominio/Veiculo.java,7\5\75fb2d28b6e878a92d0816b2e6714cae6ae17484
 
 Qleilao/src/main/java/com/lp2/dominio/dto/dispositivo/DadosEntradaDispositivo.java,9\d\9dabdfd518daa53ecac952436b1dfd545f4a973d
 ‚
@@ -29,7 +21,3 @@ n
 >leilao/src/main/java/com/lp2/repository/VeiculoRepository.java,6\d\6df862d2af5680d3cb9bd05ddcce5ccc4d3eb7c1
 n
 >leilao/src/main/java/com/lp2/controller/VeiculoController.java,8\f\8f787c1801edaafea23fc8eb3c5cfd19210d9d00
-r
-Bleilao/src/main/java/com/lp2/controller/DispositivoController.java,3\f\3fbd38204ba6615260df35610247e61290cc6715
-l
-<leilao/src/main/java/com/lp2/service/DispositivoService.java,3\1\3145a57e4ba82840bae11d451cddc3f9bc847e0d

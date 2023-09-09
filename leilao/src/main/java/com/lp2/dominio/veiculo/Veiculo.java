@@ -1,13 +1,8 @@
-package com.lp2.dominio;
+package com.lp2.dominio.veiculo;
 
-import com.lp2.dominio.dto.veiculo.DadosEntradaVeiculo;
 import com.lp2.dominio.enums.TipoVeiculo;
-import com.lp2.service.VeiculoService;
-import io.micronaut.core.annotation.Introspected;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.lp2.dominio.leilao.Leilao;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +20,10 @@ public class Veiculo {
     private String renavam;
     private String chassi;
     private TipoVeiculo tipoVeiculo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_leilao")
+    private Leilao leilao;
 
 
     public Veiculo(){}

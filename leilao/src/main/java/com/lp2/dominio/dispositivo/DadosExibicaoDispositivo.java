@@ -1,9 +1,8 @@
-package com.lp2.dominio.dto.dispositivo;
+package com.lp2.dominio.dispositivo;
 
-import com.lp2.dominio.DispositivoInformatica;
+import com.lp2.dominio.dispositivo.DispositivoInformatica;
 import com.lp2.dominio.enums.Condicao;
 import com.lp2.dominio.enums.TipoDispositivo;
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
