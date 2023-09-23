@@ -38,7 +38,6 @@ public class DispositivoController {
     }
 
 
-
     @Get(uri = "/listar")
     @Operation(summary = "Listar dispositivos")
     public HttpResponse<List<DadosExibicaoDispositivoDTO>> listarDispositivos(){
@@ -59,6 +58,14 @@ public class DispositivoController {
     @Transactional
     public HttpResponse deletarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo){
         dispositivoInformaticaService.deletarDispositivo(idDispositivo);
+        return HttpResponse.noContent();
+    }
+
+    @Put(uri = "/vincular/{idDispositivo}")
+    @Transactional
+    @Operation(summary = "Vincular um dispositivo a um leilao")
+    public HttpResponse vincularDispositivoLeilao(@PathVariable (value = "idDispositivo") Long idDispositivo, @RequestAttribute Long idLeilao){
+        dispositivoInformaticaService.manipularDispostivoLeilao(idDispositivo, idLeilao);
         return HttpResponse.noContent();
     }
 }

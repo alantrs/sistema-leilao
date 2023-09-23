@@ -1,0 +1,17 @@
+
+‡
+java:S3655H"jCall "dispositivoEncontrado.isPresent()" or "!dispositivoEncontrado.isEmpty()" before accessing the value.(ùãÒ8•šŸŸª1
+Œ
+java:S36556"jCall "dispositivoEncontrado.isPresent()" or "!dispositivoEncontrado.isEmpty()" before accessing the value.(˜é•ïøÿÿÿÿ8•šŸŸª1
+}
+java:S36557"`Call "leilaoEncontrado.isPresent()" or "!leilaoEncontrado.isEmpty()" before accessing the value.(È‡øº8ú¿”Ÿª1
+†
+java:S3655E"jCall "dispositivoEncontrado.isPresent()" or "!dispositivoEncontrado.isEmpty()" before accessing the value.(æ½¹o8œŞŒŸª1
+i
+java:S3655"LCall "leilao.isPresent()" or "!leilao.isEmpty()" before accessing the value.(¯ı¶ó8œŞŒŸª1
+}
+java:S3655D"`Call "leilaoEncontrado.isPresent()" or "!leilaoEncontrado.isEmpty()" before accessing the value.(…Ú¡Ì8œŞŒŸª1
+j
+java:S1612*"MReplace this lambda with method reference 'DadosExibicaoDispositivoDTO::new'.(şï°‰8¤ŞŒŸª1
+o
+java:S1612/"MReplace this lambda with method reference 'DadosExibicaoDispositivoDTO::new'.(²îƒûÿÿÿÿ8¥ŞŒŸª1

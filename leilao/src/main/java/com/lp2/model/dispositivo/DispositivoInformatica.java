@@ -20,6 +20,7 @@ public class DispositivoInformatica {
     private Integer ano;
     private Condicao condicao;
     private TipoDispositivo tipoDispositivo;
+    private Integer quantidade;
 
     @ManyToOne
     @JoinColumn(name = "id_leilao")
@@ -33,6 +34,7 @@ public class DispositivoInformatica {
         this.ano = cadastro.getAno();
         this.condicao = cadastro.getCondicao();
         this.tipoDispositivo = cadastro.getTipoDispositivo();
+        this.quantidade = cadastro.getQuantidade();
     }
 
     public DispositivoInformatica(DispositivoInformatica dispositivo, DadosEntradaDispositivoDTO atualizacao){
@@ -42,6 +44,7 @@ public class DispositivoInformatica {
         this.ano = atualizacao.getAno() != null ? atualizacao.getAno() : dispositivo.getAno();
         this.condicao = atualizacao.getCondicao() != null ? atualizacao.getCondicao() : dispositivo.getCondicao();
         this.tipoDispositivo = atualizacao.getTipoDispositivo() != null ? atualizacao.getTipoDispositivo() : dispositivo.getTipoDispositivo();
+        this.quantidade = atualizacao.getQuantidade() != null ? atualizacao.getQuantidade() : dispositivo.getQuantidade();
     }
 
 }

@@ -16,5 +16,7 @@ public class DadosEntradaDispositivoDTO {
     private Integer ano;
     private Condicao condicao;
     private TipoDispositivo tipoDispositivo;
+    private Integer quantidade;
+    private Long idLeilao;
 
 }
