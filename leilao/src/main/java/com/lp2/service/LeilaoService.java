@@ -25,4 +25,8 @@ public class LeilaoService {
         List<Leilao> leiloes = leilaoRepository.findAll();
         return leiloes.stream().map(leilao-> new DadosExibicaoLeilaoDTO(leilao)).toList();
     }
+
+    public void deletarLeilao(Long idLeilao){
+        leilaoRepository.deleteById(idLeilao);
+    }
 }

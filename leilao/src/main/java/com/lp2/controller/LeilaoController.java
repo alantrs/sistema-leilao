@@ -7,10 +7,7 @@ import com.lp2.model.leilao.DadosExibicaoLeilaoDTO;
 import com.lp2.service.LeilaoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
@@ -38,5 +35,13 @@ public class LeilaoController {
     public HttpResponse<List<DadosExibicaoLeilaoDTO>> listarLeiloes(){
         List<DadosExibicaoLeilaoDTO> leiloes = leilaoService.listarLeiloes();
         return HttpResponse.ok().body(leiloes);
+    }
+
+    @Delete(uri = "/deletar/{idLeilao}")
+    @Operation(summary = "Deletar um leilao")
+    @Transactional
+    public HttpResponse deletarLeilao(@PathVariable (value = "idLeilao") Long idLeilao){
+        leilaoService.deletarLeilao(idLeilao);
+        return HttpResponse.ok();
     }
 }

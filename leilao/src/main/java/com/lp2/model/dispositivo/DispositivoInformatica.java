@@ -22,7 +22,7 @@ public class DispositivoInformatica {
     private TipoDispositivo tipoDispositivo;
     private Integer quantidade;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_leilao")
     private Leilao leilao;
 
