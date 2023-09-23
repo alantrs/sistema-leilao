@@ -1,5 +1,6 @@
 package com.lp2.controller;
 
+import com.lp2.model.veiculo.DadosAtualizacaoVeiculoDTO;
 import com.lp2.model.veiculo.DadosEntradaVeiculoDTO;
 import com.lp2.model.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.service.VeiculoService;
@@ -20,11 +21,11 @@ public class VeiculoController {
     @Inject
     private VeiculoService veiculoService;
 
-    @Post(uri = "/criar")
-    @Operation(summary = "Salvar um veiculo")
+    @Post(uri = "/registrar-um-veiculo")
+    @Operation(summary = "Registrar um veiculo")
     @Transactional
-    public HttpResponse<DadosExibicaoVeiculoDTO> salvarVeiculo(@Body DadosEntradaVeiculoDTO dadosEntradaVeiculoDTO){
-        DadosExibicaoVeiculoDTO dados = veiculoService.salvarVeiculo(dadosEntradaVeiculoDTO);
+    public HttpResponse<DadosExibicaoVeiculoDTO> registrarVeiculo(@Body DadosEntradaVeiculoDTO dadosEntradaVeiculoDTO){
+        DadosExibicaoVeiculoDTO dados = veiculoService.registrarVeiculo(dadosEntradaVeiculoDTO);
         return HttpResponse.status(HttpStatus.CREATED).body(dados);
     }
 
@@ -38,8 +39,8 @@ public class VeiculoController {
     @Put(uri = "/atualizar/{idVeiculo}")
     @Operation(summary = "Atualizar um veiculo")
     @Transactional
-    public HttpResponse<DadosExibicaoVeiculoDTO> atualizarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosEntradaVeiculoDTO dadosEntradaVeiculoDTO){
-        DadosExibicaoVeiculoDTO veiculo = veiculoService.atualizarVeiculo(idVeiculo, dadosEntradaVeiculoDTO);
+    public HttpResponse<DadosExibicaoVeiculoDTO> atualizarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoVeiculoDTO atualizacao){
+        DadosExibicaoVeiculoDTO veiculo = veiculoService.atualizarVeiculo(idVeiculo, atualizacao);
         return HttpResponse.ok().body(veiculo);
     }
 
@@ -48,6 +49,14 @@ public class VeiculoController {
     @Transactional
     public HttpResponse deletarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo){
         veiculoService.deletarVeiculo(idVeiculo);
+        return HttpResponse.ok();
+    }
+
+    @Put(uri = "/manipular/{idVeiculo}")
+    @Transactional
+    @Operation(summary = "Manipular um veiculo a um leilao")
+    public HttpResponse manipularVeiculoLeilao(@PathVariable(value = "idVeiculo") Long idVeiculo, @QueryValue Long idLeilao){
+        veiculoService.manipularVeiculoLeilao(idVeiculo, idLeilao);
         return HttpResponse.ok();
     }
 }

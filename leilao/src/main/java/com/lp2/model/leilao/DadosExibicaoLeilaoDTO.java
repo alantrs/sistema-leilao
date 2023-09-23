@@ -1,5 +1,7 @@
 package com.lp2.model.leilao;
 
+import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
+import com.lp2.model.dispositivo.DispositivoInformatica;
 import com.lp2.model.enums.StatusLeilao;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
@@ -7,6 +9,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Serdeable.Serializable
 @Getter
 @Setter

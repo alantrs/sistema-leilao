@@ -37,7 +37,7 @@ public class Veiculo {
         this.tipoVeiculo = cadastro.getTipoVeiculo();
     }
 
-    public Veiculo(Veiculo veiculo, DadosEntradaVeiculoDTO atualizacao){
+    public Veiculo(Veiculo veiculo, DadosAtualizacaoVeiculoDTO atualizacao){
         this.id =veiculo.getId();
         this.modelo = atualizacao.getModelo() != null ? atualizacao.getModelo() : veiculo.getModelo();
         this.marca = atualizacao.getMarca() != null ? atualizacao.getMarca() : veiculo.getMarca();

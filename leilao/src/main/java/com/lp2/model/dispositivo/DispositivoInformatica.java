@@ -37,7 +37,7 @@ public class DispositivoInformatica {
         this.quantidade = cadastro.getQuantidade();
     }
 
-    public DispositivoInformatica(DispositivoInformatica dispositivo, DadosEntradaDispositivoDTO atualizacao){
+    public DispositivoInformatica(DispositivoInformatica dispositivo, DadosAtualizacaoDispositivoDTO atualizacao){
         this.id = dispositivo.getId();
         this.nome = atualizacao.getNome() != null ? atualizacao.getNome() : dispositivo.getNome();
         this.marca = atualizacao.getMarca() != null ? atualizacao.getMarca() : dispositivo.getMarca();

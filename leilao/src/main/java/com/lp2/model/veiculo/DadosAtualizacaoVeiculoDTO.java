@@ -8,7 +8,7 @@ import lombok.Setter;
 @Serdeable.Deserializable
 @Getter
 @Setter
-public class DadosEntradaVeiculoDTO {
+public class DadosAtualizacaoVeiculoDTO {
 
     private String modelo;
     private String marca;
@@ -16,5 +16,4 @@ public class DadosEntradaVeiculoDTO {
     private String renavam;
     private String chassi;
     private TipoVeiculo tipoVeiculo;
-    private Long idLeilao;
 }

@@ -1,5 +1,6 @@
 package com.lp2.controller;
 
+import com.lp2.model.dispositivo.DadosAtualizacaoDispositivoDTO;
 import com.lp2.model.dispositivo.DadosEntradaDispositivoDTO;
 import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
 import com.lp2.service.DispositivoService;
@@ -20,21 +21,12 @@ public class DispositivoController {
     @Inject
     private DispositivoService dispositivoInformaticaService;
 
-    @Post(uri = "/criar-um-dispositivo")
-    @Operation(summary = "Salvar um dispositivo")
+    @Post(uri = "/registrar-um-dispositivo")
+    @Operation(summary = "Registrar um dispositivo")
     @Transactional
-    public HttpResponse<DadosExibicaoDispositivoDTO> salvarDispositivo(@Body DadosEntradaDispositivoDTO dadosEntradaDispositivoDTO){
-        DadosExibicaoDispositivoDTO dados = dispositivoInformaticaService.salvarDispositivo(dadosEntradaDispositivoDTO);
+    public HttpResponse<DadosExibicaoDispositivoDTO> registarDispositivo(@Body DadosEntradaDispositivoDTO dadosEntradaDispositivoDTO){
+        DadosExibicaoDispositivoDTO dados = dispositivoInformaticaService.registrarDispositivo(dadosEntradaDispositivoDTO);
         return HttpResponse.status(HttpStatus.CREATED).body(dados);
-    }
-
-
-    @Post(uri = "/criar-varios-dispositivos")
-    @Operation(summary = "Salvar varios dispositivos")
-    @Transactional
-    public HttpResponse<List<DadosExibicaoDispositivoDTO>> salvarDispositivos(@Body List<DadosEntradaDispositivoDTO> cadastro){
-        List<DadosExibicaoDispositivoDTO> dispositivosSalvos = dispositivoInformaticaService.salvarDispositivos(cadastro);
-        return HttpResponse.status(HttpStatus.CREATED).body(dispositivosSalvos);
     }
 
 
@@ -48,9 +40,9 @@ public class DispositivoController {
     @Put(uri = "/atualizar/{idDispositivo}")
     @Operation(summary = "Atualizar um dispositivo")
     @Transactional
-    public HttpResponse<DadosExibicaoDispositivoDTO> atualizarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosEntradaDispositivoDTO dadosEntradaDispositivoDTO){
-        DadosExibicaoDispositivoDTO dispositivo = dispositivoInformaticaService.atualizarDispositivo(idDispositivo, dadosEntradaDispositivoDTO);
-        return HttpResponse.noContent().body(dispositivo);
+    public HttpResponse<DadosExibicaoDispositivoDTO> atualizarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosAtualizacaoDispositivoDTO atualizacao){
+        DadosExibicaoDispositivoDTO dispositivo = dispositivoInformaticaService.atualizarDispositivo(idDispositivo, atualizacao);
+        return HttpResponse.ok().body(dispositivo);
     }
 
     @Delete(uri = "/deletar/{idDispositivo}")
@@ -58,15 +50,15 @@ public class DispositivoController {
     @Transactional
     public HttpResponse deletarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo){
         dispositivoInformaticaService.deletarDispositivo(idDispositivo);
-        return HttpResponse.noContent();
+        return HttpResponse.ok();
     }
 
-    @Put(uri = "/vincular/{idDispositivo}")
+    @Put(uri = "/manipular/{idDispositivo}")
     @Transactional
-    @Operation(summary = "Vincular um dispositivo a um leilao")
-    public HttpResponse vincularDispositivoLeilao(@PathVariable (value = "idDispositivo") Long idDispositivo, @RequestAttribute Long idLeilao){
+    @Operation(summary = "Manipular um dispositivo a um leilao")
+    public HttpResponse manipularDispositivoLeilao(@PathVariable (value = "idDispositivo") Long idDispositivo, @QueryValue Long idLeilao){
         dispositivoInformaticaService.manipularDispostivoLeilao(idDispositivo, idLeilao);
-        return HttpResponse.noContent();
+        return HttpResponse.ok();
     }
 }
 

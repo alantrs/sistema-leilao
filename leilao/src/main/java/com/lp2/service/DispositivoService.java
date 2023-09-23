@@ -1,5 +1,6 @@
 package com.lp2.service;
 
+import com.lp2.model.dispositivo.DadosAtualizacaoDispositivoDTO;
 import com.lp2.model.dispositivo.DispositivoInformatica;
 
 import com.lp2.model.dispositivo.DadosEntradaDispositivoDTO;
@@ -23,7 +24,7 @@ public class DispositivoService {
     @Inject
     private LeilaoRepository leilaoRepository;
 
-    public DadosExibicaoDispositivoDTO salvarDispositivo(DadosEntradaDispositivoDTO cadastro){
+    public DadosExibicaoDispositivoDTO registrarDispositivo(DadosEntradaDispositivoDTO cadastro){
         Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
         DispositivoInformatica dispositivoInformatica = new DispositivoInformatica(cadastro);
         dispositivoInformatica.setLeilao(leilao.get());
@@ -31,28 +32,14 @@ public class DispositivoService {
         return new DadosExibicaoDispositivoDTO(dispositivoInformatica);
     }
 
-    public List<DadosExibicaoDispositivoDTO> salvarDispositivos(List<DadosEntradaDispositivoDTO> cadastro){
-        List<DispositivoInformatica> dispositivosSalvos = new ArrayList<>();
-        for (DadosEntradaDispositivoDTO dado : cadastro){
-            DispositivoInformatica dispositivoNovo = new DispositivoInformatica(dado);
-            dispositivoInformaticaRepository.save(dispositivoNovo);
-            dispositivosSalvos.add(dispositivoNovo);
-        }
-
-        return dispositivosSalvos.stream().map(dispositivo -> new DadosExibicaoDispositivoDTO(dispositivo)).toList();
-    }
-
     public List<DadosExibicaoDispositivoDTO> listarDispositivos(){
         List<DispositivoInformatica> dispositivosInformatica = dispositivoInformaticaRepository.findAll();
         return dispositivosInformatica.stream().map(dispositivo -> new DadosExibicaoDispositivoDTO(dispositivo)).toList();
     }
 
-    public DadosExibicaoDispositivoDTO atualizarDispositivo(Long idDispositivo, DadosEntradaDispositivoDTO atualizacao){
+    public DadosExibicaoDispositivoDTO atualizarDispositivo(Long idDispositivo, DadosAtualizacaoDispositivoDTO atualizacao){
         Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
-        Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(atualizacao.getIdLeilao());
-
         DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), atualizacao);
-        manipularDispostivoLeilao(dispositivo.getId(), leilaoEncontrado.get().getId());
         dispositivoInformaticaRepository.update(dispositivo);
         return new DadosExibicaoDispositivoDTO(dispositivo);
     }
@@ -65,10 +52,15 @@ public class DispositivoService {
         Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
         Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
 
-        if (leilaoEncontrado.get().getStatusLeilao().equals(StatusLeilao.EM_ABERTO)
-                && dispositivoEncontrado.get().getLeilao().getStatusLeilao().equals(StatusLeilao.EM_ABERTO)){
+        Boolean temLeilaoVinculadoEmAberto = dispositivoEncontrado.get().getLeilao().getStatusLeilao().equals(StatusLeilao.EM_ABERTO);
+        Boolean leilaoEstaEmAberto = leilaoEncontrado.get().getStatusLeilao().equals(StatusLeilao.EM_ABERTO);
+
+        if (temLeilaoVinculadoEmAberto && leilaoEstaEmAberto){
+            dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
+        } else if (dispositivoEncontrado.get().getLeilao() == null && leilaoEstaEmAberto) {
             dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
         }
+
     }
 }
 

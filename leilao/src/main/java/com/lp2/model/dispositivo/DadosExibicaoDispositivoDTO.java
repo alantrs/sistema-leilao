@@ -17,7 +17,7 @@ public class DadosExibicaoDispositivoDTO {
     private Integer ano;
     private Condicao condicao;
     private TipoDispositivo tipoDispositivo;
-    private Long idLeilao;
+    private Integer quantidade;
 
     public DadosExibicaoDispositivoDTO(DispositivoInformatica dispositivoInformatica) {
         this.id = dispositivoInformatica.getId();
@@ -26,7 +26,7 @@ public class DadosExibicaoDispositivoDTO {
         this.ano = dispositivoInformatica.getAno();
         this.condicao = dispositivoInformatica.getCondicao();
         this.tipoDispositivo = dispositivoInformatica.getTipoDispositivo();
-        this.idLeilao = dispositivoInformatica.getLeilao().getId();
+        this.quantidade = dispositivoInformatica.getQuantidade();
     }
 }
 
