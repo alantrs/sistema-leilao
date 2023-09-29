@@ -21,7 +21,7 @@ public class Veiculo {
     private String chassi;
     private TipoVeiculo tipoVeiculo;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "id_leilao")
     private Leilao leilao;
 
