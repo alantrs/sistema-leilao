@@ -22,7 +22,7 @@ public class DispositivoInformatica {
     private TipoDispositivo tipoDispositivo;
     private Integer quantidade;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     @JoinColumn(name = "id_leilao")
     private Leilao leilao;
 
@@ -45,6 +45,7 @@ public class DispositivoInformatica {
         this.condicao = atualizacao.getCondicao() != null ? atualizacao.getCondicao() : dispositivo.getCondicao();
         this.tipoDispositivo = atualizacao.getTipoDispositivo() != null ? atualizacao.getTipoDispositivo() : dispositivo.getTipoDispositivo();
         this.quantidade = atualizacao.getQuantidade() != null ? atualizacao.getQuantidade() : dispositivo.getQuantidade();
+        this.leilao = dispositivo.getLeilao();
     }
 
 }
