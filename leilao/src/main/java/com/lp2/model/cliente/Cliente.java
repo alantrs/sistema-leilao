@@ -17,6 +17,7 @@ public class Cliente {
     private Long id;
     private String nome;
     private String documentoCpfCnpj;
+    public Cliente(){}
 
     public Cliente(DadosEntradaClienteDTO cadastro){
         this.nome = cadastro.getNome();

@@ -26,4 +26,9 @@ public class Lance {
     @ManyToOne
     @JoinColumn(name = "id_leilao")
     private Leilao leilao;
+
+    public Lance(DadosEntradaLanceDTO lance){
+        this.dataHora = LocalDateTime.now();
+        this.valor = lance.getValor();
+    }
 }
