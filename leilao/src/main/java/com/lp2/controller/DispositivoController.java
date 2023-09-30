@@ -55,7 +55,7 @@ public class DispositivoController {
 
     @Put(uri = "/manipular/{idDispositivo}")
     @Transactional
-    @Operation(summary = "Manipular um dispositivo a um leilao")
+    @Operation(summary = "Desvincular/vincular um dispositivo a um leilao")
     public HttpResponse manipularDispositivoLeilao(@PathVariable (value = "idDispositivo") Long idDispositivo, @QueryValue Long idLeilao){
         dispositivoInformaticaService.manipularDispostivoLeilao(idDispositivo, idLeilao);
         return HttpResponse.ok();

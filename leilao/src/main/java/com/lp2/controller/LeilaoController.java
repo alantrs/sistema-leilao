@@ -22,8 +22,8 @@ public class LeilaoController {
     @Inject
     private LeilaoService leilaoService;
 
-    @Post(uri = "/criar")
-    @Operation(summary = "Salvar um leilao")
+    @Post(uri = "/registrar-leilao")
+    @Operation(summary = "Registrar um leilao")
     @Transactional
     public HttpResponse<DadosExibicaoDadosResumidosLeilaoDTO> salvarLeilao(@Body DadosEntradaLeilaoDTO dadosEntradaLeilaoDTO){
         DadosExibicaoDadosResumidosLeilaoDTO dados = leilaoService.salvarLeilao(dadosEntradaLeilaoDTO);
@@ -31,13 +31,13 @@ public class LeilaoController {
     }
 
     @Get(uri = "/listar")
-    @Operation(summary = "Listar leiloes")
+    @Operation(summary = "Listar leiloes com informacoes resumidas")
     public HttpResponse<List<DadosExibicaoDadosResumidosLeilaoDTO>> listarLeiloes(){
         List<DadosExibicaoDadosResumidosLeilaoDTO> leiloes = leilaoService.listarLeiloes();
         return HttpResponse.ok().body(leiloes);
     }
     @Get(uri = "/buscar/{idLeilao}")
-    @Operation(summary = "Buscar um leilao pelo id")
+    @Operation(summary = "Buscar um leilao pelo id, mostrando mais detalhes como veiculos/dispositivos presentes no leilao")
     public HttpResponse<DadosExibicaoDadosDetalhadosLeilaoDTO> buscarLeilao(@PathVariable(value = "idLeilao") Long idLeilao){
         DadosExibicaoDadosDetalhadosLeilaoDTO leilaoEncontrado = leilaoService.exibirInformacoesLeilao(idLeilao);
         return HttpResponse.ok().body(leilaoEncontrado);
