@@ -1,10 +1,9 @@
 package com.lp2.service;
 
 import com.lp2.model.dispositivo.DadosAtualizacaoDispositivoDTO;
-import com.lp2.model.dispositivo.DispositivoInformatica;
-
 import com.lp2.model.dispositivo.DadosEntradaDispositivoDTO;
 import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
+import com.lp2.model.dispositivo.DispositivoInformatica;
 import com.lp2.model.enums.StatusLeilao;
 import com.lp2.model.leilao.Leilao;
 import com.lp2.repository.DispositivoRepository;
@@ -12,7 +11,6 @@ import com.lp2.repository.LeilaoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

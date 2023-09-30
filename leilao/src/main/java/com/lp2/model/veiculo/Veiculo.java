@@ -25,7 +25,6 @@ public class Veiculo {
     @JoinColumn(name = "id_leilao")
     private Leilao leilao;
 
-
     public Veiculo(){}
 
     public Veiculo(DadosEntradaVeiculoDTO cadastro){
