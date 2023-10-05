@@ -7,7 +7,7 @@ import lombok.Setter;
 @Serdeable.Deserializable
 @Getter
 @Setter
-public class DadosAtualizaEntidadeFinanceira {
+public class DadosEntradaEntidadeFinanceiraDTO {
 
     private String cnpj;
     private String razaoSocial;

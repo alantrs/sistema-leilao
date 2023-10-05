@@ -2,6 +2,7 @@ package com.lp2.model.leilao;
 
 import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
 import com.lp2.model.dispositivo.DispositivoInformatica;
+import com.lp2.model.entidadeFinanceira.EntidadeFinanceira;
 import com.lp2.model.enums.StatusLeilao;
 import com.lp2.model.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.model.veiculo.Veiculo;
@@ -34,6 +35,9 @@ public class Leilao {
 
     @OneToMany(mappedBy = "leilao", fetch = FetchType.EAGER)
     private List<Veiculo> veiculos;
+    @ManyToOne
+    @JoinColumn(name = "id_entidade")
+    private EntidadeFinanceira entidadeFinanceira;
 
     public Leilao(){}
 

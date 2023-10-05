@@ -19,12 +19,12 @@ public class EntidadeFinanceira {
     private String razaoSocial;
 
     public EntidadeFinanceira(){}
-    public EntidadeFinanceira(DadosEntradaEntidadeFinanceira cadastro){
+    public EntidadeFinanceira(DadosEntradaEntidadeFinanceiraDTO cadastro){
         this.cnpj = cadastro.getCnpj();
         this.razaoSocial = cadastro.getRazaoSocial();
     }
 
-    public EntidadeFinanceira(EntidadeFinanceira entidade, DadosAtualizaEntidadeFinanceira atualizacao){
+    public EntidadeFinanceira(EntidadeFinanceira entidade, DadosAtualizaEntidadeFinanceiraDTO atualizacao){
         this.id = entidade.getId();
         this.cnpj = atualizacao.getCnpj() != null ? atualizacao.getCnpj() : entidade.getCnpj();
         this.razaoSocial = atualizacao.getRazaoSocial() != null ? atualizacao.getRazaoSocial() : entidade.getRazaoSocial();

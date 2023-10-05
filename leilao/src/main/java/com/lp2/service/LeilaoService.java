@@ -1,9 +1,11 @@
 package com.lp2.service;
 
 import com.lp2.model.dispositivo.DispositivoInformatica;
+import com.lp2.model.entidadeFinanceira.EntidadeFinanceira;
 import com.lp2.model.leilao.*;
 import com.lp2.model.veiculo.Veiculo;
 import com.lp2.repository.DispositivoRepository;
+import com.lp2.repository.EntidadeFinanceiraRepository;
 import com.lp2.repository.LeilaoRepository;
 import com.lp2.repository.VeiculoRepository;
 import jakarta.inject.Inject;
@@ -21,9 +23,13 @@ public class LeilaoService {
     private DispositivoRepository dispositivoRepository;
     @Inject
     private VeiculoRepository veiculoRepository;
+    @Inject
+    private EntidadeFinanceiraRepository entidadeFinanceiraRepository;
 
     public DadosExibicaoDadosResumidosLeilaoDTO salvarLeilao(DadosEntradaLeilaoDTO cadastro){
+        Optional<EntidadeFinanceira> entidadeFinanceira = entidadeFinanceiraRepository.findById(cadastro.getIdEntidadeFinanceira());
         Leilao leilao = new Leilao(cadastro);
+        leilao.setEntidadeFinanceira(entidadeFinanceira.get());
         leilaoRepository.save(leilao);
         return new DadosExibicaoDadosResumidosLeilaoDTO(leilao);
     }

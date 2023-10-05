@@ -2,6 +2,7 @@ package com.lp2.model.leilao;
 
 import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
 import com.lp2.model.dispositivo.DispositivoInformatica;
+import com.lp2.model.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
 import com.lp2.model.enums.StatusLeilao;
 import com.lp2.model.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.model.veiculo.Veiculo;
@@ -27,6 +28,7 @@ public class DadosExibicaoDadosDetalhadosLeilaoDTO {
     private StatusLeilao statusLeilao;
     private List<DadosExibicaoDispositivoDTO> dispositivos;
     private List<DadosExibicaoVeiculoDTO> veiculos;
+    private DadosExibicaoEntidadeFinanceiraDTO entidade;
 
     public DadosExibicaoDadosDetalhadosLeilaoDTO(Leilao leilao){
         this.id = leilao.getId();
@@ -42,6 +44,6 @@ public class DadosExibicaoDadosDetalhadosLeilaoDTO {
         if (!leilao.getVeiculos().isEmpty()){
             this.veiculos = leilao.getVeiculos().stream().map(veiculo -> new DadosExibicaoVeiculoDTO(veiculo)).toList();
         }
-
+        this.entidade = new DadosExibicaoEntidadeFinanceiraDTO(leilao.getEntidadeFinanceira());
     }
 }
