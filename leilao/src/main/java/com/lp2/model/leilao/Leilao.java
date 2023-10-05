@@ -57,5 +57,6 @@ public class Leilao {
         this.dataVisitacao = atualizacaoLeilaoDTO.getDataVisitacao() != null ? atualizacaoLeilaoDTO.getDataVisitacao() : leilao.getDataVisitacao();
         this.valorMinimo = atualizacaoLeilaoDTO.getValorMinimo() != null ? atualizacaoLeilaoDTO.getValorMinimo() : leilao.getValorMinimo();
         this.local = atualizacaoLeilaoDTO.getLocal() != null ? atualizacaoLeilaoDTO.getLocal() : leilao.getLocal();
+        this.entidadeFinanceira = leilao.getEntidadeFinanceira();
     }
 }

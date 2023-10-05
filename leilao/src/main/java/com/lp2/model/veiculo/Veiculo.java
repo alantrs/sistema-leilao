@@ -1,10 +1,13 @@
 package com.lp2.model.veiculo;
 
 import com.lp2.model.enums.TipoVeiculo;
+import com.lp2.model.lance.Lance;
 import com.lp2.model.leilao.Leilao;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +27,9 @@ public class Veiculo {
     @ManyToOne
     @JoinColumn(name = "id_leilao")
     private Leilao leilao;
+
+    @OneToMany(mappedBy = "veiculo")
+    private List<Lance> lances;
 
     public Veiculo(){}
 

@@ -50,13 +50,9 @@ public class DispositivoService {
         Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
         Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
 
-        Boolean temLeilaoVinculadoEmAberto = dispositivoEncontrado.get().getLeilao().getStatusLeilao().equals(StatusLeilao.EM_ABERTO);
-        Boolean leilaoEstaEmAberto = leilaoEncontrado.get().getStatusLeilao().equals(StatusLeilao.EM_ABERTO);
-
-        if (temLeilaoVinculadoEmAberto && leilaoEstaEmAberto){
+        if (dispositivoEncontrado.get().getLances().isEmpty()){
             dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
-        } else if (dispositivoEncontrado.get().getLeilao() == null && leilaoEstaEmAberto) {
-            dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
+            dispositivoInformaticaRepository.update(dispositivoEncontrado.get());
         }
 
     }

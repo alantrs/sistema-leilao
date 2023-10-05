@@ -51,13 +51,9 @@ public class VeiculoService {
         Optional<Veiculo> veiculo = veiculoRepository.findById(idVeiculo);
         Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
 
-        Boolean temLeilaoVinculadoEmAberto = veiculo.get().getLeilao().getStatusLeilao().equals(StatusLeilao.EM_ABERTO);
-        Boolean leilaoEstaEmAberto = leilaoEncontrado.get().getStatusLeilao().equals(StatusLeilao.EM_ABERTO);
-
-        if (temLeilaoVinculadoEmAberto && leilaoEstaEmAberto){
+        if (veiculo.get().getLances().isEmpty()){
             veiculo.get().setLeilao(leilaoEncontrado.get());
-        } else if (veiculo.get().getLeilao() == null && leilaoEstaEmAberto) {
-            veiculo.get().setLeilao(leilaoEncontrado.get());
+            veiculoRepository.update(veiculo.get());
         }
 
     }

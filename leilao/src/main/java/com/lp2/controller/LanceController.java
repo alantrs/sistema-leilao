@@ -19,11 +19,11 @@ public class LanceController {
     @Inject
     private LanceService lanceService;
 
-    @Post(uri = "/realizar-lance/{idLeilao}")
+    @Post(uri = "/realizar-lance/{idProduto}")
     @Operation(summary = "Realizar lance")
     @Transactional
-    public HttpResponse realizarLance(@PathVariable(value = "idLeilao") Long idLeilao, @Body DadosEntradaLanceDTO lance){
-        lanceService.realizarLance(idLeilao, lance);
+    public HttpResponse realizarLance(@PathVariable(value = "idProduto") Long idProduto, @Body DadosEntradaLanceDTO lance){
+        lanceService.realizarLance(idProduto, lance);
         return HttpResponse.ok();
     }
 }
