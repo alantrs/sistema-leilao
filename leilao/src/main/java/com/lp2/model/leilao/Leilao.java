@@ -35,9 +35,14 @@ public class Leilao {
 
     @OneToMany(mappedBy = "leilao", fetch = FetchType.EAGER)
     private List<Veiculo> veiculos;
-    @ManyToOne
-    @JoinColumn(name = "id_entidade")
-    private EntidadeFinanceira entidadeFinanceira;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Leilao_EntidadeFinanceira",
+            joinColumns = @JoinColumn(name = "leilao_id"),
+            inverseJoinColumns = @JoinColumn(name = "entidade_financeira_id")
+    )
+    private List<EntidadeFinanceira> entidadesFinanceira;
 
     public Leilao(){}
 
@@ -57,6 +62,6 @@ public class Leilao {
         this.dataVisitacao = atualizacaoLeilaoDTO.getDataVisitacao() != null ? atualizacaoLeilaoDTO.getDataVisitacao() : leilao.getDataVisitacao();
         this.valorMinimo = atualizacaoLeilaoDTO.getValorMinimo() != null ? atualizacaoLeilaoDTO.getValorMinimo() : leilao.getValorMinimo();
         this.local = atualizacaoLeilaoDTO.getLocal() != null ? atualizacaoLeilaoDTO.getLocal() : leilao.getLocal();
-        this.entidadeFinanceira = leilao.getEntidadeFinanceira();
+        this.entidadesFinanceira = leilao.getEntidadesFinanceira();
     }
 }

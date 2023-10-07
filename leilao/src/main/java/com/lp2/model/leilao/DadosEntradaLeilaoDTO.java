@@ -20,6 +20,6 @@ public class DadosEntradaLeilaoDTO {
     private LocalDateTime dataVisitacao;
     private BigDecimal valorMinimo;
     private String local;
-    private Long idEntidadeFinanceira;
+    private List<Long> idEntidadesFinanceiras;
 
 }

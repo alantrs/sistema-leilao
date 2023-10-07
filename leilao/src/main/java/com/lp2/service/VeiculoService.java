@@ -1,5 +1,6 @@
 package com.lp2.service;
 
+import com.lp2.exception.CustomException;
 import com.lp2.model.dispositivo.DispositivoInformatica;
 import com.lp2.model.enums.StatusLeilao;
 import com.lp2.model.leilao.Leilao;
@@ -54,6 +55,8 @@ public class VeiculoService {
         if (veiculo.get().getLances().isEmpty()){
             veiculo.get().setLeilao(leilaoEncontrado.get());
             veiculoRepository.update(veiculo.get());
+        }else {
+            throw new CustomException("Ação não permitida. Esse veiculo ja recebeu lance");
         }
 
     }

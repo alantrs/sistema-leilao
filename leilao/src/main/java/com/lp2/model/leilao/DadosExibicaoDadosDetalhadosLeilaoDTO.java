@@ -28,7 +28,7 @@ public class DadosExibicaoDadosDetalhadosLeilaoDTO {
     private StatusLeilao statusLeilao;
     private List<DadosExibicaoDispositivoDTO> dispositivos;
     private List<DadosExibicaoVeiculoDTO> veiculos;
-    private DadosExibicaoEntidadeFinanceiraDTO entidade;
+    private List<DadosExibicaoEntidadeFinanceiraDTO> entidades;
 
     public DadosExibicaoDadosDetalhadosLeilaoDTO(Leilao leilao){
         this.id = leilao.getId();
@@ -44,6 +44,6 @@ public class DadosExibicaoDadosDetalhadosLeilaoDTO {
         if (!leilao.getVeiculos().isEmpty()){
             this.veiculos = leilao.getVeiculos().stream().map(veiculo -> new DadosExibicaoVeiculoDTO(veiculo)).toList();
         }
-        this.entidade = new DadosExibicaoEntidadeFinanceiraDTO(leilao.getEntidadeFinanceira());
+        this.entidades = leilao.getEntidadesFinanceira().stream().map(entidade -> new DadosExibicaoEntidadeFinanceiraDTO(entidade)).toList();
     }
 }

@@ -4,7 +4,6 @@ import com.lp2.model.dispositivo.DadosAtualizacaoDispositivoDTO;
 import com.lp2.model.dispositivo.DadosEntradaDispositivoDTO;
 import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
 import com.lp2.model.dispositivo.DispositivoInformatica;
-import com.lp2.model.enums.StatusLeilao;
 import com.lp2.model.leilao.Leilao;
 import com.lp2.repository.DispositivoRepository;
 import com.lp2.repository.LeilaoRepository;
@@ -50,10 +49,12 @@ public class DispositivoService {
         Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
         Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
 
-        if (dispositivoEncontrado.get().getLances().isEmpty()){
-            dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
-            dispositivoInformaticaRepository.update(dispositivoEncontrado.get());
+        if (!dispositivoEncontrado.get().getLances().isEmpty()){
+            System.out.println("Esse produto ja recebeu lance");
+            return;
         }
+        dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
+        dispositivoInformaticaRepository.update(dispositivoEncontrado.get());
 
     }
 }

@@ -38,6 +38,7 @@ public class LeilaoController {
     }
     @Get(uri = "/buscar/{idLeilao}")
     @Operation(summary = "Buscar um leilao pelo id, mostrando mais detalhes como veiculos/dispositivos, entidade financeira")
+    @Transactional
     public HttpResponse<DadosExibicaoDadosDetalhadosLeilaoDTO> buscarLeilao(@PathVariable(value = "idLeilao") Long idLeilao){
         DadosExibicaoDadosDetalhadosLeilaoDTO leilaoEncontrado = leilaoService.exibirInformacoesLeilao(idLeilao);
         return HttpResponse.ok().body(leilaoEncontrado);

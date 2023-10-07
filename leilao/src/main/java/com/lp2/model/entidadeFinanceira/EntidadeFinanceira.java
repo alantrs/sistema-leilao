@@ -1,11 +1,11 @@
 package com.lp2.model.entidadeFinanceira;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.lp2.model.leilao.Leilao;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,6 +17,9 @@ public class EntidadeFinanceira {
     private Long id;
     private String cnpj;
     private String razaoSocial;
+
+    @ManyToMany
+    private List<Leilao> leiloes;
 
     public EntidadeFinanceira(){}
     public EntidadeFinanceira(DadosEntradaEntidadeFinanceiraDTO cadastro){
@@ -30,4 +33,13 @@ public class EntidadeFinanceira {
         this.razaoSocial = atualizacao.getRazaoSocial() != null ? atualizacao.getRazaoSocial() : entidade.getRazaoSocial();
     }
 
+    @Override
+    public String toString() {
+        return "EntidadeFinanceira{" +
+                "id=" + id +
+                ", cnpj='" + cnpj + '\'' +
+                ", razaoSocial='" + razaoSocial + '\'' +
+                ", leiloes=" + leiloes +
+                '}';
+    }
 }

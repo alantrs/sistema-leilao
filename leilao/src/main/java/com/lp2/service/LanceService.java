@@ -26,18 +26,18 @@ public class LanceService {
 
     public void realizarLance(Long idProduto, DadosEntradaLanceDTO lance){
         Optional<Cliente> cliente = clienteRepository.findById(lance.getIdCliente());
-        Optional<DispositivoInformatica> dispositivoInformatica = dispositivoRepository.findById(idProduto);
-        Optional<Veiculo> veiculo = veiculoRepository.findById(idProduto);
+        DispositivoInformatica dispositivoInformatica = dispositivoRepository.findById(idProduto).orElse(null);
+        Veiculo veiculo = veiculoRepository.findById(idProduto).orElse(null);
 
         if (dispositivoInformatica != null){
             Lance lanceRealizado = new Lance(lance);
             lanceRealizado.setCliente(cliente.get());
-            lanceRealizado.setDispositivoInformatica(dispositivoInformatica.get());
+            lanceRealizado.setDispositivoInformatica(dispositivoInformatica);
             lanceRepository.save(lanceRealizado);
         } else if (veiculo != null){
             Lance lanceRealizado = new Lance(lance);
             lanceRealizado.setCliente(cliente.get());
-            lanceRealizado.setVeiculo(veiculo.get());
+            lanceRealizado.setVeiculo(veiculo);
             lanceRepository.save(lanceRealizado);
         }
     }

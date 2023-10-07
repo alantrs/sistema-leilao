@@ -10,7 +10,10 @@ import com.lp2.repository.LeilaoRepository;
 import com.lp2.repository.VeiculoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import jakarta.transaction.Transactional;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,10 +30,11 @@ public class LeilaoService {
     private EntidadeFinanceiraRepository entidadeFinanceiraRepository;
 
     public DadosExibicaoDadosResumidosLeilaoDTO salvarLeilao(DadosEntradaLeilaoDTO cadastro){
-        Optional<EntidadeFinanceira> entidadeFinanceira = entidadeFinanceiraRepository.findById(cadastro.getIdEntidadeFinanceira());
+        List<EntidadeFinanceira> entidadesFinanceira = entidadeFinanceiraRepository.findByIdIn(cadastro.getIdEntidadesFinanceiras());
         Leilao leilao = new Leilao(cadastro);
-        leilao.setEntidadeFinanceira(entidadeFinanceira.get());
+        leilao.setEntidadesFinanceira(entidadesFinanceira);
         leilaoRepository.save(leilao);
+        System.out.println(leilao.getEntidadesFinanceira().toString());
         return new DadosExibicaoDadosResumidosLeilaoDTO(leilao);
     }
 
