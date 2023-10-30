@@ -11,28 +11,39 @@ Este é um projeto Micronaut criado com Java 17. Este projeto pode ser facilment
 Certifique-se de ter os seguintes requisitos instalados em sua máquina antes de executar o projeto:
 
 - [Java 17](https://www.oracle.com/java/technologies/javase-downloads.html) ou uma versão compatível.
-- Uma IDE Java, como [IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
+- [Gradle](https://gradle.org/)
 
-## Configurando o Projeto
+## Clone o projeto para sua máquina
 
-Siga estas etapas para configurar o projeto em sua IDE:
+1. Clone o repositório em sua máquina local pelo terminal:
 
-1. Clone este repositório em sua máquina local.
+      git clone https://github.com/alantrs/sistema-leilao.git
 
-2. Abra sua IDE Java e importe o projeto
+## Construindo o Projeto com Gradle
 
-3. Aguarde a IDE resolver as dependências e configurar o projeto.
+Para construir a aplicação usando o Gradle, siga estas etapas:
 
-## Rodando o Projeto
+1. Abra um terminal na raiz do projeto.
 
-Após configurar o projeto em sua IDE, siga estas etapas para executá-lo:
+2. Execute o seguinte comando Gradle para construir a aplicação:
 
-1. Encontre a classe principal do aplicativo, geralmente chamada de `Application.java`, e execute-a como um aplicativo Java.
+      ./gradlew build
 
-2. Isso iniciará o aplicativo Micronaut na porta padrão 8081.
+4. Isso irá compilar o código-fonte, executar testes e criar um arquivo JAR na pasta `build/libs` do projeto.
 
-## Swagger
+## Executando a Aplicação
 
-Você pode acessar a documentação Swagger do seu aplicativo em:
+Após construir o projeto, siga estas etapas para executá-lo:
 
-http://localhost:8081/swagger-ui
+1. Encontre o JAR criado na pasta 'build/libs' do projeto
+2. Execute-o com o comando:
+   
+      java -jar {nome_do_jar.jar}
+4. Isso iniciará o aplicativo Micronaut na porta 8081.
+
+## Documentação Swagger
+
+O projeto Micronaut inclui uma documentação Swagger para facilitar o entendimento da API. Você pode acessar a documentação Swagger em seu navegador:
+
+[http://localhost:8081/swagger-ui](http://localhost:8081/swagger-ui)
+
