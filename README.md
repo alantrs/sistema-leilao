@@ -27,7 +27,8 @@ Para construir a aplicação usando o Gradle, siga estas etapas:
 
 2. Execute o seguinte comando Gradle para construir a aplicação:
 
-      ./gradlew build
+      gradlew.bat build
+
 
 4. Isso irá compilar o código-fonte, executar testes e criar um arquivo JAR na pasta `build/libs` do projeto.
 
