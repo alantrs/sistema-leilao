@@ -35,4 +35,4 @@ Após configurar o projeto em sua IDE, siga estas etapas para executá-lo:
 
 Você pode acessar a documentação Swagger do seu aplicativo em:
 
-http://localhost:8080/swagger-ui
+http://localhost:8081/swagger-ui
