@@ -4,7 +4,7 @@ Projeto final da matéria de Linguagem de programação 2
 
 # Projeto Micronaut com Java 17
 
-Este é um projeto Micronaut criado com Java 17. Este projeto pode ser facilmente importado em sua IDE Java de escolha e configurado para rodar no Swagger na porta 8080.
+Este é um projeto Micronaut criado com Java 17. Este projeto pode ser facilmente importado em sua IDE Java de escolha e configurado para rodar no Swagger na porta 8081.
 
 ## Requisitos
 
@@ -29,7 +29,7 @@ Após configurar o projeto em sua IDE, siga estas etapas para executá-lo:
 
 1. Encontre a classe principal do aplicativo, geralmente chamada de `Application.java`, e execute-a como um aplicativo Java.
 
-2. Isso iniciará o aplicativo Micronaut na porta padrão 8080.
+2. Isso iniciará o aplicativo Micronaut na porta padrão 8081.
 
 ## Swagger
 
