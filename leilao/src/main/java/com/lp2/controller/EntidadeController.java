@@ -1,8 +1,8 @@
 package com.lp2.controller;
 
-import com.lp2.model.entidadeFinanceira.DadosAtualizaEntidadeFinanceiraDTO;
-import com.lp2.model.entidadeFinanceira.DadosEntradaEntidadeFinanceiraDTO;
-import com.lp2.model.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
+import com.lp2.dto.entidadeFinanceira.DadosAtualizaEntidadeFinanceiraDTO;
+import com.lp2.dto.entidadeFinanceira.DadosEntradaEntidadeFinanceiraDTO;
+import com.lp2.dto.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
 import com.lp2.service.EntidadeFinanceiraService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;

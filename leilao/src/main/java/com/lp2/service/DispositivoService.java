@@ -1,61 +1,115 @@
 package com.lp2.service;
 
-import com.lp2.model.dispositivo.DadosAtualizacaoDispositivoDTO;
-import com.lp2.model.dispositivo.DadosEntradaDispositivoDTO;
-import com.lp2.model.dispositivo.DadosExibicaoDispositivoDTO;
-import com.lp2.model.dispositivo.DispositivoInformatica;
-import com.lp2.model.leilao.Leilao;
-import com.lp2.repository.DispositivoRepository;
-import com.lp2.repository.LeilaoRepository;
+import com.lp2.dto.dispositivo.*;
+import com.lp2.model.*;
+import com.lp2.repository.*;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Singleton
 public class DispositivoService {
 
     @Inject
-    private DispositivoRepository dispositivoInformaticaRepository;
+    private DispositivoRepository<DispositivoInformatica> dispositivoRepository;
+    @Inject
+    private DispositivoRepository<Notebook> notebookRepository;
+    @Inject
+    private DispositivoRepository<Monitor> monitorRepository;
+    @Inject
+    private DispositivoRepository<Roteador> roteadorRepository;
+    @Inject
+    private DispositivoRepository<Hub> hubRepository;
+    @Inject
+    private DispositivoRepository<Switch> switchRepository;
     @Inject
     private LeilaoRepository leilaoRepository;
 
-    public DadosExibicaoDispositivoDTO registrarDispositivo(DadosEntradaDispositivoDTO cadastro){
+    ModelMapper modelMapper = new ModelMapper();
+
+    public DadosExibicaoNotebookDTO registrarDispositivoNotebook(DadosEntradaNotebookDTO cadastro){
         Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
-        DispositivoInformatica dispositivoInformatica = new DispositivoInformatica(cadastro);
-        dispositivoInformatica.setLeilao(leilao.get());
-        dispositivoInformaticaRepository.save(dispositivoInformatica);
-        return new DadosExibicaoDispositivoDTO(dispositivoInformatica);
+        Notebook notebook = new Notebook(cadastro);
+        notebook.setLeilao(leilao.get());
+        notebookRepository.save(notebook);
+        return modelMapper.map(notebook, DadosExibicaoNotebookDTO.class);
     }
 
-    public List<DadosExibicaoDispositivoDTO> listarDispositivos(){
-        List<DispositivoInformatica> dispositivosInformatica = dispositivoInformaticaRepository.findAll();
-        return dispositivosInformatica.stream().map(dispositivo -> new DadosExibicaoDispositivoDTO(dispositivo)).toList();
+    public DadosExibicaoMonitorDTO registrarDispositivoMonitor(DadosEntradaMonitorDTO cadastro){
+        Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
+        Monitor monitor = new Monitor(cadastro);
+        monitor.setLeilao(leilao.get());
+        monitorRepository.save(monitor);
+        return modelMapper.map(monitor, DadosExibicaoMonitorDTO.class);
     }
 
-    public DadosExibicaoDispositivoDTO atualizarDispositivo(Long idDispositivo, DadosAtualizacaoDispositivoDTO atualizacao){
-        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
-        DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), atualizacao);
-        dispositivoInformaticaRepository.update(dispositivo);
-        return new DadosExibicaoDispositivoDTO(dispositivo);
+    public DadosExibicaoRoteadorDTO registrarDispositivoRoteador(DadosEntradaRoteadorDTO cadastro){
+        Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
+        Roteador roteador = new Roteador(cadastro);
+        roteador.setLeilao(leilao.get());
+        roteadorRepository.save(roteador);
+        return modelMapper.map(roteador, DadosExibicaoRoteadorDTO.class);
     }
+
+    public DadosExibicaoHubDTO registrarDispositivoHub(DadosEntradaHubDTO cadastro){
+        Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
+        Hub hub = new Hub(cadastro);
+        hub.setLeilao(leilao.get());
+        hubRepository.save(hub);
+        return modelMapper.map(hub, DadosExibicaoHubDTO.class);
+    }
+
+    public DadosExibicaoSwitchDTO registrarDispositivoSwitch(DadosEntradaSwitchDTO cadastro){
+        Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
+        Switch swit = new Switch(cadastro);
+        swit.setLeilao(leilao.get());
+        switchRepository.save(swit);
+        return modelMapper.map(swit, DadosExibicaoSwitchDTO.class);
+    }
+
+    public List<Object> listarDispositivos() {
+        return dispositivoRepository.findAll().stream()
+                .map(dispositivo -> dispositivo instanceof Notebook ?
+                        modelMapper.map((Notebook) dispositivo, DadosExibicaoNotebookDTO.class) :
+                        dispositivo instanceof Hub ?
+                                modelMapper.map((Hub) dispositivo, DadosExibicaoHubDTO.class) :
+                                dispositivo instanceof Roteador ?
+                                        modelMapper.map((Roteador) dispositivo, DadosExibicaoRoteadorDTO.class) :
+                                        dispositivo instanceof Monitor ?
+                                                modelMapper.map((Monitor) dispositivo, DadosExibicaoMonitorDTO.class) :
+                                                modelMapper.map((Switch) dispositivo, DadosExibicaoSwitchDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
+//    public DadosExibicaoDispositivoDTO atualizarDispositivo(Long idDispositivo, DadosAtualizacaoDispositivoDTO atualizacao){
+//        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
+//        DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), atualizacao);
+//        dispositivoInformaticaRepository.update(dispositivo);
+//        return new DadosExibicaoDispositivoDTO(dispositivo);
+//    }
 
     public void deletarDispositivo(Long idDispositivo){
-        dispositivoInformaticaRepository.deleteById(idDispositivo);
+        dispositivoRepository.deleteById(idDispositivo);
     }
-
-    public void manipularDispostivoLeilao(Long idDispositivo, Long idLeilao){
-        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
-        Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
-
-        if (!dispositivoEncontrado.get().getLances().isEmpty()){
-            System.out.println("Esse produto ja recebeu lance");
-            return;
-        }
-        dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
-        dispositivoInformaticaRepository.update(dispositivoEncontrado.get());
-
-    }
+//
+//    public void manipularDispostivoLeilao(Long idDispositivo, Long idLeilao){
+//        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
+//        Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
+//
+//        if (!dispositivoEncontrado.get().getLances().isEmpty()){
+//            System.out.println("Esse produto ja recebeu lance");
+//            return;
+//        }
+//        dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
+//        dispositivoInformaticaRepository.update(dispositivoEncontrado.get());
+//
+//    }
 }
 

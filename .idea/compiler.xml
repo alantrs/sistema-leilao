@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
         <option name="micronaut.processing.annotations" value="com.lp2.*" />
@@ -100,8 +101,11 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vladsch.flexmark/flexmark-util-visitor/0.64.8/a8178ba6dfd7a958353a60b3a51fe7edb1578b49/flexmark-util-visitor-0.64.8.jar" />
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.javaparser/javaparser-core/3.25.4/bb8741a88669c9748552ef4a7d51bcc0301b5546/javaparser-core-3.25.4.jar" />
         </processorPath>
-        <module name="com.lp2.leilao.main" />
+        <module name="com.lp2.leilao.main~2" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="com.lp2.leilao.main~1" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

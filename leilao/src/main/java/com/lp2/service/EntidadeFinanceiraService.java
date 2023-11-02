@@ -1,9 +1,9 @@
 package com.lp2.service;
 
-import com.lp2.model.entidadeFinanceira.DadosAtualizaEntidadeFinanceiraDTO;
-import com.lp2.model.entidadeFinanceira.DadosEntradaEntidadeFinanceiraDTO;
-import com.lp2.model.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
-import com.lp2.model.entidadeFinanceira.EntidadeFinanceira;
+import com.lp2.dto.entidadeFinanceira.DadosAtualizaEntidadeFinanceiraDTO;
+import com.lp2.dto.entidadeFinanceira.DadosEntradaEntidadeFinanceiraDTO;
+import com.lp2.dto.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
+import com.lp2.model.EntidadeFinanceira;
 import com.lp2.repository.EntidadeFinanceiraRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
