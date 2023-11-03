@@ -1,6 +1,7 @@
 package com.lp2.service;
 
 import com.lp2.dto.dispositivo.*;
+import com.lp2.exception.CustomException;
 import com.lp2.model.*;
 import com.lp2.repository.DispositivoRepository;
 import com.lp2.repository.LeilaoRepository;
@@ -87,38 +88,63 @@ public class DispositivoService {
     }
 
     public DadosExibicaoNotebookDTO atualizarDispositivoNotebook(Long idDispositivo, DadosAtualizacaoNotebookDTO atualizacaoNotebook){
-        Optional<Notebook> dispositivoEncontrado = notebookRepository.findById(idDispositivo);
-        Notebook notebook = new Notebook(dispositivoEncontrado.get(), atualizacaoNotebook);
-        notebookRepository.update(notebook);
-        return modelMapper.map(notebook, DadosExibicaoNotebookDTO.class);
+        Object dispositivoEncontrado = notebookRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if (dispositivoEncontrado instanceof Notebook){
+            Notebook notebook = new Notebook((Notebook) dispositivoEncontrado, atualizacaoNotebook);
+            notebookRepository.update(notebook);
+            return modelMapper.map(notebook, DadosExibicaoNotebookDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um notebook");
+        }
+
     }
 
     public DadosExibicaoRoteadorDTO atualizarDispositivoRoteador(Long idDispositivo, DadosAtualizacaoRoteadorDTO atualizacaoRoteador){
-        Optional<Roteador> dispositivoEncontrado = roteadorRepository.findById(idDispositivo);
-        Roteador roteador = new Roteador(dispositivoEncontrado.get(), atualizacaoRoteador);
-        roteadorRepository.update(roteador);
-        return modelMapper.map(roteador, DadosExibicaoRoteadorDTO.class);
+        Object dispositivoEncontrado = roteadorRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if(dispositivoEncontrado instanceof Roteador){
+            Roteador roteador = new Roteador((Roteador) dispositivoEncontrado, atualizacaoRoteador);
+            roteadorRepository.update(roteador);
+            return modelMapper.map(roteador, DadosExibicaoRoteadorDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um roteador");
+        }
+
     }
 
     public DadosExibicaoHubDTO atualizarDispositivoHub(Long idDispositivo, DadosAtualizacaoHubDTO atualizacaoHub){
-        Optional<Hub> dispositivoEncontrado = hubRepository.findById(idDispositivo);
-        Hub hub = new Hub(dispositivoEncontrado.get(), atualizacaoHub);
-        hubRepository.update(hub);
-        return modelMapper.map(hub, DadosExibicaoHubDTO.class);
+        Object dispositivoEncontrado = hubRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if(dispositivoEncontrado instanceof Hub){
+            Hub hub = new Hub((Hub) dispositivoEncontrado, atualizacaoHub);
+            hubRepository.update(hub);
+            return modelMapper.map(hub, DadosExibicaoHubDTO.class);
+        }else{
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um hub");
+        }
+
     }
 
     public DadosExibicaoMonitorDTO atualizarDispositivoMonitor(Long idDispositivo, DadosAtualizacaoMonitorDTO atualizacaoMonitor){
-        Optional<Monitor> dispositivoEncontrado = monitorRepository.findById(idDispositivo);
-        Monitor monitor = new Monitor(dispositivoEncontrado.get(), atualizacaoMonitor);
-        monitorRepository.update(monitor);
-        return modelMapper.map(monitor, DadosExibicaoMonitorDTO.class);
+        Object dispositivoEncontrado = monitorRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if (dispositivoEncontrado instanceof Monitor){
+            Monitor monitor = new Monitor((Monitor) dispositivoEncontrado, atualizacaoMonitor);
+            monitorRepository.update(monitor);
+            return modelMapper.map(monitor, DadosExibicaoMonitorDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um monitor");
+        }
+
     }
 
     public DadosExibicaoSwitchDTO atualizarDispositivoSwitch(Long idDispositivo, DadosAtualizacaoSwitchDTO atualizacaoSwitch){
-        Optional<Switch> dispositivoEncontrado = switchRepository.findById(idDispositivo);
-        Switch swit = new Switch(dispositivoEncontrado.get(), atualizacaoSwitch);
-        switchRepository.update(swit);
-        return modelMapper.map(swit, DadosExibicaoSwitchDTO.class);
+        Object dispositivoEncontrado = switchRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if (dispositivoEncontrado instanceof Switch){
+            Switch swit = new Switch((Switch) dispositivoEncontrado, atualizacaoSwitch);
+            switchRepository.update(swit);
+            return modelMapper.map(swit, DadosExibicaoSwitchDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um switch");
+        }
+
     }
 
     public void deletarDispositivo(Long idDispositivo){

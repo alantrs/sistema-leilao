@@ -8,7 +8,7 @@ import io.micronaut.serde.annotation.Serdeable;
 public class ErrorMessage {
 
     private String message;
-    private Boolean status;
+    private Integer status;
 
     public String getMessage() {
         return message;
@@ -18,11 +18,11 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    public Boolean getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

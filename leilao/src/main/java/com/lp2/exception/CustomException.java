@@ -1,5 +1,7 @@
 package com.lp2.exception;
 
+import io.micronaut.http.HttpResponse;
+
 import java.io.Serializable;
 
 public class CustomException extends RuntimeException
