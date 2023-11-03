@@ -30,6 +30,7 @@ public class Switch extends DispositivoInformatica implements Serializable {
 
     public Switch(Switch swit, DadosAtualizacaoSwitchDTO atualizacaoSwitch){
         super(swit, atualizacaoSwitch);
+        this.id = swit.getId();
         this.quantidadePortas = atualizacaoSwitch.getQuantidadePortas() != null ? atualizacaoSwitch.getQuantidadePortas() : swit.getQuantidadePortas();
     }
 }

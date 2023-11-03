@@ -30,6 +30,7 @@ public class Hub extends DispositivoInformatica implements Serializable {
 
     public Hub(Hub hub, DadosAtualizacaoHubDTO atualizacaoHub){
         super(hub, atualizacaoHub);
+        this.id = hub.getId();
         this.quantidadePortas = atualizacaoHub.getQuantidadePortas() != null ? atualizacaoHub.getQuantidadePortas() : hub.getQuantidadePortas();
     }
 }

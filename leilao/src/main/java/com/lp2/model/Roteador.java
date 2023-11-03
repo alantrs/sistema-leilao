@@ -30,6 +30,7 @@ public class Roteador extends DispositivoInformatica implements Serializable {
 
     public Roteador(Roteador roteador, DadosAtualizacaoRoteadorDTO atualizacaoRoteador){
         super(roteador, atualizacaoRoteador);
+        this.id = roteador.getId();
         this.quantidadePortas = atualizacaoRoteador.getQuantidadePortas() != null ? atualizacaoRoteador.getQuantidadePortas() : roteador.quantidadePortas;
     }
 }

@@ -29,6 +29,7 @@ public class Notebook extends DispositivoInformatica implements Serializable {
 
     public Notebook(Notebook notebook, DadosAtualizacaoNotebookDTO atualizacaoNotebook){
         super(notebook, atualizacaoNotebook);
+        this.id = notebook.getId();
         this.tamanhoTela = atualizacaoNotebook.getTamanhoTela() != null ? atualizacaoNotebook.getTamanhoTela() : notebook.getTamanhoTela();
     }
 

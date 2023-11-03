@@ -30,6 +30,7 @@ public class Monitor extends DispositivoInformatica implements Serializable {
 
     public Monitor(Monitor monitor, DadosAtualizacaoMonitorDTO atualizacaoMonitor){
         super(monitor, atualizacaoMonitor);
+        this.id = monitor.getId();
         this.tamanhoTela = atualizacaoMonitor.getQuantidadePortas() != null ? atualizacaoMonitor.getQuantidadePortas() : monitor.getTamanhoTela();
     }
 }
