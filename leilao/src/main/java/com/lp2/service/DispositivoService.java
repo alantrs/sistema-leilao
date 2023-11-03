@@ -2,13 +2,12 @@ package com.lp2.service;
 
 import com.lp2.dto.dispositivo.*;
 import com.lp2.model.*;
-import com.lp2.repository.*;
+import com.lp2.repository.DispositivoRepository;
+import com.lp2.repository.LeilaoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,13 +86,40 @@ public class DispositivoService {
                 .collect(Collectors.toList());
     }
 
+    public DadosExibicaoNotebookDTO atualizarDispositivoNotebook(Long idDispositivo, DadosAtualizacaoNotebookDTO atualizacaoNotebook){
+        Optional<Notebook> dispositivoEncontrado = notebookRepository.findById(idDispositivo);
+        Notebook notebook = new Notebook(dispositivoEncontrado.get(), atualizacaoNotebook);
+        notebookRepository.update(notebook);
+        return modelMapper.map(notebook, DadosExibicaoNotebookDTO.class);
+    }
 
-//    public DadosExibicaoDispositivoDTO atualizarDispositivo(Long idDispositivo, DadosAtualizacaoDispositivoDTO atualizacao){
-//        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
-//        DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), atualizacao);
-//        dispositivoInformaticaRepository.update(dispositivo);
-//        return new DadosExibicaoDispositivoDTO(dispositivo);
-//    }
+    public DadosExibicaoRoteadorDTO atualizarDispositivoRoteador(Long idDispositivo, DadosAtualizacaoRoteadorDTO atualizacaoRoteador){
+        Optional<Roteador> dispositivoEncontrado = roteadorRepository.findById(idDispositivo);
+        Roteador roteador = new Roteador(dispositivoEncontrado.get(), atualizacaoRoteador);
+        roteadorRepository.update(roteador);
+        return modelMapper.map(roteador, DadosExibicaoRoteadorDTO.class);
+    }
+
+    public DadosExibicaoHubDTO atualizarDispositivoHub(Long idDispositivo, DadosAtualizacaoHubDTO atualizacaoHub){
+        Optional<Hub> dispositivoEncontrado = hubRepository.findById(idDispositivo);
+        Hub hub = new Hub(dispositivoEncontrado.get(), atualizacaoHub);
+        hubRepository.update(hub);
+        return modelMapper.map(hub, DadosExibicaoHubDTO.class);
+    }
+
+    public DadosExibicaoMonitorDTO atualizarDispositivoMonitor(Long idDispositivo, DadosAtualizacaoMonitorDTO atualizacaoMonitor){
+        Optional<Monitor> dispositivoEncontrado = monitorRepository.findById(idDispositivo);
+        Monitor monitor = new Monitor(dispositivoEncontrado.get(), atualizacaoMonitor);
+        monitorRepository.update(monitor);
+        return modelMapper.map(monitor, DadosExibicaoMonitorDTO.class);
+    }
+
+    public DadosExibicaoSwitchDTO atualizarDispositivoSwitch(Long idDispositivo, DadosAtualizacaoSwitchDTO atualizacaoSwitch){
+        Optional<Switch> dispositivoEncontrado = switchRepository.findById(idDispositivo);
+        Switch swit = new Switch(dispositivoEncontrado.get(), atualizacaoSwitch);
+        switchRepository.update(swit);
+        return modelMapper.map(swit, DadosExibicaoSwitchDTO.class);
+    }
 
     public void deletarDispositivo(Long idDispositivo){
         dispositivoRepository.deleteById(idDispositivo);
