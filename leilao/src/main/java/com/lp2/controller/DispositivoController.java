@@ -67,13 +67,45 @@ public class DispositivoController {
         return HttpResponse.ok().body(dispositivosEncontrados);
     }
 
-//    @Put(uri = "/atualizar/{idDispositivo}")
-//    @Operation(summary = "Atualizar um dispositivo")
-//    @Transactional
-//    public HttpResponse<DadosExibicaoDispositivoDTO> atualizarDispositivo(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosAtualizacaoDispositivoDTO atualizacao){
-//        DadosExibicaoDispositivoDTO dispositivo = dispositivoInformaticaService.atualizarDispositivo(idDispositivo, atualizacao);
-//        return HttpResponse.ok().body(dispositivo);
-//    }
+    @Put(uri = "/atualizar-notebook/{idDispositivo}")
+    @Operation(summary = "Atualizar um notebook")
+    @Transactional
+    public HttpResponse<DadosExibicaoNotebookDTO> atualizarDispositivoNotebook(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosAtualizacaoNotebookDTO atualizacaoNotebook){
+        DadosExibicaoNotebookDTO dispositivo = dispositivoInformaticaService.atualizarDispositivoNotebook(idDispositivo, atualizacaoNotebook);
+        return HttpResponse.ok().body(dispositivo);
+    }
+
+    @Put(uri = "/atualizar-roteador/{idDispositivo}")
+    @Operation(summary = "Atualizar um roteador")
+    @Transactional
+    public HttpResponse<DadosExibicaoRoteadorDTO> atualizarDispositivoRoteador(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosAtualizacaoRoteadorDTO atualizacaoRoteador){
+        DadosExibicaoRoteadorDTO dispositivo = dispositivoInformaticaService.atualizarDispositivoRoteador(idDispositivo, atualizacaoRoteador);
+        return HttpResponse.ok().body(dispositivo);
+    }
+
+    @Put(uri = "/atualizar-hub/{idDispositivo}")
+    @Operation(summary = "Atualizar um hub")
+    @Transactional
+    public HttpResponse<DadosExibicaoHubDTO> atualizarDispositivoHub(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosAtualizacaoHubDTO atualizacaoHub){
+        DadosExibicaoHubDTO dispositivo = dispositivoInformaticaService.atualizarDispositivoHub(idDispositivo, atualizacaoHub);
+        return HttpResponse.ok().body(dispositivo);
+    }
+
+    @Put(uri = "/atualizar-switch/{idDispositivo}")
+    @Operation(summary = "Atualizar um switch")
+    @Transactional
+    public HttpResponse<DadosExibicaoSwitchDTO> atualizarDispositivoSwitch(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosAtualizacaoSwitchDTO atualizacaoSwitch){
+        DadosExibicaoSwitchDTO dispositivo = dispositivoInformaticaService.atualizarDispositivoSwitch(idDispositivo, atualizacaoSwitch);
+        return HttpResponse.ok().body(dispositivo);
+    }
+
+    @Put(uri = "/atualizar-monitor/{idDispositivo}")
+    @Operation(summary = "Atualizar um monitor")
+    @Transactional
+    public HttpResponse<DadosExibicaoMonitorDTO> atualizarDispositivoMonitor(@PathVariable (value = "idDispositivo") Long idDispositivo, @Body DadosAtualizacaoMonitorDTO atualizacaoMonitor){
+        DadosExibicaoMonitorDTO dispositivo = dispositivoInformaticaService.atualizarDispositivoMonitor(idDispositivo, atualizacaoMonitor);
+        return HttpResponse.ok().body(dispositivo);
+    }
 
     @Delete(uri = "/deletar/{idDispositivo}")
     @Operation(summary = "Deletar um dispositivo")

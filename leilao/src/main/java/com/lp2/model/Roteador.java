@@ -1,5 +1,6 @@
 package com.lp2.model;
 
+import com.lp2.dto.dispositivo.DadosAtualizacaoRoteadorDTO;
 import com.lp2.dto.dispositivo.DadosEntradaRoteadorDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
@@ -25,5 +26,11 @@ public class Roteador extends DispositivoInformatica implements Serializable {
     public Roteador(DadosEntradaRoteadorDTO cadastroRoteador){
         super(cadastroRoteador);
         this.quantidadePortas = cadastroRoteador.getQuantidadePortas();
+    }
+
+    public Roteador(Roteador roteador, DadosAtualizacaoRoteadorDTO atualizacaoRoteador){
+        super(roteador, atualizacaoRoteador);
+        this.id = roteador.getId();
+        this.quantidadePortas = atualizacaoRoteador.getQuantidadePortas() != null ? atualizacaoRoteador.getQuantidadePortas() : roteador.quantidadePortas;
     }
 }

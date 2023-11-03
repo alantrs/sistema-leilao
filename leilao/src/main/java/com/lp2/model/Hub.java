@@ -1,5 +1,6 @@
 package com.lp2.model;
 
+import com.lp2.dto.dispositivo.DadosAtualizacaoHubDTO;
 import com.lp2.dto.dispositivo.DadosEntradaHubDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
@@ -25,5 +26,11 @@ public class Hub extends DispositivoInformatica implements Serializable {
     public Hub(DadosEntradaHubDTO cadastroHub){
         super(cadastroHub);
         this.quantidadePortas = cadastroHub.getQuantidadePortas();
+    }
+
+    public Hub(Hub hub, DadosAtualizacaoHubDTO atualizacaoHub){
+        super(hub, atualizacaoHub);
+        this.id = hub.getId();
+        this.quantidadePortas = atualizacaoHub.getQuantidadePortas() != null ? atualizacaoHub.getQuantidadePortas() : hub.getQuantidadePortas();
     }
 }

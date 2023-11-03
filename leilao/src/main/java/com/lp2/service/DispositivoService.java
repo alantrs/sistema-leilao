@@ -1,14 +1,14 @@
 package com.lp2.service;
 
 import com.lp2.dto.dispositivo.*;
+import com.lp2.exception.CustomException;
 import com.lp2.model.*;
-import com.lp2.repository.*;
+import com.lp2.repository.DispositivoRepository;
+import com.lp2.repository.LeilaoRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,13 +87,65 @@ public class DispositivoService {
                 .collect(Collectors.toList());
     }
 
+    public DadosExibicaoNotebookDTO atualizarDispositivoNotebook(Long idDispositivo, DadosAtualizacaoNotebookDTO atualizacaoNotebook){
+        Object dispositivoEncontrado = notebookRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if (dispositivoEncontrado instanceof Notebook){
+            Notebook notebook = new Notebook((Notebook) dispositivoEncontrado, atualizacaoNotebook);
+            notebookRepository.update(notebook);
+            return modelMapper.map(notebook, DadosExibicaoNotebookDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um notebook");
+        }
 
-//    public DadosExibicaoDispositivoDTO atualizarDispositivo(Long idDispositivo, DadosAtualizacaoDispositivoDTO atualizacao){
-//        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
-//        DispositivoInformatica dispositivo = new DispositivoInformatica(dispositivoEncontrado.get(), atualizacao);
-//        dispositivoInformaticaRepository.update(dispositivo);
-//        return new DadosExibicaoDispositivoDTO(dispositivo);
-//    }
+    }
+
+    public DadosExibicaoRoteadorDTO atualizarDispositivoRoteador(Long idDispositivo, DadosAtualizacaoRoteadorDTO atualizacaoRoteador){
+        Object dispositivoEncontrado = roteadorRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if(dispositivoEncontrado instanceof Roteador){
+            Roteador roteador = new Roteador((Roteador) dispositivoEncontrado, atualizacaoRoteador);
+            roteadorRepository.update(roteador);
+            return modelMapper.map(roteador, DadosExibicaoRoteadorDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um roteador");
+        }
+
+    }
+
+    public DadosExibicaoHubDTO atualizarDispositivoHub(Long idDispositivo, DadosAtualizacaoHubDTO atualizacaoHub){
+        Object dispositivoEncontrado = hubRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if(dispositivoEncontrado instanceof Hub){
+            Hub hub = new Hub((Hub) dispositivoEncontrado, atualizacaoHub);
+            hubRepository.update(hub);
+            return modelMapper.map(hub, DadosExibicaoHubDTO.class);
+        }else{
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um hub");
+        }
+
+    }
+
+    public DadosExibicaoMonitorDTO atualizarDispositivoMonitor(Long idDispositivo, DadosAtualizacaoMonitorDTO atualizacaoMonitor){
+        Object dispositivoEncontrado = monitorRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if (dispositivoEncontrado instanceof Monitor){
+            Monitor monitor = new Monitor((Monitor) dispositivoEncontrado, atualizacaoMonitor);
+            monitorRepository.update(monitor);
+            return modelMapper.map(monitor, DadosExibicaoMonitorDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um monitor");
+        }
+
+    }
+
+    public DadosExibicaoSwitchDTO atualizarDispositivoSwitch(Long idDispositivo, DadosAtualizacaoSwitchDTO atualizacaoSwitch){
+        Object dispositivoEncontrado = switchRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        if (dispositivoEncontrado instanceof Switch){
+            Switch swit = new Switch((Switch) dispositivoEncontrado, atualizacaoSwitch);
+            switchRepository.update(swit);
+            return modelMapper.map(swit, DadosExibicaoSwitchDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é um switch");
+        }
+
+    }
 
     public void deletarDispositivo(Long idDispositivo){
         dispositivoRepository.deleteById(idDispositivo);

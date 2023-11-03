@@ -19,10 +19,10 @@ public class CustomExceptionHandler
     public HttpResponse<ErrorMessage>
     handle(HttpRequest request, CustomException exception) {
 
-        ErrorMessage message = new ErrorMessage();
-        message.setMessage(exception.getMessage());
-        message.setStatus(false);
-        return HttpResponse.serverError(message).
+        ErrorMessage mensagem = new ErrorMessage();
+        mensagem.setMessage(exception.getMessage());
+        mensagem.setStatus(HttpStatus.BAD_REQUEST.getCode());
+        return HttpResponse.serverError(mensagem).
                 status(HttpStatus.BAD_REQUEST);
     }
 
