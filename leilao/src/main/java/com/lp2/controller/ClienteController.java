@@ -1,8 +1,8 @@
 package com.lp2.controller;
 
-import com.lp2.model.cliente.DadosAtualizacaoClienteDTO;
-import com.lp2.model.cliente.DadosEntradaClienteDTO;
-import com.lp2.model.cliente.DadosExibicaoClienteDTO;
+import com.lp2.dto.cliente.DadosAtualizacaoClienteDTO;
+import com.lp2.dto.cliente.DadosEntradaClienteDTO;
+import com.lp2.dto.cliente.DadosExibicaoClienteDTO;
 import com.lp2.service.ClienteService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;

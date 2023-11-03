@@ -1,9 +1,9 @@
 package com.lp2.service;
 
-import com.lp2.model.cliente.Cliente;
-import com.lp2.model.cliente.DadosAtualizacaoClienteDTO;
-import com.lp2.model.cliente.DadosEntradaClienteDTO;
-import com.lp2.model.cliente.DadosExibicaoClienteDTO;
+import com.lp2.model.Cliente;
+import com.lp2.dto.cliente.DadosAtualizacaoClienteDTO;
+import com.lp2.dto.cliente.DadosEntradaClienteDTO;
+import com.lp2.dto.cliente.DadosExibicaoClienteDTO;
 import com.lp2.repository.ClienteRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;

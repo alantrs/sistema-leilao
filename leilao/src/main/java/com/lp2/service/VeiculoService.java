@@ -1,13 +1,11 @@
 package com.lp2.service;
 
 import com.lp2.exception.CustomException;
-import com.lp2.model.dispositivo.DispositivoInformatica;
-import com.lp2.model.enums.StatusLeilao;
-import com.lp2.model.leilao.Leilao;
-import com.lp2.model.veiculo.DadosAtualizacaoVeiculoDTO;
-import com.lp2.model.veiculo.Veiculo;
-import com.lp2.model.veiculo.DadosEntradaVeiculoDTO;
-import com.lp2.model.veiculo.DadosExibicaoVeiculoDTO;
+import com.lp2.model.Leilao;
+import com.lp2.dto.veiculo.DadosAtualizacaoVeiculoDTO;
+import com.lp2.model.Veiculo;
+import com.lp2.dto.veiculo.DadosEntradaVeiculoDTO;
+import com.lp2.dto.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.repository.LeilaoRepository;
 import com.lp2.repository.VeiculoRepository;
 import jakarta.inject.Inject;

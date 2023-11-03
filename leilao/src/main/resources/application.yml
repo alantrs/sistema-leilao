@@ -16,9 +16,14 @@ datasources:
     password: ''
     driver-class-name: org.h2.Driver
     dialect: H2
+  url: jdbc:h2:mem:devDb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
 jpa:
   default:
     properties:
       hibernate:
         hbm2ddl:
           auto: update
+        dialect: org.hibernate.dialect.H2Dialect
+        show_sql: true
+  url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1
+

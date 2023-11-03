@@ -1,8 +1,8 @@
 package com.lp2.controller;
 
-import com.lp2.model.veiculo.DadosAtualizacaoVeiculoDTO;
-import com.lp2.model.veiculo.DadosEntradaVeiculoDTO;
-import com.lp2.model.veiculo.DadosExibicaoVeiculoDTO;
+import com.lp2.dto.veiculo.DadosAtualizacaoVeiculoDTO;
+import com.lp2.dto.veiculo.DadosEntradaVeiculoDTO;
+import com.lp2.dto.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.service.VeiculoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;

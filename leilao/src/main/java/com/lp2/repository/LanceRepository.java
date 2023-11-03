@@ -1,6 +1,6 @@
 package com.lp2.repository;
 
-import com.lp2.model.lance.Lance;
+import com.lp2.model.Lance;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.jpa.repository.JpaRepository;
 
