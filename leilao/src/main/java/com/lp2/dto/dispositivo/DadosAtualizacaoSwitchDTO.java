@@ -8,4 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DadosAtualizacaoSwitchDTO extends DadosAtualizacaoDispositivoDTO{
+
+    private Integer quantidadePortas;
 }

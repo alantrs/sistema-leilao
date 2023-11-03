@@ -1,5 +1,6 @@
 package com.lp2.model;
 
+import com.lp2.dto.dispositivo.DadosAtualizacaoSwitchDTO;
 import com.lp2.dto.dispositivo.DadosEntradaSwitchDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
@@ -25,5 +26,10 @@ public class Switch extends DispositivoInformatica implements Serializable {
     public Switch(DadosEntradaSwitchDTO cadastroSwitch){
         super(cadastroSwitch);
         this.quantidadePortas = cadastroSwitch.getQuantidadePortas();
+    }
+
+    public Switch(Switch swit, DadosAtualizacaoSwitchDTO atualizacaoSwitch){
+        super(swit, atualizacaoSwitch);
+        this.quantidadePortas = atualizacaoSwitch.getQuantidadePortas() != null ? atualizacaoSwitch.getQuantidadePortas() : swit.getQuantidadePortas();
     }
 }

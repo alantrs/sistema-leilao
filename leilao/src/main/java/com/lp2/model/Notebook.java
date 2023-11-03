@@ -1,5 +1,6 @@
 package com.lp2.model;
 
+import com.lp2.dto.dispositivo.DadosAtualizacaoNotebookDTO;
 import com.lp2.dto.dispositivo.DadosEntradaNotebookDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
@@ -24,6 +25,11 @@ public class Notebook extends DispositivoInformatica implements Serializable {
     public Notebook(DadosEntradaNotebookDTO cadastroNotebook){
         super(cadastroNotebook);
         this.tamanhoTela = cadastroNotebook.getTamanhoTela();
+    }
+
+    public Notebook(Notebook notebook, DadosAtualizacaoNotebookDTO atualizacaoNotebook){
+        super(notebook, atualizacaoNotebook);
+        this.tamanhoTela = atualizacaoNotebook.getTamanhoTela() != null ? atualizacaoNotebook.getTamanhoTela() : notebook.getTamanhoTela();
     }
 
 }

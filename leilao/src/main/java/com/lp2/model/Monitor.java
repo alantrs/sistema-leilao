@@ -1,5 +1,6 @@
 package com.lp2.model;
 
+import com.lp2.dto.dispositivo.DadosAtualizacaoMonitorDTO;
 import com.lp2.dto.dispositivo.DadosEntradaMonitorDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
@@ -25,5 +26,10 @@ public class Monitor extends DispositivoInformatica implements Serializable {
     public Monitor(DadosEntradaMonitorDTO cadastroMonitor){
         super(cadastroMonitor);
         this.tamanhoTela = cadastroMonitor.getTamanhoTela();
+    }
+
+    public Monitor(Monitor monitor, DadosAtualizacaoMonitorDTO atualizacaoMonitor){
+        super(monitor, atualizacaoMonitor);
+        this.tamanhoTela = atualizacaoMonitor.getQuantidadePortas() != null ? atualizacaoMonitor.getQuantidadePortas() : monitor.getTamanhoTela();
     }
 }
