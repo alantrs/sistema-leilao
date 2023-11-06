@@ -5,5 +5,5 @@ import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
+public interface VeiculoRepository<T extends Veiculo> extends JpaRepository<T, Long> {
 }

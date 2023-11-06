@@ -1,6 +1,5 @@
 package com.lp2.dto.veiculo;
 
-import com.lp2.enums.TipoVeiculo;
 import com.lp2.model.Veiculo;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
@@ -17,7 +16,6 @@ public class DadosExibicaoVeiculoDTO {
     private Integer ano;
     private String renavam;
     private String chassi;
-    private TipoVeiculo tipoVeiculo;
 
     public DadosExibicaoVeiculoDTO(Veiculo veiculo){
         this.id = veiculo.getId();
@@ -26,6 +24,5 @@ public class DadosExibicaoVeiculoDTO {
         this.ano = veiculo.getAno();
         this.renavam = veiculo.getRenavam();
         this.chassi = veiculo.getChassi();
-        this.tipoVeiculo = veiculo.getTipoVeiculo();
     }
 }

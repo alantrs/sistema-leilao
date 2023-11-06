@@ -2,27 +2,27 @@ package com.lp2.model;
 
 import com.lp2.dto.veiculo.DadosAtualizacaoVeiculoDTO;
 import com.lp2.dto.veiculo.DadosEntradaVeiculoDTO;
-import com.lp2.enums.TipoVeiculo;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
-public class Veiculo {
-
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Veiculo implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "table_generator")
+    @TableGenerator(name = "table_generator", table = "id_generator_table", pkColumnName = "sequence_name", valueColumnName = "next_val", allocationSize = 1)
     private Long id;
     private String modelo;
     private String marca;
     private Integer ano;
     private String renavam;
     private String chassi;
-    private TipoVeiculo tipoVeiculo;
 
     @ManyToOne
     @JoinColumn(name = "id_leilao")
@@ -39,7 +39,6 @@ public class Veiculo {
         this.ano = cadastro.getAno();
         this.renavam = cadastro.getRenavam();
         this.chassi = cadastro.getChassi();
-        this.tipoVeiculo = cadastro.getTipoVeiculo();
     }
 
     public Veiculo(Veiculo veiculo, DadosAtualizacaoVeiculoDTO atualizacao){
@@ -49,6 +48,5 @@ public class Veiculo {
         this.ano = atualizacao.getAno() != null ? atualizacao.getAno() : veiculo.getAno();
         this.renavam = atualizacao.getRenavam() != null ? atualizacao.getRenavam() : veiculo.getRenavam();
         this.chassi = atualizacao.getChassi() != null ? atualizacao.getChassi() : veiculo.getChassi();
-        this.tipoVeiculo = atualizacao.getTipoVeiculo() != null ? atualizacao.getTipoVeiculo() : veiculo.getTipoVeiculo();
     }
 }
