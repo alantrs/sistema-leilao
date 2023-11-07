@@ -17,12 +17,6 @@ public class DadosExibicaoVeiculoDTO {
     private String renavam;
     private String chassi;
 
-    public DadosExibicaoVeiculoDTO(Veiculo veiculo){
-        this.id = veiculo.getId();
-        this.modelo = veiculo.getModelo();
-        this.marca = veiculo.getMarca();
-        this.ano = veiculo.getAno();
-        this.renavam = veiculo.getRenavam();
-        this.chassi = veiculo.getChassi();
+    public DadosExibicaoVeiculoDTO(){
     }
 }

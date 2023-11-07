@@ -1,5 +1,7 @@
 package com.lp2.model;
 
+import com.lp2.dto.veiculo.DadosAtualizacaoCarroDTO;
+import com.lp2.dto.veiculo.DadosEntradaCarroDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,4 +21,17 @@ public class Carro extends Veiculo implements Serializable {
     private Long id;
 
     private Integer quantidadePortas;
+
+    public Carro(){}
+
+    public Carro(DadosEntradaCarroDTO cadastroCarro){
+        super(cadastroCarro);
+        this.quantidadePortas = cadastroCarro.getQuantidadePortas();
+    }
+
+    public Carro(Carro carro, DadosAtualizacaoCarroDTO atualizacaoCarro){
+        super(carro, atualizacaoCarro);
+        this.id = carro.getId();
+        this.quantidadePortas = atualizacaoCarro.getQuantidadePortas() != null ? atualizacaoCarro.getQuantidadePortas() : carro.getQuantidadePortas();
+    }
 }

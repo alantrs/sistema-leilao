@@ -156,7 +156,7 @@ public class DispositivoService {
         Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
 
         if (!dispositivoEncontrado.getLances().isEmpty()){
-            throw new CustomException("Esse produto ja recebeu lance, portanto nao pode ser movimentado");
+            throw new CustomException("Ação não permitida. Esse dispositivo ja recebeu lance");
         }
 
         dispositivoEncontrado.setLeilao(leilaoEncontrado.get());

@@ -1,8 +1,6 @@
 package com.lp2.controller;
 
-import com.lp2.dto.veiculo.DadosAtualizacaoVeiculoDTO;
-import com.lp2.dto.veiculo.DadosEntradaVeiculoDTO;
-import com.lp2.dto.veiculo.DadosExibicaoVeiculoDTO;
+import com.lp2.dto.veiculo.*;
 import com.lp2.service.VeiculoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -21,28 +19,52 @@ public class VeiculoController {
     @Inject
     private VeiculoService veiculoService;
 
-    @Post(uri = "/registrar-um-veiculo")
-    @Operation(summary = "Registrar um veiculo")
+    @Post(uri = "/registrar-carro")
+    @Operation(summary = "Registrar um carro")
     @Transactional
-    public HttpResponse<DadosExibicaoVeiculoDTO> registrarVeiculo(@Body DadosEntradaVeiculoDTO dadosEntradaVeiculoDTO){
-        DadosExibicaoVeiculoDTO dados = veiculoService.registrarVeiculo(dadosEntradaVeiculoDTO);
+    public HttpResponse<DadosExibicaoCarroDTO> registrarVeiculoCarro(@Body DadosEntradaCarroDTO carro){
+        DadosExibicaoCarroDTO dados = veiculoService.registrarVeiculoCarro(carro);
+        return HttpResponse.status(HttpStatus.CREATED).body(dados);
+    }
+
+    @Post(uri = "/registrar-motocicleta")
+    @Operation(summary = "Registrar uma motocicleta")
+    @Transactional
+    public HttpResponse<DadosExibicaoMotocicletaDTO> registrarVeiculoMotocicleta(@Body DadosEntradaMotocicletaDTO motocicleta){
+        DadosExibicaoMotocicletaDTO dados = veiculoService.registrarVeiculoMotocicleta(motocicleta);
+        return HttpResponse.status(HttpStatus.CREATED).body(dados);
+    }
+
+    @Post(uri = "/registrar-caminhao")
+    @Operation(summary = "Registrar um caminhao")
+    @Transactional
+    public HttpResponse<DadosExibicaoCaminhaoDTO> registrarVeiculoCaminhao(@Body DadosEntradaCaminhaoDTO caminhao){
+        DadosExibicaoCaminhaoDTO dados = veiculoService.registrarVeiculoCaminhao(caminhao);
+        return HttpResponse.status(HttpStatus.CREATED).body(dados);
+    }
+
+    @Post(uri = "/registrar-utilitario")
+    @Operation(summary = "Registrar um utilitario")
+    @Transactional
+    public HttpResponse<DadosExibicaoUtilitarioDTO> registrarVeiculoUtilitario(@Body DadosEntradaUtilitarioDTO utilitario){
+        DadosExibicaoUtilitarioDTO dados = veiculoService.registrarVeiculoUtilitario(utilitario);
         return HttpResponse.status(HttpStatus.CREATED).body(dados);
     }
 
     @Get(uri = "/listar")
     @Operation(summary = "Listar veiculos")
-    public HttpResponse<List<DadosExibicaoVeiculoDTO>> listarVeiculos(){
-        List<DadosExibicaoVeiculoDTO> veiculosEncontrados = veiculoService.listarVeiculos();
+    public HttpResponse<List<Object>> listarVeiculos(){
+        List<Object> veiculosEncontrados = veiculoService.listarVeiculos();
         return HttpResponse.ok().body(veiculosEncontrados);
     }
 
-    @Put(uri = "/atualizar/{idVeiculo}")
-    @Operation(summary = "Atualizar um veiculo")
-    @Transactional
-    public HttpResponse<DadosExibicaoVeiculoDTO> atualizarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoVeiculoDTO atualizacao){
-        DadosExibicaoVeiculoDTO veiculo = veiculoService.atualizarVeiculo(idVeiculo, atualizacao);
-        return HttpResponse.ok().body(veiculo);
-    }
+//    @Put(uri = "/atualizar/{idVeiculo}")
+//    @Operation(summary = "Atualizar um veiculo")
+//    @Transactional
+//    public HttpResponse<DadosExibicaoVeiculoDTO> atualizarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoVeiculoDTO atualizacao){
+//        DadosExibicaoVeiculoDTO veiculo = veiculoService.atualizarVeiculo(idVeiculo, atualizacao);
+//        return HttpResponse.ok().body(veiculo);
+//    }
 
     @Delete(uri = "/deletar/{idVeiculo}")
     @Operation(summary = "Deletar um veiculo")

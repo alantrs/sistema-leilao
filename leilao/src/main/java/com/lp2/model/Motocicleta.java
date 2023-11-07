@@ -1,5 +1,8 @@
 package com.lp2.model;
 
+import com.lp2.dto.veiculo.DadosAtualizacaoCarroDTO;
+import com.lp2.dto.veiculo.DadosAtualizacaoMotocicletaDTO;
+import com.lp2.dto.veiculo.DadosEntradaMotocicletaDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,4 +22,17 @@ public class Motocicleta extends Veiculo implements Serializable {
     private Long id;
 
     private Integer cilindradas;
+
+    public Motocicleta(){}
+
+    public Motocicleta(DadosEntradaMotocicletaDTO cadastroMotocicleta){
+        super(cadastroMotocicleta);
+        this.cilindradas = cadastroMotocicleta.getCilindradas();
+    }
+
+    public Motocicleta(Motocicleta motocicleta, DadosAtualizacaoMotocicletaDTO atualizacaoMotocicleta){
+        super(motocicleta, atualizacaoMotocicleta);
+        this.id = motocicleta.getId();
+        this.cilindradas = atualizacaoMotocicleta.getCilindradas() != null ? atualizacaoMotocicleta.getCilindradas() : motocicleta.getCilindradas();
+    }
 }
