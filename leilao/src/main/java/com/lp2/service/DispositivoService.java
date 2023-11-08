@@ -150,18 +150,18 @@ public class DispositivoService {
     public void deletarDispositivo(Long idDispositivo){
         dispositivoRepository.deleteById(idDispositivo);
     }
-//
-//    public void manipularDispostivoLeilao(Long idDispositivo, Long idLeilao){
-//        Optional<DispositivoInformatica> dispositivoEncontrado = dispositivoInformaticaRepository.findById(idDispositivo);
-//        Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
-//
-//        if (!dispositivoEncontrado.get().getLances().isEmpty()){
-//            System.out.println("Esse produto ja recebeu lance");
-//            return;
-//        }
-//        dispositivoEncontrado.get().setLeilao(leilaoEncontrado.get());
-//        dispositivoInformaticaRepository.update(dispositivoEncontrado.get());
-//
-//    }
+
+    public void manipularDispostivoLeilao(Long idDispositivo, Long idLeilao){
+        DispositivoInformatica dispositivoEncontrado = dispositivoRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
+        Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
+
+        if (!dispositivoEncontrado.getLances().isEmpty()){
+            throw new CustomException("Ação não permitida. Esse dispositivo ja recebeu lance");
+        }
+
+        dispositivoEncontrado.setLeilao(leilaoEncontrado.get());
+        dispositivoRepository.update(dispositivoEncontrado);
+
+    }
 }
 

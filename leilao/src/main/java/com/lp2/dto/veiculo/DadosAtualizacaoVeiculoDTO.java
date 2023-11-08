@@ -1,6 +1,5 @@
 package com.lp2.dto.veiculo;
 
-import com.lp2.enums.TipoVeiculo;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,5 +14,4 @@ public class DadosAtualizacaoVeiculoDTO {
     private Integer ano;
     private String renavam;
     private String chassi;
-    private TipoVeiculo tipoVeiculo;
 }

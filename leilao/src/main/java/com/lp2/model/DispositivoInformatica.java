@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,6 +29,8 @@ public class DispositivoInformatica implements Serializable {
     @JoinColumn(name = "id_leilao")
     private Leilao leilao;
 
+    @OneToMany(mappedBy = "dispositivoInformatica")
+    private List<Lance> lances;
 
     public DispositivoInformatica(){}
 

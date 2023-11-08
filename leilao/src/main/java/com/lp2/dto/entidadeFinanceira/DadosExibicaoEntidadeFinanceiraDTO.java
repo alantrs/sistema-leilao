@@ -14,6 +14,7 @@ public class DadosExibicaoEntidadeFinanceiraDTO {
     private String cnpj;
     private String razaoSocial;
 
+    public DadosExibicaoEntidadeFinanceiraDTO(){}
     public DadosExibicaoEntidadeFinanceiraDTO(EntidadeFinanceira entidadeFinanceira){
         this.id = entidadeFinanceira.getId();
         this.cnpj = entidadeFinanceira.getCnpj();

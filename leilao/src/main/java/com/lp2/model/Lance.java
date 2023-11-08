@@ -23,9 +23,10 @@ public class Lance {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-//    @ManyToOne
-//    @JoinColumn(name = "id_dispositivo")
-//    private DispositivoInformatica dispositivoInformatica;
+    @ManyToOne
+    @JoinColumn(name = "id_dispositivo")
+    private DispositivoInformatica dispositivoInformatica;
+
     @ManyToOne
     @JoinColumn(name = "id_veiculo")
     private Veiculo veiculo;

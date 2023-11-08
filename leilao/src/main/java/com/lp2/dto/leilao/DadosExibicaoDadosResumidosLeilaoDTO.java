@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.security.PublicKey;
 import java.time.LocalDateTime;
 
 @Serdeable.Serializable
@@ -22,6 +23,7 @@ public class DadosExibicaoDadosResumidosLeilaoDTO {
     private String local;
     private StatusLeilao statusLeilao;
 
+    public DadosExibicaoDadosResumidosLeilaoDTO(){}
     public DadosExibicaoDadosResumidosLeilaoDTO(Leilao leilao){
         this.id = leilao.getId();
         this.dataOcorrencia = leilao.getDataOcorrencia();

@@ -1,9 +1,13 @@
 package com.lp2.service;
 
-import com.lp2.model.Notebook;
+import com.lp2.dto.lance.DadosEntradaLanceDTO;
+import com.lp2.exception.CustomException;
+import com.lp2.model.*;
 import com.lp2.repository.*;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+
+import java.util.Optional;
 
 @Singleton
 public class LanceService {
@@ -13,25 +17,27 @@ public class LanceService {
     @Inject
     private ClienteRepository clienteRepository;
     @Inject
-    private DispositivoRepository<Notebook> notebookRepository;
+    private DispositivoRepository<DispositivoInformatica> dispositivoRepository;
     @Inject
-    private VeiculoRepository veiculoRepository;
+    private VeiculoRepository<Veiculo> veiculoRepository;
 
-//    public void realizarLance(Long idProduto, DadosEntradaLanceDTO lance){
-//        Optional<Cliente> cliente = clienteRepository.findById(lance.getIdCliente());
-//        DispositivoInformatica dispositivoInformatica = notebookRepository.findById(idProduto).orElse(null);
-//        Veiculo veiculo = veiculoRepository.findById(idProduto).orElse(null);
-//
-//        if (dispositivoInformatica != null){
-//            Lance lanceRealizado = new Lance(lance);
-//            lanceRealizado.setCliente(cliente.get());
-//            lanceRealizado.setDispositivoInformatica(dispositivoInformatica);
-//            lanceRepository.save(lanceRealizado);
-//        } else if (veiculo != null){
-//            Lance lanceRealizado = new Lance(lance);
-//            lanceRealizado.setCliente(cliente.get());
-//            lanceRealizado.setVeiculo(veiculo);
-//            lanceRepository.save(lanceRealizado);
-//        }
-//    }
+    public void realizarLanceDispositivo(Long idDispositivo, DadosEntradaLanceDTO lance){
+        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente não existe"));
+        DispositivoInformatica dispositivoInformatica = dispositivoRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("Dispositivo não existe"));
+
+        Lance lanceRealizado = new Lance(lance);
+        lanceRealizado.setCliente(cliente);
+        lanceRealizado.setDispositivoInformatica(dispositivoInformatica);
+        lanceRepository.save(lanceRealizado);
+    }
+
+    public void realizarLanceVeiculo(Long idVeiculo, DadosEntradaLanceDTO lance){
+        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente não existe"));
+        Veiculo veiculoEncontrado = veiculoRepository.findById(idVeiculo).orElseThrow(() -> new CustomException("Veiculo não existe"));
+
+        Lance lanceRealizado = new Lance(lance);
+        lanceRealizado.setCliente(cliente);
+        lanceRealizado.setVeiculo(veiculoEncontrado);
+        lanceRepository.save(lanceRealizado);
+    }
 }
