@@ -58,13 +58,37 @@ public class VeiculoController {
         return HttpResponse.ok().body(veiculosEncontrados);
     }
 
-//    @Put(uri = "/atualizar/{idVeiculo}")
-//    @Operation(summary = "Atualizar um veiculo")
-//    @Transactional
-//    public HttpResponse<DadosExibicaoVeiculoDTO> atualizarVeiculo(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoVeiculoDTO atualizacao){
-//        DadosExibicaoVeiculoDTO veiculo = veiculoService.atualizarVeiculo(idVeiculo, atualizacao);
-//        return HttpResponse.ok().body(veiculo);
-//    }
+    @Put(uri = "/atualizar-carro/{idVeiculo}")
+    @Operation(summary = "Atualizar um carro")
+    @Transactional
+    public HttpResponse<DadosExibicaoCarroDTO> atualizarVeiculoCarro(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoCarroDTO atualizacaoCarro){
+        DadosExibicaoCarroDTO carro = veiculoService.atualizarVeiculoCarro(idVeiculo, atualizacaoCarro);
+        return HttpResponse.ok().body(carro);
+    }
+
+    @Put(uri = "/atualizar-caminhao/{idVeiculo}")
+    @Operation(summary = "Atualizar um caminhao")
+    @Transactional
+    public HttpResponse<DadosExibicaoCaminhaoDTO> atualizarVeiculoCaminhao(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoCaminhaoDTO atualizacaoCaminhao){
+        DadosExibicaoCaminhaoDTO caminhao = veiculoService.atualizarVeiculoCaminhao(idVeiculo, atualizacaoCaminhao);
+        return HttpResponse.ok().body(caminhao);
+    }
+
+    @Put(uri = "/atualizar-motocicleta/{idVeiculo}")
+    @Operation(summary = "Atualizar uma motocicleta")
+    @Transactional
+    public HttpResponse<DadosExibicaoMotocicletaDTO> atualizarVeiculoMotocicleta(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoMotocicletaDTO atualizacaoMotocicleta){
+        DadosExibicaoMotocicletaDTO motocicleta = veiculoService.atualizarVeiculoMotocicleta(idVeiculo, atualizacaoMotocicleta);
+        return HttpResponse.ok().body(motocicleta);
+    }
+
+    @Put(uri = "/atualizar-utilitario/{idVeiculo}")
+    @Operation(summary = "Atualizar um utilitario")
+    @Transactional
+    public HttpResponse<DadosExibicaoUtilitarioDTO> atualizarVeiculoUtilitario(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosAtualizacaoUtilitarioDTO atualizacaoUtilitario){
+        DadosExibicaoUtilitarioDTO utilitario = veiculoService.atualizarVeiculoUtilitario(idVeiculo, atualizacaoUtilitario);
+        return HttpResponse.ok().body(utilitario);
+    }
 
     @Delete(uri = "/deletar/{idVeiculo}")
     @Operation(summary = "Deletar um veiculo")

@@ -97,16 +97,25 @@ public class VeiculoService {
         }
     }
 
-
-    //parei aqui 
     public DadosExibicaoMotocicletaDTO atualizarVeiculoMotocicleta(Long idVeiculo, DadosAtualizacaoMotocicletaDTO atualizacaoMotocicleta){
-        Object veiculoEncontrado = caminhaoRepository.findById(idVeiculo).orElseThrow(() -> new CustomException("Veiculo não existe"));
-        if (veiculoEncontrado instanceof Caminhao){
-            Caminhao caminhao = new Caminhao((Caminhao) veiculoEncontrado, atualizacaoCaminhao);
-            caminhaoRepository.update(caminhao);
-            return modelMapper.map(caminhao, DadosExibicaoCaminhaoDTO.class);
+        Object veiculoEncontrado = motocicletaRepository.findById(idVeiculo).orElseThrow(() -> new CustomException("Veiculo não existe"));
+        if (veiculoEncontrado instanceof Motocicleta){
+            Motocicleta motocicleta = new Motocicleta((Motocicleta) veiculoEncontrado, atualizacaoMotocicleta);
+            motocicletaRepository.update(motocicleta);
+            return modelMapper.map(motocicleta, DadosExibicaoMotocicletaDTO.class);
         }else {
-            throw new CustomException("Não foi possivel atualizar. Id passado não é um caminhão");
+            throw new CustomException("Não foi possivel atualizar. Id passado não é uma motocicleta");
+        }
+    }
+
+    public DadosExibicaoUtilitarioDTO atualizarVeiculoUtilitario(Long idVeiculo, DadosAtualizacaoUtilitarioDTO atualizacaoUtilitario){
+        Object veiculoEncontrado = utilitarioRepository.findById(idVeiculo).orElseThrow(() -> new CustomException("Veiculo não existe"));
+        if (veiculoEncontrado instanceof Utilitario){
+            Utilitario utilitario = new Utilitario((Utilitario) veiculoEncontrado, atualizacaoUtilitario);
+            utilitarioRepository.update(utilitario);
+            return modelMapper.map(utilitario, DadosExibicaoUtilitarioDTO.class);
+        }else {
+            throw new CustomException("Não foi possivel atualizar. Id passado não é uma utilitario");
         }
     }
 

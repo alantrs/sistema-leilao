@@ -1,5 +1,6 @@
 package com.lp2.model;
 
+import com.lp2.dto.veiculo.DadosAtualizacaoUtilitarioDTO;
 import com.lp2.dto.veiculo.DadosEntradaUtilitarioDTO;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
@@ -26,5 +27,10 @@ public class Utilitario extends Veiculo implements Serializable {
     public Utilitario(DadosEntradaUtilitarioDTO cadastroUtilitario){
         super(cadastroUtilitario);
         this.capacidadePessoas = cadastroUtilitario.getCapacidadePessoas();
+    }
+
+    public Utilitario(Utilitario utilitario, DadosAtualizacaoUtilitarioDTO atualizacaoUtilitario){
+        super(utilitario, atualizacaoUtilitario);
+        this.capacidadePessoas = atualizacaoUtilitario.getCapacidadePessoas();
     }
 }
