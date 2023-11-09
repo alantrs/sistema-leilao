@@ -31,6 +31,7 @@ public class Utilitario extends Veiculo implements Serializable {
 
     public Utilitario(Utilitario utilitario, DadosAtualizacaoUtilitarioDTO atualizacaoUtilitario){
         super(utilitario, atualizacaoUtilitario);
+        this.id = utilitario.getId();
         this.capacidadePessoas = atualizacaoUtilitario.getCapacidadePessoas();
     }
 }

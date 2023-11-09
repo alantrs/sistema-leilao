@@ -22,7 +22,7 @@ public class LeilaoService {
     @Inject
     private LeilaoRepository leilaoRepository;
     @Inject
-    private DispositivoRepository<Notebook> notebookRepository;
+    private DispositivoRepository<DispositivoInformatica> dispositivoRepository;
     @Inject
     private VeiculoRepository veiculoRepository;
 
@@ -54,7 +54,7 @@ public class LeilaoService {
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
         if (!leilao.get().getDispositivos().isEmpty()) {
             for (DispositivoInformatica dispositivo : leilao.get().getDispositivos()) {
-                notebookRepository.deleteById(dispositivo.getId());
+                dispositivoRepository.deleteById(dispositivo.getId());
             }
         }
         if (!leilao.get().getVeiculos().isEmpty()){
@@ -74,6 +74,9 @@ public class LeilaoService {
         }
         if (leilao.get().getVeiculos() != null){
             leilaoAtualizado.setVeiculos(leilao.get().getVeiculos());
+        }
+        if (leilao.get().getEntidadesFinanceira() != null){
+            leilaoAtualizado.setEntidadesFinanceira(leilao.get().getEntidadesFinanceira());
         }
         leilaoRepository.update(leilaoAtualizado);
         return new DadosExibicaoDadosResumidosLeilaoDTO(leilaoAtualizado);
