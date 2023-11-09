@@ -29,8 +29,6 @@ public class DadosExibicaoDadosDetalhadosLeilaoDTO {
     private List<DadosExibicaoDispositivoDTO> dispositivos;
     private List<DadosExibicaoVeiculoDTO> veiculos;
     private List<DadosExibicaoEntidadeFinanceiraDTO> entidades;
-    ModelMapper modelMapper = new ModelMapper();
-
     public DadosExibicaoDadosDetalhadosLeilaoDTO(){}
     public DadosExibicaoDadosDetalhadosLeilaoDTO(Leilao leilao){
         this.id = leilao.getId();
@@ -41,11 +39,11 @@ public class DadosExibicaoDadosDetalhadosLeilaoDTO {
         this.local = leilao.getLocal();
         this.statusLeilao = leilao.getStatusLeilao();
         if(!leilao.getDispositivos().isEmpty()){
-            this.dispositivos = leilao.getDispositivos().stream().map(dispositivo -> modelMapper.map(dispositivo, DadosExibicaoDispositivoDTO.class)).toList();
+            this.dispositivos = leilao.getDispositivos().stream().map(dispositivo -> new DadosExibicaoDispositivoDTO(dispositivo)).toList();
         }
         if (!leilao.getVeiculos().isEmpty()){
-            this.veiculos = leilao.getVeiculos().stream().map(veiculo -> modelMapper.map(veiculo, DadosExibicaoVeiculoDTO.class)).toList();
+            this.veiculos = leilao.getVeiculos().stream().map(veiculo -> new DadosExibicaoVeiculoDTO(veiculo)).toList();
         }
-        this.entidades = leilao.getEntidadesFinanceira().stream().map(entidade -> modelMapper.map(entidade, DadosExibicaoEntidadeFinanceiraDTO.class)).toList();
+        this.entidades = leilao.getEntidadesFinanceira().stream().map(entidade -> new DadosExibicaoEntidadeFinanceiraDTO(entidade)).toList();
     }
 }
