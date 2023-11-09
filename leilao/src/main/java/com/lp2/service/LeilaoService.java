@@ -99,13 +99,7 @@ public class LeilaoService {
     }
 
     private Object buscarVeiculoPorIdEmLeilao(Long idLeilao, Long veiculoId) {
-        Optional<Leilao> leilaoOptional = leilaoRepository.findById(idLeilao);
-
-        if (leilaoOptional.isPresent()) {
-            Leilao leilao = leilaoOptional.get();
-            Optional<Veiculo> veiculoOptional = leilao.getVeiculos().stream()
-                    .filter(veiculo -> veiculo.getId().equals(veiculoId))
-                    .findFirst();
+        Optional<Veiculo> veiculoOptional = veiculoRepository.findByIdAndLeilaoId(veiculoId, idLeilao);
 
             if (veiculoOptional.isPresent()) {
                 Veiculo veiculo = veiculoOptional.get();
@@ -131,20 +125,13 @@ public class LeilaoService {
                     return modelMapper.map((Utilitario) veiculo, DadosExibicaoUtilitarioDTO.class);
                 }
             }
-        }
 
         return null;
     }
 
 
     public Object buscarDispositivoPorIdEmLeilao(Long leilaoId, Long dispositivoId) {
-        Optional<Leilao> leilaoOptional = leilaoRepository.findById(leilaoId);
-
-        if (leilaoOptional.isPresent()) {
-            Leilao leilao = leilaoOptional.get();
-            Optional<DispositivoInformatica> dispositivoOptional = leilao.getDispositivos().stream()
-                    .filter(dispositivo -> dispositivo.getId().equals(dispositivoId))
-                    .findFirst();
+        Optional<DispositivoInformatica> dispositivoOptional = dispositivoRepository.findByIdAndLeilaoId(dispositivoId, leilaoId);
 
             if (dispositivoOptional.isPresent()) {
                 DispositivoInformatica dispositivo = dispositivoOptional.get();
@@ -162,7 +149,6 @@ public class LeilaoService {
                     return modelMapper.map(dispositivo, dtoClass);
                 }
             }
-        }
 
         return null;
     }

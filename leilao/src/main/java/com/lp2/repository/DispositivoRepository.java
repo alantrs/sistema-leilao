@@ -4,6 +4,10 @@ import com.lp2.model.DispositivoInformatica;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 @Repository
 public interface DispositivoRepository<T extends DispositivoInformatica> extends JpaRepository<T, Long> {
+    Optional<DispositivoInformatica> findByIdAndLeilaoId(Long idDispositivo, Long idLeilao);
+
 }

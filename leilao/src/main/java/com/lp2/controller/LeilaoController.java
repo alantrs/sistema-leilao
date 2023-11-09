@@ -63,7 +63,7 @@ public class LeilaoController {
     }
 
     @Get(uri = "/produto/{idLeilao}/{idProduto}")
-    @Operation(summary = "Busca um produto de um leilão")
+    @Operation(summary = "Busca um produto de um leilão por id")
     public HttpResponse<Object> buscarProdutoLeilao(@PathVariable (value = "idLeilao") Long idLeilao, @PathVariable (value = "idProduto") Long idProduto, @QueryValue TipoProduto tipoProduto){
         return HttpResponse.ok().body(leilaoService.buscarProdutoLeilao(idLeilao, idProduto, tipoProduto));
     }
