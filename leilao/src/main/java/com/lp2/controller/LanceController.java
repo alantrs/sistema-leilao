@@ -20,7 +20,7 @@ public class LanceController {
     private LanceService lanceService;
 
     @Post(uri = "/realizar-lance-dispositivo/{idDispositivo}")
-    @Operation(summary = "Realizar lance")
+    @Operation(summary = "Realizar lance a um dispositivo")
     @Transactional
     public HttpResponse realizarLanceDispositivo(@PathVariable(value = "idDispositivo") Long idDispositivo, @Body DadosEntradaLanceDTO lance){
         lanceService.realizarLanceVeiculo(idDispositivo, lance);
@@ -28,7 +28,7 @@ public class LanceController {
     }
 
     @Post(uri = "/realizar-lance-veiculo/{idVeiculo}")
-    @Operation(summary = "Realizar lance")
+    @Operation(summary = "Realizar lance a um veiculo")
     @Transactional
     public HttpResponse realizarLance(@PathVariable(value = "idVeiculo") Long idVeiculo, @Body DadosEntradaLanceDTO lance){
         lanceService.realizarLanceVeiculo(idVeiculo, lance);

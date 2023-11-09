@@ -4,6 +4,7 @@ import com.lp2.dto.leilao.DadosAtualizacaoLeilaoDTO;
 import com.lp2.dto.leilao.DadosEntradaLeilaoDTO;
 import com.lp2.dto.leilao.DadosExibicaoDadosDetalhadosLeilaoDTO;
 import com.lp2.dto.leilao.DadosExibicaoDadosResumidosLeilaoDTO;
+import com.lp2.enums.TipoProduto;
 import com.lp2.service.LeilaoService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -59,5 +60,11 @@ public class LeilaoController {
     public HttpResponse<DadosExibicaoDadosResumidosLeilaoDTO> atualizarLeilao(@PathVariable(value = "idLeilao") Long idLeilao, DadosAtualizacaoLeilaoDTO atualizacao){
         DadosExibicaoDadosResumidosLeilaoDTO leilaoAtualizado = leilaoService.atualizarLeilao(idLeilao, atualizacao);
         return HttpResponse.ok().body(leilaoAtualizado);
+    }
+
+    @Get(uri = "/produto/{idLeilao}/{idProduto}")
+    @Operation(summary = "Busca um produto de um leilão")
+    public HttpResponse<Object> buscarProdutoLeilao(@PathVariable (value = "idLeilao") Long idLeilao, @PathVariable (value = "idProduto") Long idProduto, @QueryValue TipoProduto tipoProduto){
+        return HttpResponse.ok().body(leilaoService.buscarProdutoLeilao(idLeilao, idProduto, tipoProduto));
     }
 }
