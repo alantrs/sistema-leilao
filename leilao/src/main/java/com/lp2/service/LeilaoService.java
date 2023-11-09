@@ -1,9 +1,15 @@
 package com.lp2.service;
 
+import com.lp2.dto.dispositivo.*;
 import com.lp2.dto.leilao.DadosAtualizacaoLeilaoDTO;
 import com.lp2.dto.leilao.DadosEntradaLeilaoDTO;
 import com.lp2.dto.leilao.DadosExibicaoDadosDetalhadosLeilaoDTO;
 import com.lp2.dto.leilao.DadosExibicaoDadosResumidosLeilaoDTO;
+import com.lp2.dto.veiculo.DadosExibicaoCaminhaoDTO;
+import com.lp2.dto.veiculo.DadosExibicaoCarroDTO;
+import com.lp2.dto.veiculo.DadosExibicaoMotocicletaDTO;
+import com.lp2.dto.veiculo.DadosExibicaoUtilitarioDTO;
+import com.lp2.enums.TipoProduto;
 import com.lp2.model.*;
 import com.lp2.repository.DispositivoRepository;
 import com.lp2.repository.EntidadeFinanceiraRepository;
@@ -14,6 +20,7 @@ import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Singleton
@@ -81,4 +88,85 @@ public class LeilaoService {
         leilaoRepository.update(leilaoAtualizado);
         return new DadosExibicaoDadosResumidosLeilaoDTO(leilaoAtualizado);
     }
+
+    public Object buscarProdutoLeilao(Long idLeilão, Long idProduto, TipoProduto tipoProduto){
+        if (tipoProduto == TipoProduto.DISPOSITIVO){
+            return buscarDispositivoPorIdEmLeilao(idLeilão, idProduto);
+        } else if (tipoProduto == TipoProduto.VEICULO) {
+            return buscarVeiculoPorIdEmLeilao(idLeilão, idProduto);
+        }
+        return null;
+    }
+
+    private Object buscarVeiculoPorIdEmLeilao(Long idLeilao, Long veiculoId) {
+        Optional<Leilao> leilaoOptional = leilaoRepository.findById(idLeilao);
+
+        if (leilaoOptional.isPresent()) {
+            Leilao leilao = leilaoOptional.get();
+            Optional<Veiculo> veiculoOptional = leilao.getVeiculos().stream()
+                    .filter(veiculo -> veiculo.getId().equals(veiculoId))
+                    .findFirst();
+
+            if (veiculoOptional.isPresent()) {
+                Veiculo veiculo = veiculoOptional.get();
+                Map<Class<? extends Veiculo>, Class<?>> veiculoDto = Map.of(
+                        Carro.class, DadosExibicaoCarroDTO.class,
+                        Caminhao.class, DadosExibicaoCaminhaoDTO.class,
+                        Utilitario.class, DadosExibicaoUtilitarioDTO.class,
+                        Motocicleta.class, DadosExibicaoMotocicletaDTO.class
+                );
+
+                Class<?> dtoClass = veiculoDto.get(veiculo.getClass());
+
+                if (dtoClass != null) {
+                    return modelMapper.map(veiculo, dtoClass);
+                }
+                if (veiculo instanceof Carro) {
+                    return modelMapper.map((Carro) veiculo, DadosExibicaoCarroDTO.class);
+                } else if (veiculo instanceof Caminhao) {
+                    return modelMapper.map((Caminhao) veiculo, DadosExibicaoCaminhaoDTO.class);
+                } else if (veiculo instanceof Motocicleta) {
+                    return modelMapper.map((Motocicleta) veiculo, DadosExibicaoMotocicletaDTO.class);
+                } else if (veiculo instanceof Utilitario) {
+                    return modelMapper.map((Utilitario) veiculo, DadosExibicaoUtilitarioDTO.class);
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+    public Object buscarDispositivoPorIdEmLeilao(Long leilaoId, Long dispositivoId) {
+        Optional<Leilao> leilaoOptional = leilaoRepository.findById(leilaoId);
+
+        if (leilaoOptional.isPresent()) {
+            Leilao leilao = leilaoOptional.get();
+            Optional<DispositivoInformatica> dispositivoOptional = leilao.getDispositivos().stream()
+                    .filter(dispositivo -> dispositivo.getId().equals(dispositivoId))
+                    .findFirst();
+
+            if (dispositivoOptional.isPresent()) {
+                DispositivoInformatica dispositivo = dispositivoOptional.get();
+                Map<Class<? extends DispositivoInformatica>, Class<?>> dispositivoToDtoMap = Map.of(
+                        Notebook.class, DadosExibicaoNotebookDTO.class,
+                        Hub.class, DadosExibicaoHubDTO.class,
+                        Roteador.class, DadosExibicaoRoteadorDTO.class,
+                        Monitor.class, DadosExibicaoMonitorDTO.class,
+                        Switch.class, DadosExibicaoSwitchDTO.class
+                );
+
+                Class<?> dtoClass = dispositivoToDtoMap.get(dispositivo.getClass());
+
+                if (dtoClass != null) {
+                    return modelMapper.map(dispositivo, dtoClass);
+                }
+            }
+        }
+
+        return null;
+    }
+
+
+
 }
