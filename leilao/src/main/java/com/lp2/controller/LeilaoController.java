@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller(value = "/leiloes")
@@ -39,7 +40,7 @@ public class LeilaoController {
     }
 
     @Get(uri = "/buscar/{idLeilao}")
-    @Operation(summary = "Buscar um leilao pelo id, mostrando mais detalhes como veiculos/dispositivos ordenados por nome, entidade financeira")
+    @Operation(summary = "Buscar um leilao pelo id, mostrando mais detalhes como produtos (ordenados por nome) e entidades financeiras")
     @Transactional
     public HttpResponse<DadosExibicaoDadosDetalhadosLeilaoDTO> buscarLeilao(@PathVariable(value = "idLeilao") Long idLeilao){
         DadosExibicaoDadosDetalhadosLeilaoDTO leilaoEncontrado = leilaoService.exibirInformacoesLeilao(idLeilao);
@@ -63,8 +64,14 @@ public class LeilaoController {
     }
 
     @Get(uri = "/produto/{idLeilao}/{idProduto}")
-    @Operation(summary = "Busca um produto de um leilão por id")
+    @Operation(summary = "Busca um produto de um leilao por id")
     public HttpResponse<Object> buscarProdutoLeilao(@PathVariable (value = "idLeilao") Long idLeilao, @PathVariable (value = "idProduto") Long idProduto, @QueryValue TipoProduto tipoProduto){
         return HttpResponse.ok().body(leilaoService.buscarProdutoLeilao(idLeilao, idProduto, tipoProduto));
+    }
+
+    @Get(uri = "/produto/{idLeilao}")
+    @Operation(summary = "Busca produtos de um leilao por faixa de valores de lance inicial")
+    public HttpResponse<Object> buscarProdutoLeilaoFaixaValor(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue BigDecimal min, @QueryValue BigDecimal max){
+        return HttpResponse.ok().body(leilaoService.buscarProdutosPorFaixaValor(idLeilao, min, max));
     }
 }

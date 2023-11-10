@@ -5,6 +5,8 @@ import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Serdeable.Serializable
 @Getter
 @Setter
@@ -17,6 +19,8 @@ public class DadosExibicaoVeiculoDTO {
     private String renavam;
     private String chassi;
 
+    public BigDecimal valorInical;
+
     public DadosExibicaoVeiculoDTO(){
     }
 
@@ -27,5 +31,6 @@ public class DadosExibicaoVeiculoDTO {
         this.ano = veiculo.getAno();
         this.renavam = veiculo.getRenavam();
         this.chassi = veiculo.getChassi();
+        this.valorInical = veiculo.getValorInicial();
     }
 }

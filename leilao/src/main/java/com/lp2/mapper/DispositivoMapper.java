@@ -23,7 +23,7 @@ public class DispositivoMapper {
         );
     }
 
-    public Object mapearDispositivosParaDTO(DispositivoInformatica dispositivo) {
+    public Object mapearDispositivoParaDTO(DispositivoInformatica dispositivo) {
         Class<?> dtoClass = dispositivoToDtoMap.get(dispositivo.getClass());
 
         if (dtoClass != null) {

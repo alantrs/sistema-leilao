@@ -22,6 +22,7 @@ import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -92,7 +93,7 @@ public class LeilaoService {
             leilaoAtualizado.setEntidadesFinanceira(leilao.get().getEntidadesFinanceira());
         }
         leilaoRepository.update(leilaoAtualizado);
-        return new DadosExibicaoDadosResumidosLeilaoDTO(leilaoAtualizado);
+        return modelMapper.map(leilaoAtualizado, DadosExibicaoDadosResumidosLeilaoDTO.class);
     }
 
     public Object buscarProdutoLeilao(Long idLeilão, Long idProduto, TipoProduto tipoProduto){
@@ -115,22 +116,27 @@ public class LeilaoService {
         return null;
     }
 
-
-
     private Object buscarDispositivoPorIdEmLeilao(Long leilaoId, Long dispositivoId) {
         Optional<DispositivoInformatica> dispositivoOptional = dispositivoRepository.findByIdAndLeilaoId(dispositivoId, leilaoId);
 
             if (dispositivoOptional.isPresent()) {
                 DispositivoInformatica dispositivo = dispositivoOptional.get();
-                return dispositivoMapper.mapearDispositivosParaDTO(dispositivo);
+                return dispositivoMapper.mapearDispositivoParaDTO(dispositivo);
             }
 
         return null;
     }
 
+    public List<Object> buscarProdutosPorFaixaValor(Long idLeilao, BigDecimal min, BigDecimal max) {
+        List<Object> produtos = new ArrayList<>();
 
-//    public List<Object> buscarProdutosPorFaixaValor(Long idLeilao, BigDecimal min, BigDecimal max){
-//        List<Object> produtos = buscar produtos(veiculos e dispositivos) de acordo com o valor min e max, esse valor equivale ao campo valorInicial da entidade veiculo e entidade dispositivo
-//    }
+        veiculoRepository.findByLeilaoIdAndValorInicialBetween(idLeilao, min, max)
+                .forEach(veiculo -> produtos.add(veiculoMapper.mapearVeiculoParaDTO(veiculo)));
+
+        dispositivoRepository.findByLeilaoIdAndValorInicialBetween(idLeilao, min, max)
+                .forEach(dispositivo -> produtos.add(dispositivoMapper.mapearDispositivoParaDTO(dispositivo)));
+
+        return produtos;
+    }
 
 }

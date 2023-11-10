@@ -5,6 +5,8 @@ import com.lp2.model.Veiculo;
 import io.micronaut.data.annotation.Repository;
 import io.micronaut.data.jpa.repository.JpaRepository;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -12,4 +14,5 @@ public interface VeiculoRepository<T extends Veiculo> extends JpaRepository<T, L
 
     Optional<Veiculo> findByIdAndLeilaoId(Long idVeiculo, Long idLeilao);
 
+    List<T> findByLeilaoIdAndValorInicialBetween(Long idLeilao, BigDecimal min, BigDecimal max);
 }
