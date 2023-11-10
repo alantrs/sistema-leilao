@@ -10,6 +10,8 @@ import com.lp2.dto.veiculo.DadosExibicaoCarroDTO;
 import com.lp2.dto.veiculo.DadosExibicaoMotocicletaDTO;
 import com.lp2.dto.veiculo.DadosExibicaoUtilitarioDTO;
 import com.lp2.enums.TipoProduto;
+import com.lp2.mapper.DispositivoMapper;
+import com.lp2.mapper.VeiculoMapper;
 import com.lp2.model.*;
 import com.lp2.repository.DispositivoRepository;
 import com.lp2.repository.EntidadeFinanceiraRepository;
@@ -19,6 +21,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -31,9 +34,12 @@ public class LeilaoService {
     @Inject
     private DispositivoRepository<DispositivoInformatica> dispositivoRepository;
     @Inject
-    private VeiculoRepository veiculoRepository;
+    private VeiculoRepository<Veiculo> veiculoRepository;
 
     ModelMapper modelMapper = new ModelMapper();
+    VeiculoMapper veiculoMapper = new VeiculoMapper(modelMapper);
+    DispositivoMapper dispositivoMapper = new DispositivoMapper(modelMapper);
+
     @Inject
     private EntidadeFinanceiraRepository entidadeFinanceiraRepository;
 
@@ -101,58 +107,30 @@ public class LeilaoService {
     private Object buscarVeiculoPorIdEmLeilao(Long idLeilao, Long veiculoId) {
         Optional<Veiculo> veiculoOptional = veiculoRepository.findByIdAndLeilaoId(veiculoId, idLeilao);
 
-            if (veiculoOptional.isPresent()) {
-                Veiculo veiculo = veiculoOptional.get();
-                Map<Class<? extends Veiculo>, Class<?>> veiculoDto = Map.of(
-                        Carro.class, DadosExibicaoCarroDTO.class,
-                        Caminhao.class, DadosExibicaoCaminhaoDTO.class,
-                        Utilitario.class, DadosExibicaoUtilitarioDTO.class,
-                        Motocicleta.class, DadosExibicaoMotocicletaDTO.class
-                );
-
-                Class<?> dtoClass = veiculoDto.get(veiculo.getClass());
-
-                if (dtoClass != null) {
-                    return modelMapper.map(veiculo, dtoClass);
-                }
-                if (veiculo instanceof Carro) {
-                    return modelMapper.map((Carro) veiculo, DadosExibicaoCarroDTO.class);
-                } else if (veiculo instanceof Caminhao) {
-                    return modelMapper.map((Caminhao) veiculo, DadosExibicaoCaminhaoDTO.class);
-                } else if (veiculo instanceof Motocicleta) {
-                    return modelMapper.map((Motocicleta) veiculo, DadosExibicaoMotocicletaDTO.class);
-                } else if (veiculo instanceof Utilitario) {
-                    return modelMapper.map((Utilitario) veiculo, DadosExibicaoUtilitarioDTO.class);
-                }
-            }
+        if (veiculoOptional.isPresent()) {
+            Veiculo veiculo = veiculoOptional.get();
+            return veiculoMapper.mapearVeiculoParaDTO(veiculo);
+        }
 
         return null;
     }
 
 
-    public Object buscarDispositivoPorIdEmLeilao(Long leilaoId, Long dispositivoId) {
+
+    private Object buscarDispositivoPorIdEmLeilao(Long leilaoId, Long dispositivoId) {
         Optional<DispositivoInformatica> dispositivoOptional = dispositivoRepository.findByIdAndLeilaoId(dispositivoId, leilaoId);
 
             if (dispositivoOptional.isPresent()) {
                 DispositivoInformatica dispositivo = dispositivoOptional.get();
-                Map<Class<? extends DispositivoInformatica>, Class<?>> dispositivoToDtoMap = Map.of(
-                        Notebook.class, DadosExibicaoNotebookDTO.class,
-                        Hub.class, DadosExibicaoHubDTO.class,
-                        Roteador.class, DadosExibicaoRoteadorDTO.class,
-                        Monitor.class, DadosExibicaoMonitorDTO.class,
-                        Switch.class, DadosExibicaoSwitchDTO.class
-                );
-
-                Class<?> dtoClass = dispositivoToDtoMap.get(dispositivo.getClass());
-
-                if (dtoClass != null) {
-                    return modelMapper.map(dispositivo, dtoClass);
-                }
+                return dispositivoMapper.mapearDispositivosParaDTO(dispositivo);
             }
 
         return null;
     }
 
 
+//    public List<Object> buscarProdutosPorFaixaValor(Long idLeilao, BigDecimal min, BigDecimal max){
+//        List<Object> produtos = buscar produtos(veiculos e dispositivos) de acordo com o valor min e max, esse valor equivale ao campo valorInicial da entidade veiculo e entidade dispositivo
+//    }
 
 }

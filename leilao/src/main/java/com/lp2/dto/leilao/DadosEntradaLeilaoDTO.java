@@ -16,8 +16,6 @@ public class DadosEntradaLeilaoDTO {
     private LocalDateTime dataOcorrencia;
     private LocalDateTime dataEncerramento;
     private LocalDateTime dataVisitacao;
-    private BigDecimal valorMinimo;
     private String local;
     private List<Long> idEntidadesFinanceiras;
-
 }

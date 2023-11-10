@@ -15,7 +15,6 @@ public class DadosAtualizacaoLeilaoDTO {
     private LocalDateTime dataOcorrencia;
     private LocalDateTime dataEncerramento;
     private LocalDateTime dataVisitacao;
-    private BigDecimal valorMinimo;
     private String local;
 
 }

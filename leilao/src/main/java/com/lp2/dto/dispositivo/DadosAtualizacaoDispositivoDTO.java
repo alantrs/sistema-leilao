@@ -5,6 +5,8 @@ import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Serdeable.Deserializable
 @Getter
 @Setter
@@ -15,5 +17,5 @@ public class DadosAtualizacaoDispositivoDTO {
     private Integer ano;
     private Condicao condicao;
     private Integer quantidade;
-
+    private BigDecimal valorInicial;
 }
