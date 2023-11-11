@@ -1,9 +1,7 @@
 package com.lp2.service;
 
-import com.lp2.dto.leilao.DadosAtualizacaoLeilaoDTO;
-import com.lp2.dto.leilao.DadosEntradaLeilaoDTO;
-import com.lp2.dto.leilao.DadosExibicaoDadosDetalhadosLeilaoDTO;
-import com.lp2.dto.leilao.DadosExibicaoDadosResumidosLeilaoDTO;
+import com.lp2.dto.leilao.*;
+import com.lp2.enums.StatusLeilao;
 import com.lp2.enums.TipoProduto;
 import com.lp2.mapper.DispositivoMapper;
 import com.lp2.mapper.VeiculoMapper;
@@ -51,9 +49,12 @@ public class LeilaoService {
         return leiloes.stream().map(leilao-> modelMapper.map(leilao, DadosExibicaoDadosResumidosLeilaoDTO.class)).toList();
     }
 
-    public DadosExibicaoDadosDetalhadosLeilaoDTO exibirInformacoesLeilao(Long idLeilao){
+    public Object exibirInformacoesLeilao(Long idLeilao){
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
-        return new DadosExibicaoDadosDetalhadosLeilaoDTO(leilao.get());
+        if (!leilao.get().getStatusLeilao().equals(StatusLeilao.FINALIZADO)){
+            return new DadosExibicaoDadosDetalhadosLeilaoDTO(leilao.get());
+        }
+        return new DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO(leilao.get());
     }
 
     /* tive que fazer esse metodo de delete assim

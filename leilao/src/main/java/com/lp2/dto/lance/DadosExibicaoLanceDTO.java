@@ -1,7 +1,5 @@
 package com.lp2.dto.lance;
 
-import com.lp2.dto.cliente.DadosExibicaoClienteDTO;
-import com.lp2.dto.leilao.DadosExibicaoDadosDetalhadosLeilaoDTO;
 import com.lp2.model.Lance;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
