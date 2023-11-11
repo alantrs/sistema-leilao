@@ -14,6 +14,8 @@ public class DadosExibicaoClienteDTO {
     private String nome;
     private String documentoCpfCnpj;
 
+    public DadosExibicaoClienteDTO(){}
+
     public DadosExibicaoClienteDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();

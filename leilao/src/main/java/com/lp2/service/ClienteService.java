@@ -7,6 +7,7 @@ import com.lp2.dto.cliente.DadosExibicaoClienteDTO;
 import com.lp2.repository.ClienteRepository;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +17,17 @@ public class ClienteService {
 
     @Inject
     private ClienteRepository clienteRepository;
+    ModelMapper modelMapper = new ModelMapper();
 
     public DadosExibicaoClienteDTO salvarCliente(DadosEntradaClienteDTO cadastro){
         Cliente cliente = new Cliente(cadastro);
         clienteRepository.save(cliente);
-        return new DadosExibicaoClienteDTO(cliente);
+        return modelMapper.map(cliente, DadosExibicaoClienteDTO.class);
     }
 
     public List<DadosExibicaoClienteDTO> listarClientes(){
         List<Cliente> clientes = clienteRepository.findAll();
-        return clientes.stream().map(cliente -> new DadosExibicaoClienteDTO(cliente)).toList();
+        return clientes.stream().map(cliente -> modelMapper.map(cliente, DadosExibicaoClienteDTO.class)).toList();
     }
 
     public DadosExibicaoClienteDTO atualizarCliente(Long idCliente, DadosAtualizacaoClienteDTO atualizacao){
@@ -33,7 +35,7 @@ public class ClienteService {
 
         Cliente cliente = new Cliente(clienteEncontrado.get(), atualizacao);
         clienteRepository.update(cliente);
-        return new DadosExibicaoClienteDTO(cliente);
+        return modelMapper.map(cliente, DadosExibicaoClienteDTO.class);
     }
 
     public void deletarCLiente(Long idCliente){
