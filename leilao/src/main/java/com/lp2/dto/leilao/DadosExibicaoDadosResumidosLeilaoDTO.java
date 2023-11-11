@@ -29,7 +29,6 @@ public class DadosExibicaoDadosResumidosLeilaoDTO {
         this.dataOcorrencia = leilao.getDataOcorrencia();
         this.dataEncerramento = leilao.getDataEncerramento();
         this.dataVisitacao = leilao.getDataVisitacao();
-        this.valorMinimo = leilao.getValorMinimo();
         this.local = leilao.getLocal();
         this.statusLeilao = leilao.getStatusLeilao();
     }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -24,6 +25,7 @@ public class DispositivoInformatica implements Serializable {
     private Integer ano;
     private Condicao condicao;
     private Integer quantidade;
+    private BigDecimal valorInicial;
 
     @ManyToOne
     @JoinColumn(name = "id_leilao")
@@ -40,6 +42,7 @@ public class DispositivoInformatica implements Serializable {
         this.ano = cadastro.getAno();
         this.condicao = cadastro.getCondicao();
         this.quantidade = cadastro.getQuantidade();
+        this.valorInicial = cadastro.getValorInicial();
     }
 
     public DispositivoInformatica(DispositivoInformatica dispositivo, DadosAtualizacaoDispositivoDTO atualizacao){
@@ -49,6 +52,7 @@ public class DispositivoInformatica implements Serializable {
         this.ano = atualizacao.getAno() != null ? atualizacao.getAno() : dispositivo.getAno();
         this.condicao = atualizacao.getCondicao() != null ? atualizacao.getCondicao() : dispositivo.getCondicao();
         this.quantidade = atualizacao.getQuantidade() != null ? atualizacao.getQuantidade() : dispositivo.getQuantidade();
+        this.valorInicial = atualizacao.getValorInicial() != null ? atualizacao.getValorInicial() : dispositivo.getValorInicial();
         this.leilao = dispositivo.getLeilao();
     }
 

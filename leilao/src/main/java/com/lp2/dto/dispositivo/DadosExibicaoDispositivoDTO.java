@@ -6,6 +6,8 @@ import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Serdeable.Serializable
 @Getter
 @Setter
@@ -17,6 +19,7 @@ public class DadosExibicaoDispositivoDTO {
     private Integer ano;
     private Condicao condicao;
     private Integer quantidade;
+    public BigDecimal valorInical;
 
     public DadosExibicaoDispositivoDTO(){}
     public DadosExibicaoDispositivoDTO(DispositivoInformatica dispositivoInformatica){
@@ -26,6 +29,7 @@ public class DadosExibicaoDispositivoDTO {
         this.ano = dispositivoInformatica.getAno();
         this.condicao = dispositivoInformatica.getCondicao();
         this.quantidade = dispositivoInformatica.getQuantidade();
+        this.valorInical = dispositivoInformatica.getValorInicial();
     }
 
 }

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -23,6 +24,7 @@ public class Veiculo implements Serializable {
     private Integer ano;
     private String renavam;
     private String chassi;
+    private BigDecimal valorInicial;
 
     @ManyToOne
     @JoinColumn(name = "id_leilao")
@@ -39,6 +41,7 @@ public class Veiculo implements Serializable {
         this.ano = cadastro.getAno();
         this.renavam = cadastro.getRenavam();
         this.chassi = cadastro.getChassi();
+        this.valorInicial = cadastro.getValorInicial();
     }
 
     public Veiculo(Veiculo veiculo, DadosAtualizacaoVeiculoDTO atualizacao){
@@ -48,5 +51,7 @@ public class Veiculo implements Serializable {
         this.ano = atualizacao.getAno() != null ? atualizacao.getAno() : veiculo.getAno();
         this.renavam = atualizacao.getRenavam() != null ? atualizacao.getRenavam() : veiculo.getRenavam();
         this.chassi = atualizacao.getChassi() != null ? atualizacao.getChassi() : veiculo.getChassi();
+        this.valorInicial = atualizacao.getValorInicial() != null ? atualizacao.getValorInicial() : veiculo.getValorInicial();
+        this.leilao = veiculo.getLeilao();
     }
 }

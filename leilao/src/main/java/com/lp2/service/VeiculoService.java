@@ -3,6 +3,7 @@ package com.lp2.service;
 import com.lp2.dto.dispositivo.DadosExibicaoSwitchDTO;
 import com.lp2.dto.veiculo.*;
 import com.lp2.exception.CustomException;
+import com.lp2.mapper.VeiculoMapper;
 import com.lp2.model.*;
 import com.lp2.repository.LeilaoRepository;
 import com.lp2.repository.VeiculoRepository;
@@ -10,6 +11,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -30,6 +32,7 @@ public class VeiculoService {
     @Inject
     private LeilaoRepository leilaoRepository;
     ModelMapper modelMapper = new ModelMapper();
+    VeiculoMapper veiculoMapper = new VeiculoMapper(modelMapper);
 
     public DadosExibicaoCarroDTO registrarVeiculoCarro(DadosEntradaCarroDTO cadastro){
         Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
@@ -64,15 +67,13 @@ public class VeiculoService {
     }
 
     public List<Object> listarVeiculos(){
-        return veiculoRepository.findAll().stream()
-                .map(veiculo -> veiculo instanceof Carro ?
-                        modelMapper.map((Carro) veiculo, DadosExibicaoCarroDTO.class) :
-                        veiculo instanceof Caminhao ?
-                                modelMapper.map((Caminhao) veiculo, DadosExibicaoCaminhaoDTO.class) :
-                                veiculo instanceof Motocicleta ?
-                                        modelMapper.map((Motocicleta) veiculo, DadosExibicaoMotocicletaDTO.class) :
-                                        modelMapper.map((Utilitario) veiculo, DadosExibicaoUtilitarioDTO.class))
-                .collect(Collectors.toList());
+        List<Object> veiculosDTO = new ArrayList<>();
+
+        veiculoRepository.findAll().forEach(veiculo -> {
+            Object veiculoDTO = veiculoMapper.mapearVeiculoParaDTO(veiculo);
+            veiculosDTO.add(veiculoDTO);
+        });
+        return veiculosDTO;
     }
 
     public DadosExibicaoCarroDTO atualizarVeiculoCarro(Long idVeiculo, DadosAtualizacaoCarroDTO atualizacaoCarro){
@@ -128,7 +129,7 @@ public class VeiculoService {
         Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
 
         if (!veiculo.get().getLances().isEmpty()){
-            throw new CustomException("Ação não permitida. Esse veiculo ja recebeu lance");
+            throw new CustomException("Acao nao permitida. Esse veiculo ja recebeu lance");
         }else {
             veiculo.get().setLeilao(leilaoEncontrado.get());
             veiculoRepository.update(veiculo.get());

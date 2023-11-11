@@ -23,7 +23,6 @@ public class Leilao {
     private LocalDateTime dataOcorrencia;
     private LocalDateTime dataEncerramento;
     private LocalDateTime dataVisitacao;
-    private BigDecimal valorMinimo;
     private String local;
     private StatusLeilao statusLeilao;
 
@@ -47,7 +46,6 @@ public class Leilao {
         this.dataOcorrencia = cadastro.getDataOcorrencia();
         this.dataEncerramento = cadastro.getDataEncerramento();
         this.dataVisitacao = cadastro.getDataVisitacao();
-        this.valorMinimo = cadastro.getValorMinimo();
         this.local =cadastro.getLocal();
         this.statusLeilao = StatusLeilao.EM_ABERTO;
     }
@@ -57,7 +55,6 @@ public class Leilao {
         this.dataOcorrencia = atualizacaoLeilaoDTO.getDataOcorrencia() != null ? atualizacaoLeilaoDTO.getDataOcorrencia() : leilao.getDataOcorrencia();
         this.dataEncerramento = atualizacaoLeilaoDTO.getDataEncerramento() != null ? atualizacaoLeilaoDTO.getDataEncerramento() : leilao.getDataEncerramento();
         this.dataVisitacao = atualizacaoLeilaoDTO.getDataVisitacao() != null ? atualizacaoLeilaoDTO.getDataVisitacao() : leilao.getDataVisitacao();
-        this.valorMinimo = atualizacaoLeilaoDTO.getValorMinimo() != null ? atualizacaoLeilaoDTO.getValorMinimo() : leilao.getValorMinimo();
         this.local = atualizacaoLeilaoDTO.getLocal() != null ? atualizacaoLeilaoDTO.getLocal() : leilao.getLocal();
         this.entidadesFinanceira = leilao.getEntidadesFinanceira();
     }

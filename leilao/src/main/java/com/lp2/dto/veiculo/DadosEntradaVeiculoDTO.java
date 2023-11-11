@@ -4,6 +4,8 @@ import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Serdeable.Deserializable
 @Getter
 @Setter
@@ -15,4 +17,5 @@ public class DadosEntradaVeiculoDTO {
     private String renavam;
     private String chassi;
     private Long idLeilao;
+    private BigDecimal valorInicial;
 }

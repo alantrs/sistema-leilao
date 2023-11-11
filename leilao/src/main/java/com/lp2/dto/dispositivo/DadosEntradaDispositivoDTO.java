@@ -5,6 +5,8 @@ import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Serdeable.Deserializable
 @Getter
 @Setter
@@ -16,5 +18,5 @@ public class DadosEntradaDispositivoDTO {
     private Condicao condicao;
     private Integer quantidade;
     private Long idLeilao;
-
+    private BigDecimal valorInicial;
 }

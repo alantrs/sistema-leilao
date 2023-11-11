@@ -2,6 +2,7 @@ package com.lp2.service;
 
 import com.lp2.dto.dispositivo.*;
 import com.lp2.exception.CustomException;
+import com.lp2.mapper.DispositivoMapper;
 import com.lp2.model.*;
 import com.lp2.repository.DispositivoRepository;
 import com.lp2.repository.LeilaoRepository;
@@ -9,6 +10,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +34,8 @@ public class DispositivoService {
     private LeilaoRepository leilaoRepository;
 
     ModelMapper modelMapper = new ModelMapper();
+
+    DispositivoMapper dispositivoMapper = new DispositivoMapper(modelMapper);
 
     public DadosExibicaoNotebookDTO registrarDispositivoNotebook(DadosEntradaNotebookDTO cadastro){
         Optional<Leilao> leilao = leilaoRepository.findById(cadastro.getIdLeilao());
@@ -74,18 +78,18 @@ public class DispositivoService {
     }
 
     public List<Object> listarDispositivos() {
-        return dispositivoRepository.findAll().stream()
-                .map(dispositivo -> dispositivo instanceof Notebook ?
-                        modelMapper.map((Notebook) dispositivo, DadosExibicaoNotebookDTO.class) :
-                        dispositivo instanceof Hub ?
-                                modelMapper.map((Hub) dispositivo, DadosExibicaoHubDTO.class) :
-                                dispositivo instanceof Roteador ?
-                                        modelMapper.map((Roteador) dispositivo, DadosExibicaoRoteadorDTO.class) :
-                                        dispositivo instanceof Monitor ?
-                                                modelMapper.map((Monitor) dispositivo, DadosExibicaoMonitorDTO.class) :
-                                                modelMapper.map((Switch) dispositivo, DadosExibicaoSwitchDTO.class))
-                .collect(Collectors.toList());
+        List<Object> dispositivosDTO = new ArrayList<>();
+
+        dispositivoRepository.findAll().forEach(dispositivoInformatica -> {
+            Object dispositivoDTO = dispositivoMapper.mapearDispositivoParaDTO(dispositivoInformatica);
+            if (dispositivoDTO != null) {
+                dispositivosDTO.add(dispositivoDTO);
+            }
+        });
+
+        return dispositivosDTO;
     }
+
 
     public DadosExibicaoNotebookDTO atualizarDispositivoNotebook(Long idDispositivo, DadosAtualizacaoNotebookDTO atualizacaoNotebook){
         Object dispositivoEncontrado = notebookRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("dispositivo não existe"));
@@ -156,7 +160,7 @@ public class DispositivoService {
         Optional<Leilao> leilaoEncontrado = leilaoRepository.findById(idLeilao);
 
         if (!dispositivoEncontrado.getLances().isEmpty()){
-            throw new CustomException("Ação não permitida. Esse dispositivo ja recebeu lance");
+            throw new CustomException("Acao nao permitida. Esse dispositivo ja recebeu lance");
         }
 
         dispositivoEncontrado.setLeilao(leilaoEncontrado.get());
