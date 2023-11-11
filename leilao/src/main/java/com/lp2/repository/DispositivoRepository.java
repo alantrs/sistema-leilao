@@ -13,4 +13,7 @@ public interface DispositivoRepository<T extends DispositivoInformatica> extends
     Optional<DispositivoInformatica> findByIdAndLeilaoId(Long idDispositivo, Long idLeilao);
 
     List<T> findByLeilaoIdAndValorInicialBetween(Long idLeilao, BigDecimal min, BigDecimal max);
+
+    List<DispositivoInformatica> findAllByLeilaoIdAndNomeContaining(Long idLeilao, String nome);
+
 }

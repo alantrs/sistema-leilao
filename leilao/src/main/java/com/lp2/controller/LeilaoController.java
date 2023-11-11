@@ -6,6 +6,7 @@ import com.lp2.dto.leilao.DadosExibicaoDadosDetalhadosLeilaoDTO;
 import com.lp2.dto.leilao.DadosExibicaoDadosResumidosLeilaoDTO;
 import com.lp2.enums.TipoProduto;
 import com.lp2.service.LeilaoService;
+import io.micronaut.data.annotation.Query;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
@@ -69,9 +70,15 @@ public class LeilaoController {
         return HttpResponse.ok().body(leilaoService.buscarProdutoLeilao(idLeilao, idProduto, tipoProduto));
     }
 
-    @Get(uri = "/produto/{idLeilao}")
+    @Get(uri = "/produto-idLeilao/{idLeilao}")
     @Operation(summary = "Busca produtos de um leilao por faixa de valores de lance inicial")
     public HttpResponse<Object> buscarProdutoLeilaoFaixaValor(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue BigDecimal min, @QueryValue BigDecimal max){
         return HttpResponse.ok().body(leilaoService.buscarProdutosPorFaixaValor(idLeilao, min, max));
+    }
+
+    @Get(uri = "/produto-nome/{idLeilao}")
+    @Operation(summary = "Busca produtos de um leilao por nome ou palavra chave")
+    public HttpResponse<Object> buscarProdutoLeilaoPorNome(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue String nome){
+        return HttpResponse.ok().body(leilaoService.buscarProdutoPorNome(idLeilao, nome));
     }
 }

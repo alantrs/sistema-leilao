@@ -139,4 +139,16 @@ public class LeilaoService {
         return produtos;
     }
 
+    public List<Object> buscarProdutoPorNome(Long idLeilao, String nome){
+        List<Object> produtos = new ArrayList<>();
+
+        veiculoRepository.findAllByLeilaoIdAndModeloContaining(idLeilao, nome)
+                .forEach(veiculo -> produtos.add(veiculoMapper.mapearVeiculoParaDTO(veiculo)));
+
+        dispositivoRepository.findAllByLeilaoIdAndNomeContaining(idLeilao, nome)
+                .forEach(dispositivo -> produtos.add(dispositivoMapper.mapearDispositivoParaDTO(dispositivo)));
+
+        return produtos;
+    }
+
 }
