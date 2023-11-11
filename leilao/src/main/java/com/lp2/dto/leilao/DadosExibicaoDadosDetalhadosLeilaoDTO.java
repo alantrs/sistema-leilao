@@ -7,6 +7,7 @@ import com.lp2.enums.StatusLeilao;
 import com.lp2.model.DispositivoInformatica;
 import com.lp2.model.Leilao;
 import com.lp2.model.Veiculo;
+import com.lp2.util.CalculoStatusLeilao;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,7 @@ public class DadosExibicaoDadosDetalhadosLeilaoDTO {
         this.dataVisitacao = leilao.getDataVisitacao();
         this.local = leilao.getLocal();
         this.statusLeilao = leilao.getStatusLeilao();
+        this.statusLeilao = CalculoStatusLeilao.calcularStatusLeilao(LocalDateTime.now(), leilao);
         if (!leilao.getDispositivos().isEmpty()) {
             this.dispositivos = leilao.getDispositivos().stream()
                     .sorted(Comparator.comparing(DispositivoInformatica::getNome))
