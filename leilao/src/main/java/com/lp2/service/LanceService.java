@@ -22,8 +22,8 @@ public class LanceService {
     private VeiculoRepository<Veiculo> veiculoRepository;
 
     public void realizarLanceDispositivo(Long idDispositivo, DadosEntradaLanceDTO lance){
-        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente não existe"));
-        DispositivoInformatica dispositivoInformatica = dispositivoRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("Dispositivo não existe"));
+        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente nao existe"));
+        DispositivoInformatica dispositivoInformatica = dispositivoRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("Dispositivo nao existe"));
 
         Lance lanceRealizado = new Lance(lance);
         lanceRealizado.setCliente(cliente);
@@ -32,8 +32,8 @@ public class LanceService {
     }
 
     public void realizarLanceVeiculo(Long idVeiculo, DadosEntradaLanceDTO lance){
-        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente não existe"));
-        Veiculo veiculoEncontrado = veiculoRepository.findById(idVeiculo).orElseThrow(() -> new CustomException("Veiculo não existe"));
+        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente nao existe"));
+        Veiculo veiculoEncontrado = veiculoRepository.findById(idVeiculo).orElseThrow(() -> new CustomException("Veiculo nao existe"));
 
         Lance lanceRealizado = new Lance(lance);
         lanceRealizado.setCliente(cliente);

@@ -16,4 +16,5 @@ public interface DispositivoRepository<T extends DispositivoInformatica> extends
 
     List<DispositivoInformatica> findAllByLeilaoIdAndNomeContaining(Long idLeilao, String nome);
 
+    List<DispositivoInformatica> findAllByLeilaoId(Long idLeilao);
 }

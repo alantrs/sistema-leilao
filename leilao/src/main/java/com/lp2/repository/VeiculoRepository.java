@@ -20,4 +20,5 @@ public interface VeiculoRepository<T extends Veiculo> extends JpaRepository<T, L
 
     List<Veiculo> findAllByLeilaoIdAndModeloContaining(Long idLeilao, String nome);
 
+    List<Veiculo> findAllByLeilaoId(Long idLeilao);
 }

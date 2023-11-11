@@ -6,7 +6,6 @@ import com.lp2.dto.leilao.DadosExibicaoDadosDetalhadosLeilaoDTO;
 import com.lp2.dto.leilao.DadosExibicaoDadosResumidosLeilaoDTO;
 import com.lp2.enums.TipoProduto;
 import com.lp2.service.LeilaoService;
-import io.micronaut.data.annotation.Query;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
@@ -25,7 +24,7 @@ public class LeilaoController {
     @Inject
     private LeilaoService leilaoService;
 
-    @Post(uri = "/registrar-leilao")
+    @Post(uri = "/registrar")
     @Operation(summary = "Registrar um leilao")
     @Transactional
     public HttpResponse<DadosExibicaoDadosResumidosLeilaoDTO> salvarLeilao(@Body DadosEntradaLeilaoDTO dadosEntradaLeilaoDTO){
@@ -70,15 +69,21 @@ public class LeilaoController {
         return HttpResponse.ok().body(leilaoService.buscarProdutoLeilao(idLeilao, idProduto, tipoProduto));
     }
 
-    @Get(uri = "/produto-idLeilao/{idLeilao}")
+    @Get(uri = "/produto-faixa-valor/{idLeilao}")
     @Operation(summary = "Busca produtos de um leilao por faixa de valores de lance inicial")
     public HttpResponse<Object> buscarProdutoLeilaoFaixaValor(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue BigDecimal min, @QueryValue BigDecimal max){
-        return HttpResponse.ok().body(leilaoService.buscarProdutosPorFaixaValor(idLeilao, min, max));
+        return HttpResponse.ok().body(leilaoService.buscarProdutosEmLeilaoPorFaixaValor(idLeilao, min, max));
     }
 
     @Get(uri = "/produto-nome/{idLeilao}")
     @Operation(summary = "Busca produtos de um leilao por palavra chave contida no nome")
-    public HttpResponse<Object> buscarProdutoLeilaoPorNome(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue String nome){
-        return HttpResponse.ok().body(leilaoService.buscarProdutoPorNome(idLeilao, nome));
+    public HttpResponse<Object> buscarProdutosLeilaoPorNome(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue String nome){
+        return HttpResponse.ok().body(leilaoService.buscarProdutoEmLeilaoPorNome(idLeilao, nome));
+    }
+
+    @Get(uri = "/produto-tipo/{idLeilao}")
+    @Operation(summary = "Busca produtos de um leilao por tipo")
+    public HttpResponse<Object> buscarProdutosLeilaoPorTipo(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue TipoProduto tipoProduto){
+        return HttpResponse.ok().body(leilaoService.buscarProdutoEmLeilaoPorTipo(idLeilao, tipoProduto));
     }
 }

@@ -117,7 +117,7 @@ public class DispositivoController {
 
     @Put(uri = "/manipular/{idDispositivo}")
     @Transactional
-    @Operation(summary = "Manipular um dispositivo a um leilão")
+    @Operation(summary = "Manipular um dispositivo a um leilao")
     public HttpResponse manipularDispositivoLeilao(@PathVariable (value = "idDispositivo") Long idDispositivo, @QueryValue Long idNovoLeilao){
         dispositivoInformaticaService.manipularDispostivoLeilao(idDispositivo, idNovoLeilao);
         return HttpResponse.ok();
