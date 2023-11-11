@@ -77,7 +77,7 @@ public class LeilaoController {
     }
 
     @Get(uri = "/produto-nome/{idLeilao}")
-    @Operation(summary = "Busca produtos de um leilao por nome ou palavra chave")
+    @Operation(summary = "Busca produtos de um leilao por palavra chave contida no nome")
     public HttpResponse<Object> buscarProdutoLeilaoPorNome(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue String nome){
         return HttpResponse.ok().body(leilaoService.buscarProdutoPorNome(idLeilao, nome));
     }
