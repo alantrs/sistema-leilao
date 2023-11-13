@@ -8,10 +8,7 @@ import com.lp2.enums.TipoProduto;
 import com.lp2.mapper.DispositivoMapper;
 import com.lp2.mapper.VeiculoMapper;
 import com.lp2.model.*;
-import com.lp2.repository.DispositivoRepository;
-import com.lp2.repository.EntidadeFinanceiraRepository;
-import com.lp2.repository.LeilaoRepository;
-import com.lp2.repository.VeiculoRepository;
+import com.lp2.repository.*;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
@@ -32,6 +29,8 @@ public class LeilaoService {
     private DispositivoRepository<DispositivoInformatica> dispositivoRepository;
     @Inject
     private VeiculoRepository<Veiculo> veiculoRepository;
+    @Inject
+    private LanceRepository lanceRepository;
 
     ModelMapper modelMapper = new ModelMapper();
     VeiculoMapper veiculoMapper = new VeiculoMapper(modelMapper);
@@ -185,54 +184,36 @@ public class LeilaoService {
 
     private void processarLancesDispositivos(Leilao leilao, DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto) {
         if (!leilao.getDispositivos().isEmpty()) {
-            List<DadosExibicaoLanceVencedorDTO> lancesDispositivos = leilao.getDispositivos().stream()
-                    .map(dispositivoInformatica -> {
-                        Optional<Lance> lanceVencedorOpt = dispositivoInformatica.getLances().stream()
-                                .max(Comparator.comparing(Lance::getValor));
-                        return lanceVencedorOpt.map(lanceVencedor -> {
-                            DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
-
-                            Object dispositivoDto = dispositivoMapper.mapearDispositivoParaDTO(lanceVencedor.getDispositivoInformatica());
-                            if (dispositivoDto != null) {
-                                dadosRetorno.setProduto(dispositivoDto);
-                            }
-
-                            return dadosRetorno;
-                        });
-                    })
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .collect(Collectors.toList());
-
-            dto.getLancesVencedores().addAll(lancesDispositivos);
+            for (DispositivoInformatica dispositivo : leilao.getDispositivos()) {
+                Lance lanceVencedor = lanceRepository.findTopByDispositivoInformaticaOrderByValorDesc(dispositivo);
+                if (lanceVencedor != null) {
+                    DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
+                    Object dispositivoDto = dispositivoMapper.mapearDispositivoParaDTO(dispositivo);
+                    if (dispositivoDto != null) {
+                        dadosRetorno.setProduto(dispositivoDto);
+                    }
+                    dto.getLancesVencedores().add(dadosRetorno);
+                }
+            }
         }
     }
 
     private void processarLancesVeiculos(Leilao leilao, DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto) {
         if (!leilao.getVeiculos().isEmpty()) {
-            List<DadosExibicaoLanceVencedorDTO> lancesVeiculos = leilao.getVeiculos().stream()
-                    .map(veiculo -> {
-                        Optional<Lance> lanceVencedorOpt = veiculo.getLances().stream()
-                                .max(Comparator.comparing(Lance::getValor));
-
-                        return lanceVencedorOpt.map(lanceVencedor -> {
-                            DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
-
-                            Object veiculoDto = veiculoMapper.mapearVeiculoParaDTO(lanceVencedor.getVeiculo());
-                            if (veiculoDto != null) {
-                                dadosRetorno.setProduto(veiculoDto);
-                            }
-
-                            return dadosRetorno;
-                        });
-                    })
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .collect(Collectors.toList());
-
-            dto.getLancesVencedores().addAll(lancesVeiculos);
+            for (Veiculo veiculo : leilao.getVeiculos()) {
+                Lance lanceVencedor = lanceRepository.findTopByVeiculoOrderByValorDesc(veiculo);
+                if (lanceVencedor != null) {
+                    DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
+                    Object veiculoDto = veiculoMapper.mapearVeiculoParaDTO(veiculo);
+                    if (veiculoDto != null) {
+                        dadosRetorno.setProduto(veiculoDto);
+                    }
+                    dto.getLancesVencedores().add(dadosRetorno);
+                }
+            }
         }
     }
+
 }
 
 
