@@ -90,15 +90,22 @@ public class DadosExportacaoLeilaoDTO {
 
         historico.addAll(
                 leilao.getVeiculos().stream()
-                        .map(veiculo -> new DadosExibicaoLanceProdutoDTO(veiculo.getLances()))
+                        .map(veiculo -> {
+                            DadosExibicaoLanceProdutoDTO dto = new DadosExibicaoLanceProdutoDTO(veiculo.getLances());
+                            dto.setProduto(veiculo.getModelo());
+                            return dto;
+                        })
                         .toList());
-
 
         historico.addAll(
                 leilao.getDispositivos().stream()
-                        .map(dispositivoInformatica -> new DadosExibicaoLanceProdutoDTO(dispositivoInformatica.getLances()))
+                        .map(dispositivoInformatica -> {
+                            DadosExibicaoLanceProdutoDTO dto = new DadosExibicaoLanceProdutoDTO(dispositivoInformatica.getLances());
+                            dto.setProduto(dispositivoInformatica.getNome());
+                            return dto;
+                        })
                         .toList());
-        
+
         this.historicoLances = historico;
     }
 }

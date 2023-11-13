@@ -89,7 +89,7 @@ public class LeilaoController {
 
     @Get(uri = "/exportar/{idLeilao}")
     @Operation(summary = "Exportar dados de leilao")
-    public HttpResponse<DadosExportacaoLeilaoDTO> exportarLeilao(@PathVariable (value = "idLeilao") Long idLeilao){
-        return HttpResponse.ok().body(leilaoService.exportarLeilao(idLeilao));
+    public HttpResponse<DadosExportacaoLeilaoDTO> exportarLeilao(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue String path){
+        return HttpResponse.ok().body(leilaoService.exportarLeilao(idLeilao, path));
     }
 }

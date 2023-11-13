@@ -1,5 +1,7 @@
 package com.lp2.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lp2.dto.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
 import com.lp2.dto.lance.DadosExibicaoLanceVencedorDTO;
 import com.lp2.dto.leilao.*;
@@ -14,6 +16,10 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -161,10 +167,28 @@ public class LeilaoService {
     }
 
     @Transactional
-    public DadosExportacaoLeilaoDTO exportarLeilao(Long idLeilao){
+    public DadosExportacaoLeilaoDTO exportarLeilao(Long idLeilao, String path){
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
-        return new DadosExportacaoLeilaoDTO(leilao.get());
+        DadosExportacaoLeilaoDTO dadosExportados = new DadosExportacaoLeilaoDTO(leilao.get());
+
+        gerarArquivoJson(dadosExportados, path);
+        return dadosExportados;
     }
+
+    private void gerarArquivoJson(DadosExportacaoLeilaoDTO dadosExportados, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".DET"))) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
+            String json = objectMapper.writeValueAsString(dadosExportados);
+            writer.write(json);
+
+            System.out.println("Arquivo .DET gerado com sucesso em: " + filePath + ".DET");
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever o arquivo .DET: " + e.getMessage());
+        }
+    }
+
 
     public DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO processarLeilao(Leilao leilao) {
         DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto = new DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO();
