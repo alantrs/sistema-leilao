@@ -15,7 +15,6 @@ import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -185,15 +184,15 @@ public class LeilaoService {
     private void processarLancesDispositivos(Leilao leilao, DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto) {
         if (!leilao.getDispositivos().isEmpty()) {
             for (DispositivoInformatica dispositivo : leilao.getDispositivos()) {
-                Lance lanceVencedor = lanceRepository.findTopByDispositivoInformaticaOrderByValorDesc(dispositivo);
-                if (lanceVencedor != null) {
+                Optional<Lance> lanceVencedorOpt = lanceRepository.findTopByDispositivoInformaticaOrderByValorDesc(dispositivo);
+                lanceVencedorOpt.ifPresent(lanceVencedor -> {
                     DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
                     Object dispositivoDto = dispositivoMapper.mapearDispositivoParaDTO(dispositivo);
                     if (dispositivoDto != null) {
                         dadosRetorno.setProduto(dispositivoDto);
                     }
                     dto.getLancesVencedores().add(dadosRetorno);
-                }
+                });
             }
         }
     }
@@ -201,18 +200,19 @@ public class LeilaoService {
     private void processarLancesVeiculos(Leilao leilao, DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto) {
         if (!leilao.getVeiculos().isEmpty()) {
             for (Veiculo veiculo : leilao.getVeiculos()) {
-                Lance lanceVencedor = lanceRepository.findTopByVeiculoOrderByValorDesc(veiculo);
-                if (lanceVencedor != null) {
+                Optional<Lance> lanceVencedorOpt = lanceRepository.findTopByVeiculoOrderByValorDesc(veiculo);
+                lanceVencedorOpt.ifPresent(lanceVencedor -> {
                     DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
                     Object veiculoDto = veiculoMapper.mapearVeiculoParaDTO(veiculo);
                     if (veiculoDto != null) {
                         dadosRetorno.setProduto(veiculoDto);
                     }
                     dto.getLancesVencedores().add(dadosRetorno);
-                }
+                });
             }
         }
     }
+
 
 }
 

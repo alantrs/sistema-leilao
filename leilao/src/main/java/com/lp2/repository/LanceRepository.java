@@ -15,7 +15,7 @@ public interface LanceRepository extends JpaRepository<Lance, Long> {
 
     List<Lance> findAllByVeiculoId(Long idProduto);
 
-    Lance findTopByDispositivoInformaticaOrderByValorDesc(DispositivoInformatica dispositivo);
+    Optional<Lance> findTopByDispositivoInformaticaOrderByValorDesc(DispositivoInformatica dispositivo);
 
-    Lance findTopByVeiculoOrderByValorDesc(Veiculo veiculo);
+    Optional<Lance> findTopByVeiculoOrderByValorDesc(Veiculo veiculo);
 }
