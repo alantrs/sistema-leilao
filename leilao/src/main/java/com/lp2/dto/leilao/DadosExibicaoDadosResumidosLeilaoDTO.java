@@ -2,6 +2,7 @@ package com.lp2.dto.leilao;
 
 import com.lp2.enums.StatusLeilao;
 import com.lp2.model.Leilao;
+import com.lp2.util.CalculoStatusLeilao;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,7 @@ public class DadosExibicaoDadosResumidosLeilaoDTO {
         this.dataEncerramento = leilao.getDataEncerramento();
         this.dataVisitacao = leilao.getDataVisitacao();
         this.local = leilao.getLocal();
-        this.statusLeilao = leilao.getStatusLeilao();
+        this.statusLeilao = CalculoStatusLeilao.calcularStatusLeilao(LocalDateTime.now(), leilao);
     }
 
     @Override

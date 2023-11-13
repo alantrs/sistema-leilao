@@ -3,6 +3,7 @@ package com.lp2.model;
 import com.lp2.dto.leilao.DadosAtualizacaoLeilaoDTO;
 import com.lp2.dto.leilao.DadosEntradaLeilaoDTO;
 import com.lp2.enums.StatusLeilao;
+import com.lp2.util.CalculoStatusLeilao;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -47,7 +48,7 @@ public class Leilao {
         this.dataEncerramento = cadastro.getDataEncerramento();
         this.dataVisitacao = cadastro.getDataVisitacao();
         this.local =cadastro.getLocal();
-        this.statusLeilao = StatusLeilao.EM_ABERTO;
+        this.statusLeilao = CalculoStatusLeilao.calcularStatusLeilao(LocalDateTime.now(), this);
     }
 
     public Leilao(Leilao leilao, DadosAtualizacaoLeilaoDTO atualizacaoLeilaoDTO){
@@ -57,5 +58,6 @@ public class Leilao {
         this.dataVisitacao = atualizacaoLeilaoDTO.getDataVisitacao() != null ? atualizacaoLeilaoDTO.getDataVisitacao() : leilao.getDataVisitacao();
         this.local = atualizacaoLeilaoDTO.getLocal() != null ? atualizacaoLeilaoDTO.getLocal() : leilao.getLocal();
         this.entidadesFinanceira = leilao.getEntidadesFinanceira();
+        this.statusLeilao = leilao.getStatusLeilao();
     }
 }

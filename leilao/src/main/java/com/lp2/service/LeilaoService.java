@@ -1,25 +1,30 @@
 package com.lp2.service;
 
-import com.lp2.dto.leilao.DadosAtualizacaoLeilaoDTO;
-import com.lp2.dto.leilao.DadosEntradaLeilaoDTO;
-import com.lp2.dto.leilao.DadosExibicaoDadosDetalhadosLeilaoDTO;
-import com.lp2.dto.leilao.DadosExibicaoDadosResumidosLeilaoDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.lp2.dto.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
+import com.lp2.dto.lance.DadosExibicaoLanceVencedorDTO;
+import com.lp2.dto.leilao.*;
+import com.lp2.enums.StatusLeilao;
 import com.lp2.enums.TipoProduto;
 import com.lp2.mapper.DispositivoMapper;
 import com.lp2.mapper.VeiculoMapper;
 import com.lp2.model.*;
-import com.lp2.repository.DispositivoRepository;
-import com.lp2.repository.EntidadeFinanceiraRepository;
-import com.lp2.repository.LeilaoRepository;
-import com.lp2.repository.VeiculoRepository;
+import com.lp2.repository.*;
+import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Singleton
 public class LeilaoService {
@@ -30,13 +35,14 @@ public class LeilaoService {
     private DispositivoRepository<DispositivoInformatica> dispositivoRepository;
     @Inject
     private VeiculoRepository<Veiculo> veiculoRepository;
+    @Inject
+    private LanceRepository lanceRepository;
+    @Inject
+    private EntidadeFinanceiraRepository entidadeFinanceiraRepository;
 
     ModelMapper modelMapper = new ModelMapper();
     VeiculoMapper veiculoMapper = new VeiculoMapper(modelMapper);
     DispositivoMapper dispositivoMapper = new DispositivoMapper(modelMapper);
-
-    @Inject
-    private EntidadeFinanceiraRepository entidadeFinanceiraRepository;
 
     public DadosExibicaoDadosResumidosLeilaoDTO salvarLeilao(DadosEntradaLeilaoDTO cadastro){
         List<EntidadeFinanceira> entidadesFinanceira = entidadeFinanceiraRepository.findByIdIn(cadastro.getIdEntidadesFinanceiras());
@@ -51,9 +57,12 @@ public class LeilaoService {
         return leiloes.stream().map(leilao-> modelMapper.map(leilao, DadosExibicaoDadosResumidosLeilaoDTO.class)).toList();
     }
 
-    public DadosExibicaoDadosDetalhadosLeilaoDTO exibirInformacoesLeilao(Long idLeilao){
+    public Object exibirInformacoesLeilao(Long idLeilao){
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
-        return new DadosExibicaoDadosDetalhadosLeilaoDTO(leilao.get());
+        if (!leilao.get().getStatusLeilao().equals(StatusLeilao.FINALIZADO)){
+            return new DadosExibicaoDadosDetalhadosLeilaoDTO(leilao.get());
+        }
+        return processarLeilao(leilao.get());
     }
 
     /* tive que fazer esse metodo de delete assim
@@ -157,6 +166,84 @@ public class LeilaoService {
         return null;
     }
 
+    @Transactional
+    public DadosExportacaoLeilaoDTO exportarLeilao(Long idLeilao, String path){
+        Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
+        DadosExportacaoLeilaoDTO dadosExportados = new DadosExportacaoLeilaoDTO(leilao.get());
+
+        gerarArquivoJson(dadosExportados, path);
+        return dadosExportados;
+    }
+
+    private void gerarArquivoJson(DadosExportacaoLeilaoDTO dadosExportados, String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + ".DET"))) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
+            String json = objectMapper.writeValueAsString(dadosExportados);
+            writer.write(json);
+
+            System.out.println("Arquivo .DET gerado com sucesso em: " + filePath + ".DET");
+        } catch (IOException e) {
+            System.err.println("Erro ao escrever o arquivo .DET: " + e.getMessage());
+        }
+    }
+
+
+    public DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO processarLeilao(Leilao leilao) {
+        DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto = new DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO();
+
+        dto.setId(leilao.getId());
+        dto.setDataOcorrencia(leilao.getDataOcorrencia());
+        dto.setDataEncerramento(leilao.getDataEncerramento());
+        dto.setDataVisitacao(leilao.getDataVisitacao());
+        dto.setLocal(leilao.getLocal());
+        dto.setStatusLeilao(StatusLeilao.FINALIZADO);
+        dto.setLancesVencedores(new ArrayList<>());
+
+        processarLancesDispositivos(leilao, dto);
+        processarLancesVeiculos(leilao, dto);
+
+        dto.setEntidades(leilao.getEntidadesFinanceira().stream()
+                .map(entidade -> new DadosExibicaoEntidadeFinanceiraDTO(entidade))
+                .collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    private void processarLancesDispositivos(Leilao leilao, DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto) {
+        if (!leilao.getDispositivos().isEmpty()) {
+            for (DispositivoInformatica dispositivo : leilao.getDispositivos()) {
+                Optional<Lance> lanceVencedorOpt = lanceRepository.findTopByDispositivoInformaticaOrderByValorDesc(dispositivo);
+                lanceVencedorOpt.ifPresent(lanceVencedor -> {
+                    DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
+                    Object dispositivoDto = dispositivoMapper.mapearDispositivoParaDTO(dispositivo);
+                    if (dispositivoDto != null) {
+                        dadosRetorno.setProduto(dispositivoDto);
+                    }
+                    dto.getLancesVencedores().add(dadosRetorno);
+                });
+            }
+        }
+    }
+
+    private void processarLancesVeiculos(Leilao leilao, DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO dto) {
+        if (!leilao.getVeiculos().isEmpty()) {
+            for (Veiculo veiculo : leilao.getVeiculos()) {
+                Optional<Lance> lanceVencedorOpt = lanceRepository.findTopByVeiculoOrderByValorDesc(veiculo);
+                lanceVencedorOpt.ifPresent(lanceVencedor -> {
+                    DadosExibicaoLanceVencedorDTO dadosRetorno = new DadosExibicaoLanceVencedorDTO(lanceVencedor);
+                    Object veiculoDto = veiculoMapper.mapearVeiculoParaDTO(veiculo);
+                    if (veiculoDto != null) {
+                        dadosRetorno.setProduto(veiculoDto);
+                    }
+                    dto.getLancesVencedores().add(dadosRetorno);
+                });
+            }
+        }
+    }
 
 
 }
+
+

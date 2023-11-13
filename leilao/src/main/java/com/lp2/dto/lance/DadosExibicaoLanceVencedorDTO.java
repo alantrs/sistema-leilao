@@ -1,5 +1,7 @@
 package com.lp2.dto.lance;
 
+import com.lp2.dto.cliente.DadosExibicaoClienteDTO;
+import com.lp2.model.Cliente;
 import com.lp2.model.Lance;
 import io.micronaut.serde.annotation.Serdeable;
 import lombok.Getter;
@@ -11,21 +13,20 @@ import java.time.LocalDateTime;
 @Serdeable.Serializable
 @Getter
 @Setter
-public class DadosExibicaoLanceDTO {
+public class DadosExibicaoLanceVencedorDTO {
 
     private Long id;
     private BigDecimal valor;
     private LocalDateTime dataHora;
-    private String cliente;
+    private DadosExibicaoClienteDTO cliente;
+    private Object produto;
 
-    public DadosExibicaoLanceDTO(){}
+    public DadosExibicaoLanceVencedorDTO(){}
 
-    public DadosExibicaoLanceDTO(Lance lance){
+    public DadosExibicaoLanceVencedorDTO(Lance lance){
         this.id = lance.getId();
         this.valor = lance.getValor();
         this.dataHora = lance.getDataHora();
-        this.cliente = lance.getCliente().getNome();
+        this.cliente = new DadosExibicaoClienteDTO(lance.getCliente());
     }
-
-
 }
