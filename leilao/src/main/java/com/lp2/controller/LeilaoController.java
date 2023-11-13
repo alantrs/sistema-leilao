@@ -3,6 +3,7 @@ package com.lp2.controller;
 import com.lp2.dto.leilao.DadosAtualizacaoLeilaoDTO;
 import com.lp2.dto.leilao.DadosEntradaLeilaoDTO;
 import com.lp2.dto.leilao.DadosExibicaoDadosResumidosLeilaoDTO;
+import com.lp2.dto.leilao.DadosExportacaoLeilaoDTO;
 import com.lp2.enums.TipoProduto;
 import com.lp2.service.LeilaoService;
 import io.micronaut.http.HttpResponse;
@@ -84,5 +85,11 @@ public class LeilaoController {
     @Operation(summary = "Busca produtos de um leilao por tipo")
     public HttpResponse<Object> buscarProdutosLeilaoPorTipo(@PathVariable (value = "idLeilao") Long idLeilao, @QueryValue TipoProduto tipoProduto){
         return HttpResponse.ok().body(leilaoService.buscarProdutoEmLeilaoPorTipo(idLeilao, tipoProduto));
+    }
+
+    @Get(uri = "/exportar/{idLeilao}")
+    @Operation(summary = "Exportar dados de leilao")
+    public HttpResponse<DadosExportacaoLeilaoDTO> exportarLeilao(@PathVariable (value = "idLeilao") Long idLeilao){
+        return HttpResponse.ok().body(leilaoService.exportarLeilao(idLeilao));
     }
 }

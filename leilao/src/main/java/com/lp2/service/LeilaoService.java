@@ -9,6 +9,7 @@ import com.lp2.mapper.DispositivoMapper;
 import com.lp2.mapper.VeiculoMapper;
 import com.lp2.model.*;
 import com.lp2.repository.*;
+import io.micronaut.transaction.annotation.Transactional;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
@@ -158,6 +159,12 @@ public class LeilaoService {
             }
 
         return null;
+    }
+
+    @Transactional
+    public DadosExportacaoLeilaoDTO exportarLeilao(Long idLeilao){
+        Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
+        return new DadosExportacaoLeilaoDTO(leilao.get());
     }
 
     public DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO processarLeilao(Leilao leilao) {
