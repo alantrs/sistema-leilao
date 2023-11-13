@@ -5,6 +5,7 @@ import com.lp2.dto.cliente.DadosExibicaoClienteDTO;
 import com.lp2.dto.dispositivo.DadosExibicaoDispositivoDTO;
 import com.lp2.dto.entidadeFinanceira.DadosExibicaoEntidadeFinanceiraDTO;
 import com.lp2.dto.lance.DadosExibicaoLanceDTO;
+import com.lp2.dto.lance.DadosExibicaoLanceProdutoDTO;
 import com.lp2.dto.veiculo.DadosExibicaoVeiculoDTO;
 import com.lp2.enums.StatusLeilao;
 import com.lp2.model.DispositivoInformatica;
@@ -38,7 +39,7 @@ public class DadosExportacaoLeilaoDTO {
     private List<DadosExibicaoVeiculoDTO> veiculos;
     private List<DadosExibicaoEntidadeFinanceiraDTO> entidades;
     private List<DadosExibicaoClienteDTO> clientesParticipantes;
-    private List<DadosExibicaoLanceDTO> historicoLances;
+    private List<DadosExibicaoLanceProdutoDTO> historicoLances;
 
     public DadosExportacaoLeilaoDTO(){}
 
@@ -50,7 +51,7 @@ public class DadosExportacaoLeilaoDTO {
         this.local = leilao.getLocal();
         this.statusLeilao = CalculoStatusLeilao.calcularStatusLeilao(LocalDateTime.now(), leilao);
         List<DadosExibicaoClienteDTO> clientes = new ArrayList<>();
-        List<DadosExibicaoLanceDTO> historico = new ArrayList<>();
+        List<DadosExibicaoLanceProdutoDTO> historico = new ArrayList<>();
 
         if (!leilao.getDispositivos().isEmpty()) {
             this.dispositivos = leilao.getDispositivos().stream()
@@ -89,18 +90,15 @@ public class DadosExportacaoLeilaoDTO {
 
         historico.addAll(
                 leilao.getVeiculos().stream()
-                        .flatMap(veiculo -> veiculo.getLances().stream()
-                                .map(lance -> new DadosExibicaoLanceDTO(lance)))
+                        .map(veiculo -> new DadosExibicaoLanceProdutoDTO(veiculo.getLances()))
                         .toList());
 
 
         historico.addAll(
                 leilao.getDispositivos().stream()
-                        .flatMap(dispositivoInformatica -> dispositivoInformatica.getLances().stream()
-                                .map(lance -> new DadosExibicaoLanceDTO(lance)))
+                        .map(dispositivoInformatica -> new DadosExibicaoLanceProdutoDTO(dispositivoInformatica.getLances()))
                         .toList());
-
-
+        
         this.historicoLances = historico;
     }
 }

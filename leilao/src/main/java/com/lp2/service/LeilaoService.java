@@ -31,13 +31,12 @@ public class LeilaoService {
     private VeiculoRepository<Veiculo> veiculoRepository;
     @Inject
     private LanceRepository lanceRepository;
+    @Inject
+    private EntidadeFinanceiraRepository entidadeFinanceiraRepository;
 
     ModelMapper modelMapper = new ModelMapper();
     VeiculoMapper veiculoMapper = new VeiculoMapper(modelMapper);
     DispositivoMapper dispositivoMapper = new DispositivoMapper(modelMapper);
-
-    @Inject
-    private EntidadeFinanceiraRepository entidadeFinanceiraRepository;
 
     public DadosExibicaoDadosResumidosLeilaoDTO salvarLeilao(DadosEntradaLeilaoDTO cadastro){
         List<EntidadeFinanceira> entidadesFinanceira = entidadeFinanceiraRepository.findByIdIn(cadastro.getIdEntidadesFinanceiras());
