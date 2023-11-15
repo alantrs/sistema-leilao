@@ -1,6 +1,5 @@
 package com.lp2.controller;
 
-import com.lp2.dto.lance.DadosEntradaLanceDTO;
 import com.lp2.dto.lance.DadosExibicaoLanceProdutoDTO;
 import com.lp2.enums.TipoProduto;
 import com.lp2.service.LanceService;
@@ -10,6 +9,8 @@ import io.micronaut.transaction.annotation.Transactional;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
+
+import java.math.BigDecimal;
 
 @Controller(value = "/lance")
 @Tag(name = "LANCE")
@@ -21,8 +22,8 @@ public class LanceController {
     @Post(uri = "/realizar-lance/{idProduto}")
     @Operation(summary = "Realizar lance a um produto")
     @Transactional
-    public HttpResponse realizarLance(@PathVariable(value = "idProduto") Long idProduto, @Body DadosEntradaLanceDTO lance, @QueryValue TipoProduto tipoProduto){
-        lanceService.realizarLanceProduto(idProduto, lance, tipoProduto);
+    public HttpResponse realizarLance(@PathVariable(value = "idProduto") Long idProduto, @QueryValue Long idCliente, @QueryValue BigDecimal valor, @QueryValue TipoProduto tipoProduto){
+        lanceService.realizarLanceProduto(idProduto, idCliente, valor, tipoProduto);
         return HttpResponse.ok();
     }
 
