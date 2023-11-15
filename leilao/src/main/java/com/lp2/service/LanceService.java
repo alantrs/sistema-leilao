@@ -1,6 +1,5 @@
 package com.lp2.service;
 
-import com.lp2.dto.lance.DadosEntradaLanceDTO;
 import com.lp2.dto.lance.DadosExibicaoLanceProdutoDTO;
 import com.lp2.enums.TipoProduto;
 import com.lp2.exception.CustomException;
@@ -10,8 +9,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import org.modelmapper.ModelMapper;
 
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @Singleton
 public class LanceService {
@@ -26,36 +25,36 @@ public class LanceService {
     private VeiculoRepository<Veiculo> veiculoRepository;
     ModelMapper modelMapper = new ModelMapper();
 
-    public void realizarLanceProduto(Long idProduto, DadosEntradaLanceDTO lance, TipoProduto tipoProduto){
+    public void realizarLanceProduto(Long idProduto, Long idCliente, BigDecimal valor, TipoProduto tipoProduto){
         if (tipoProduto.equals(TipoProduto.DISPOSITIVO)){
-            realizarLanceDispositivo(idProduto, lance);
+            realizarLanceDispositivo(idProduto, idCliente, valor);
         }else if(tipoProduto.equals(TipoProduto.VEICULO)){
-            realizarLanceVeiculo(idProduto, lance);
+            realizarLanceVeiculo(idProduto, idCliente, valor);
         }
     }
 
-    private void realizarLanceDispositivo(Long idDispositivo, DadosEntradaLanceDTO lance){
-        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente nao existe"));
+    private void realizarLanceDispositivo(Long idDispositivo, Long idCliente, BigDecimal valor){
+        Cliente cliente = clienteRepository.findById(idCliente).orElseThrow(()-> new CustomException("Cliente nao existe"));
         DispositivoInformatica dispositivoEncontrado = dispositivoRepository.findById(idDispositivo).orElseThrow(() -> new CustomException("Dispositivo nao existe"));
 
-        if (dispositivoEncontrado.getValorInicial().compareTo(lance.getValor()) > 0){
+        if (dispositivoEncontrado.getValorInicial().compareTo(valor) > 0){
             throw new CustomException("Valor deve ser igual ou superior ao valor inicial");
         }
 
-        Lance lanceRealizado = new Lance(lance);
+        Lance lanceRealizado = new Lance(valor);
         lanceRealizado.setCliente(cliente);
         lanceRealizado.setDispositivoInformatica(dispositivoEncontrado);
         lanceRepository.save(lanceRealizado);
     }
 
-    private void realizarLanceVeiculo(Long idVeiculo, DadosEntradaLanceDTO lance){
-        Cliente cliente = clienteRepository.findById(lance.getIdCliente()).orElseThrow(()-> new CustomException("Cliente nao existe"));
+    private void realizarLanceVeiculo(Long idVeiculo, Long idCliente, BigDecimal valor){
+        Cliente cliente = clienteRepository.findById(idCliente).orElseThrow(()-> new CustomException("Cliente nao existe"));
         Veiculo veiculoEncontrado = veiculoRepository.findById(idVeiculo).orElseThrow(() -> new CustomException("Veiculo nao existe"));
 
-        if (veiculoEncontrado.getValorInicial().compareTo(lance.getValor()) > 0){
+        if (veiculoEncontrado.getValorInicial().compareTo(valor) > 0){
             throw new CustomException("Valor deve ser igual ou superior ao valor inicial");
         }
-        Lance lanceRealizado = new Lance(lance);
+        Lance lanceRealizado = new Lance(valor);
         lanceRealizado.setCliente(cliente);
         lanceRealizado.setVeiculo(veiculoEncontrado);
         lanceRepository.save(lanceRealizado);

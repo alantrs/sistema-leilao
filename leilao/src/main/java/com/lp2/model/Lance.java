@@ -1,6 +1,5 @@
 package com.lp2.model;
 
-import com.lp2.dto.lance.DadosEntradaLanceDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,8 +31,8 @@ public class Lance {
     private Veiculo veiculo;
 
     public Lance(){}
-    public Lance(DadosEntradaLanceDTO lance){
+    public Lance(BigDecimal valorLance){
         this.dataHora = LocalDateTime.now();
-        this.valor = lance.getValor();
+        this.valor = valorLance;
     }
 }

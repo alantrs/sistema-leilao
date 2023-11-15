@@ -167,12 +167,12 @@ public class LeilaoService {
     }
 
     @Transactional
-    public DadosExportacaoLeilaoDTO exportarLeilao(Long idLeilao, String path){
+    public String exportarLeilao(Long idLeilao, String path){
         Optional<Leilao> leilao = leilaoRepository.findById(idLeilao);
         DadosExportacaoLeilaoDTO dadosExportados = new DadosExportacaoLeilaoDTO(leilao.get());
 
         gerarArquivoJson(dadosExportados, path);
-        return dadosExportados;
+        return "Arquivo .DET gerado com sucesso em: " + path + ".DET";
     }
 
     private void gerarArquivoJson(DadosExportacaoLeilaoDTO dadosExportados, String filePath) {
@@ -182,8 +182,7 @@ public class LeilaoService {
 
             String json = objectMapper.writeValueAsString(dadosExportados);
             writer.write(json);
-
-            System.out.println("Arquivo .DET gerado com sucesso em: " + filePath + ".DET");
+            
         } catch (IOException e) {
             System.err.println("Erro ao escrever o arquivo .DET: " + e.getMessage());
         }
