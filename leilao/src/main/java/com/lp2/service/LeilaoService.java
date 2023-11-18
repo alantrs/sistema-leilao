@@ -182,7 +182,7 @@ public class LeilaoService {
 
             String json = objectMapper.writeValueAsString(dadosExportados);
             writer.write(json);
-            
+
         } catch (IOException e) {
             System.err.println("Erro ao escrever o arquivo .DET: " + e.getMessage());
         }

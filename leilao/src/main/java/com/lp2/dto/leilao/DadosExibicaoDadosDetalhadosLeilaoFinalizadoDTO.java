@@ -20,7 +20,6 @@ public class DadosExibicaoDadosDetalhadosLeilaoFinalizadoDTO {
     private LocalDateTime dataOcorrencia;
     private LocalDateTime dataEncerramento;
     private LocalDateTime dataVisitacao;
-    private BigDecimal valorMinimo;
     private String local;
     private StatusLeilao statusLeilao;
     private List<DadosExibicaoLanceVencedorDTO> lancesVencedores;
